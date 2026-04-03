@@ -1,48 +1,50 @@
-import {Tabs} from 'expo-router';
-import React from 'react';
-
-import {HapticTab} from '@/components/haptic-tab';
-import {IconSymbol} from '@/components/ui/icon-symbol';
-import {Colors} from '@/constants/theme';
-import {useColorScheme} from '@/hooks/use-color-scheme';
-import {Pressable} from "react-native";
-import {Ionicons} from "@expo/vector-icons";
+import React from "react";
+import { Tabs, router } from "expo-router";
+import { Pressable } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function TabLayout() {
     return (
         <Tabs
-            screenOptions={
-                {
-                    headerStyle: {backgroundColor: "#0f172a",},
-                    headerTintColor: "#ffffff",
-                    tabBarStyle: {
-                        backgroundColor: "#0f172a",
-                        borderTopColor: "#1e293b"
-                    },
-                    tabBarActiveTintColor: '#38bdf8',
-                    tabBarInactiveTintColor: "#94q3b8",
-                    sceneStyle: {
-                        backgroundColor: "#020617",
-                    },
-                    headerRight: () => (
-                        <Pressable
-                            onPress={() => {
-                                router.push('/login')
-                            }}
-                            style={{marginRight: 16}}>
-                            <Ionicons name="log-in-outline" size={24} color="fffffff"/>
-                        </Pressable>
-                    ),
-                }
-            }
+            screenOptions={{
+                headerStyle: {
+                    backgroundColor: "#0b1220",
+                },
+                headerShadowVisible: false,
+                headerTintColor: "#f8fafc",
+                sceneStyle: {
+                    backgroundColor: "#0b1220",
+                },
+                tabBarStyle: {
+                    backgroundColor: "#111827",
+                    borderTopColor: "#1f2937",
+                    height: 68,
+                    paddingTop: 8,
+                    paddingBottom: 8,
+                },
+                tabBarActiveTintColor: "#60a5fa",
+                tabBarInactiveTintColor: "#94a3b8",
+                tabBarLabelStyle: {
+                    fontSize: 12,
+                    fontWeight: "600",
+                },
+                headerRight: () => (
+                    <Pressable
+                        onPress={() => router.push("/login")}
+                        style={{ marginRight: 16 }}
+                    >
+                        <Ionicons name="person-circle-outline" size={28} color="#f8fafc" />
+                    </Pressable>
+                ),
+            }}
         >
             <Tabs.Screen
                 name="index"
                 options={{
                     title: "Игроки",
-                    tabBarIcon: ({color, size}) => (
-                        <Ionicons name="people-outline" size={24} color={color}/>
-                    )
+                    tabBarIcon: ({ color, size }) => (
+                        <Ionicons name="people-outline" size={size} color={color} />
+                    ),
                 }}
             />
 
@@ -50,21 +52,21 @@ export default function TabLayout() {
                 name="clans"
                 options={{
                     title: "Кланы",
-                    tabBarIcon: ({color, size}) => (
-                        <Ionicons name="clans-outline" size={24} color={color}/>
-                    )
+                    tabBarIcon: ({ color, size }) => (
+                        <Ionicons name="shield-outline" size={size} color={color} />
+                    ),
                 }}
             />
 
             <Tabs.Screen
                 name="tournaments"
                 options={{
-                    title: "Игроки",
-                    tabBarIcon: ({color, size}) => (
-                        <Ionicons name="tournaments-outline" size={24} color={color}/>
-                    )
+                    title: "Турниры",
+                    tabBarIcon: ({ color, size }) => (
+                        <Ionicons name="trophy-outline" size={size} color={color} />
+                    ),
                 }}
             />
         </Tabs>
-    )
+    );
 }
