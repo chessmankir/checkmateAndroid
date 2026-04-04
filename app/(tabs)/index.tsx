@@ -9,66 +9,9 @@ import {
   View,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import {useMember} from "@/hooks/Members/useMember";
+import {MemberType} from "@/types/MemberType";
 
-type Player = {
-  id: string;
-  nickname: string;
-  role: string;
-  city: string;
-  mode: "Classic" | "Metro" | "TDM";
-  online: boolean;
-};
-
-const players: Player[] = [
-  {
-    id: "1",
-    nickname: "ChessmanKir",
-    role: "Лидер",
-    city: "Вена",
-    mode: "Classic",
-    online: true,
-  },
-  {
-    id: "2",
-    nickname: "DarkKnight",
-    role: "Штурмовик",
-    city: "Киев",
-    mode: "Metro",
-    online: false,
-  },
-  {
-    id: "3",
-    nickname: "Fanatik",
-    role: "Снайпер",
-    city: "Алматы",
-    mode: "TDM",
-    online: true,
-  },
-  {
-    id: "4",
-    nickname: "Raven",
-    role: "Саппорт",
-    city: "Минск",
-    mode: "Classic",
-    online: true,
-  },
-  {
-    id: "5",
-    nickname: "Ghost",
-    role: "Универсал",
-    city: "Прага",
-    mode: "Metro",
-    online: false,
-  },
-  {
-    id: "6",
-    nickname: "Vortex",
-    role: "Капитан",
-    city: "Берлин",
-    mode: "Classic",
-    online: true,
-  },
-];
 
 const filters = ["Все", "Classic", "Metro", "TDM"] as const;
 type FilterType = (typeof filters)[number];
@@ -77,7 +20,7 @@ export default function PlayersScreen() {
   const [search, setSearch] = useState("");
   const [activeFilter, setActiveFilter] = useState<FilterType>("Все");
 
-  const filteredPlayers = useMemo(() => {
+/*  const filteredPlayers = useMemo(() => {
     return players.filter((player) => {
       const matchesSearch =
           player.nickname.toLowerCase().includes(search.toLowerCase()) ||
@@ -89,13 +32,16 @@ export default function PlayersScreen() {
 
       return matchesSearch && matchesFilter;
     });
-  }, [search, activeFilter]);
+  }, [search, activeFilter]);*/
+
+  const {members} = useMember();
+  console.log(members);
 
   return (
       <View style={styles.screen}>
-        <FlatList
-            data={filteredPlayers}
-            keyExtractor={(item) => item.id}
+        <FlatList<MemberType>
+            data={members}
+            keyExtractor={(item) => item.id.toString()}
             contentContainerStyle={styles.listContent}
             showsVerticalScrollIndicator={false}
             ListHeaderComponent={
@@ -111,7 +57,7 @@ export default function PlayersScreen() {
 
                   <View style={styles.headerBadge}>
                     <Text style={styles.headerBadgeText}>
-                      {filteredPlayers.length} игроков
+                      {members.length} игроков
                     </Text>
                   </View>
                 </View>
