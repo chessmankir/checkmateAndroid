@@ -2,8 +2,8 @@ import React, { useMemo, useState } from "react";
 import { FlatList, Text, TextInput, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { PlayerCard } from "@/src/components/players/PlayerCard";
-import { usePlayers } from "@/src/hooks/players/usePlayers";
-import { styles } from "@/src/components/players/PlayersScreen.styles";
+import { usePlayers } from "@/src/hooks/players/usePlayer";
+import { styles } from "@/src/StyleSheets/PlayerCard.styles";
 
 const filters = ["Все", "Classic", "Metro", "TDM"] as const;
 type FilterType = (typeof filters)[number];
@@ -43,7 +43,7 @@ export default function PlayersScreen() {
                 <View style={styles.headerBlock}>
                   <View>
                     <Text style={styles.brand}>Checkmate</Text>
-                    <Text style={styles.title}>Поиск тиммейтов</Text>
+                    <Text style={styles.title}>Поиск2 тиммейтов</Text>
                     <Text style={styles.subtitle}>
                       Найди игроков, кланы и турниры для каток
                     </Text>

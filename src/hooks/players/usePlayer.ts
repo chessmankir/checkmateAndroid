@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import type { MemberType } from "@/src/types/MemberType";
-import { getPlayers } from "@/src/services/api/players";
+import { getPlayers } from "@/src/services/api/player";
 
 export function usePlayers() {
     const [members, setMembers] = useState<MemberType[]>([]);

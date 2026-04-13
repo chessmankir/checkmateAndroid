@@ -2,7 +2,7 @@ import React from "react";
 import { Pressable, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import type { MemberType } from "@/src/types/MemberType";
-import { styles } from "../../StyleSheets/PlayerCard.styles";
+import { styles } from "@/src/StyleSheets/PlayerCard.styles";
 
 type Props = {
     member: MemberType;
