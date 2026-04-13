@@ -3,13 +3,12 @@ import type {MemberType} from "@/src/types/MemberType";
 
 export function useMember(){
     const [members, setMembers] = useState<MemberType[]>([]);
-
+    console.log('use Member');
     useEffect(() => {
         (async () => {
-            const backend = "http://10.0.2.2:4000/api/members?limit=10";
+            const backend = "http://192.168.0.30:4000/api/members?limit=5";
             try{
                 const response = await fetch(backend,{
-
                     credentials: "include",
                 });
                 console.log(response);
