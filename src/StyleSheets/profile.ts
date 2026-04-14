@@ -120,13 +120,11 @@ export const styles = StyleSheet.create({
         color: "#94a3b8",
         fontSize: 12,
         marginTop: 4,
-        textAlign: "center",
     },
 
     topTabsWrap: {
         backgroundColor: "#0b1220",
         paddingBottom: 12,
-        zIndex: 10,
     },
 
     topTabsRow: {
@@ -230,36 +228,6 @@ export const styles = StyleSheet.create({
         paddingVertical: 0,
     },
 
-    statusWrap: {
-        flexDirection: "row",
-        flexWrap: "wrap",
-        gap: 10,
-    },
-
-    statusChip: {
-        backgroundColor: "#0b1220",
-        borderRadius: 999,
-        borderWidth: 1,
-        borderColor: "#223049",
-        paddingHorizontal: 14,
-        paddingVertical: 10,
-    },
-
-    statusChipActive: {
-        backgroundColor: "#60a5fa",
-        borderColor: "#60a5fa",
-    },
-
-    statusChipText: {
-        color: "#cbd5e1",
-        fontSize: 13,
-        fontWeight: "700",
-    },
-
-    statusChipTextActive: {
-        color: "#08111f",
-    },
-
     chipsWrap: {
         flexDirection: "row",
         flexWrap: "wrap",
@@ -267,20 +235,12 @@ export const styles = StyleSheet.create({
     },
 
     modeChip: {
-        flexDirection: "row",
-        alignItems: "center",
-        gap: 8,
         backgroundColor: "#0b1220",
         borderRadius: 999,
         borderWidth: 1,
         borderColor: "#223049",
         paddingHorizontal: 14,
         paddingVertical: 10,
-    },
-
-    modeChipActive: {
-        backgroundColor: "#60a5fa",
-        borderColor: "#60a5fa",
     },
 
     modeChipText: {
@@ -289,15 +249,9 @@ export const styles = StyleSheet.create({
         fontWeight: "700",
     },
 
-    modeChipTextActive: {
-        color: "#08111f",
-    },
-
     summaryRow: {
         flexDirection: "row",
         gap: 10,
-        marginTop: 2,
-        marginBottom: 10,
     },
 
     summaryBox: {
@@ -332,24 +286,6 @@ export const styles = StyleSheet.create({
         color: "#94a3b8",
         fontSize: 12,
         marginTop: 6,
-        textAlign: "center",
-    },
-
-    saveButton: {
-        height: 54,
-        borderRadius: 18,
-        backgroundColor: "#60a5fa",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "row",
-        gap: 8,
-        marginTop: 4,
-    },
-
-    saveButtonText: {
-        color: "#08111f",
-        fontSize: 15,
-        fontWeight: "800",
     },
 
     simpleList: {
@@ -377,26 +313,5 @@ export const styles = StyleSheet.create({
         color: "#f8fafc",
         fontSize: 14,
         fontWeight: "700",
-    },
-
-    descriptionBox: {
-        marginTop: 14,
-        backgroundColor: "#0b1220",
-        borderRadius: 18,
-        borderWidth: 1,
-        borderColor: "#1f2937",
-        padding: 14,
-    },
-
-    descriptionLabel: {
-        color: "#94a3b8",
-        fontSize: 12,
-        marginBottom: 6,
-    },
-
-    descriptionText: {
-        color: "#e2e8f0",
-        fontSize: 14,
-        lineHeight: 20,
     },
 });
