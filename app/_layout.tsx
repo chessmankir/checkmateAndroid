@@ -12,7 +12,9 @@ export const unstable_settings = {
 };
 
 export default function RootLayout() {
+    console.log('Root Layout');
     useLogin();
+    console.log('isLoading ',isLoading);
     const {isLoading} = useAuthStore();
     if(isLoading){
         <View style={{ flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "#0b1220" }}>
@@ -21,8 +23,8 @@ export default function RootLayout() {
     }
     return (
         <Stack screenOptions={{headerShown: false}}>
-            <Stack.Screen name="(tabs)" />
             <Stack.Screen name="login" />
+            <Stack.Screen name="(tabs)" />
         </Stack>
     );
 }
