@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
     KeyboardAvoidingView,
     Platform,
@@ -7,10 +7,12 @@ import {
     Text,
     TextInput,
     View,
+    TouchableOpacity,
 } from "react-native";
+import {useLogin} from "@/src/hooks/Login/useLogin";
 
 export default function LoginScreen() {
-    const [pubgId, setPubgId] = useState("");
+    const {pubgId, setPubgId, loginHandler, loading} = useLogin();
 
     return (
         <SafeAreaView style={styles.safeArea}>
@@ -42,6 +44,16 @@ export default function LoginScreen() {
                             autoCapitalize="none"
                             autoCorrect={false}
                         />
+
+                        <TouchableOpacity
+                            style={[styles.button, loading && styles.buttonDisabled]}
+                            onPress={loginHandler}
+                            disabled={loading}
+                        >
+                            <Text style={styles.buttonText}>
+                                {loading ? "Загрузка..." : "Войти"}
+                            </Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </KeyboardAvoidingView>
@@ -121,5 +133,21 @@ const styles = StyleSheet.create({
         paddingHorizontal: 16,
         color: "#fff",
         fontSize: 16,
+    },
+    button: {
+        marginTop: 16,
+        height: 52,
+        borderRadius: 14,
+        backgroundColor: "#2563eb",
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    buttonDisabled: {
+        opacity: 0.7,
+    },
+    buttonText: {
+        color: "#fff",
+        fontSize: 16,
+        fontWeight: "700",
     },
 });

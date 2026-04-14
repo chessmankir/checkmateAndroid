@@ -4,7 +4,7 @@ import {StatusBar} from 'expo-status-bar';
 import 'react-native-reanimated';
 import {useAuthStore} from "@/src/store/authStore";
 import {useEffect} from "react";
-import {useLogin} from "@/src/hooks/Login/useLogin";
+import {usePreLogin} from "@/src/hooks/Login/usePreLogin";
 import {ActivityIndicator, View} from "react-native";
 
 export const unstable_settings = {
@@ -13,7 +13,7 @@ export const unstable_settings = {
 
 export default function RootLayout() {
     console.log('Root Layout');
-    useLogin();
+    usePreLogin();
     console.log('isLoading ',isLoading);
     const {isLoading} = useAuthStore();
     if(isLoading){
@@ -23,8 +23,8 @@ export default function RootLayout() {
     }
     return (
         <Stack screenOptions={{headerShown: false}}>
-            <Stack.Screen name="login" />
-            <Stack.Screen name="(tabs)" />
+          {/*  <Stack.Screen name="login" />
+            <Stack.Screen name="(tabs)" />*/}
         </Stack>
     );
 }

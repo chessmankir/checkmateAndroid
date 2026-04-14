@@ -2,7 +2,7 @@ import {useRouter, useSegments} from "expo-router";
 import {useAuthStore} from "@/src/store/authStore";
 import {useEffect} from "react";
 
-export function useLogin(){
+export function usePreLogin(){
     const router = useRouter();
     const segments = useSegments();
     const {isAuth, isLoading, restoreAuth} = useAuthStore();
