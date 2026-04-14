@@ -33,7 +33,7 @@ export function  useLogin(){
             if(data.ok){
                 console.log('ok');
                 setUser(data.data);
-                router.replace("/(tabs)/players");
+                router.replace("/(tabs)");
             }
         }
         catch (e){

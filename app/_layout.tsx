@@ -25,7 +25,7 @@ export default function RootLayout() {
         }
 
         if (isAuth && !inTabsGroup) {
-            router.replace("/(tabs)/players");
+            router.replace("/(tabs)");
         }
     }, [isAuth, isLoading, segments]);
 
