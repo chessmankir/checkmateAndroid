@@ -32,8 +32,8 @@ export function  useLogin(){
             }
             if(data.ok){
                 console.log('ok');
-                //setUser(data.data);
-                //router.replace("/(tabs)/players");
+                setUser(data.data);
+                router.replace("/(tabs)/players");
             }
         }
         catch (e){

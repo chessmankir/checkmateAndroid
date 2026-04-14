@@ -1,31 +1,43 @@
 import { create } from "zustand";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-type User = {
-    id?: number;
+type UserType = {
+    id: number;
+    pubg_id: string;
     nickname?: string;
-    pubg_id?: string;
 };
 
 type AuthState = {
+    user: UserType | null;
     isAuth: boolean;
     isLoading: boolean;
-    user: User | null;
-    setUser: (user: User | null) => void;
+    setUser: (user: UserType | null) => Promise<void>;
+    setLoading: (value: boolean) => void;
     restoreAuth: () => Promise<void>;
-    login: (user: User) => Promise<void>;
     logout: () => Promise<void>;
 };
 
 export const useAuthStore = create<AuthState>((set) => ({
+    user: null,
     isAuth: false,
     isLoading: true,
-    user: null,
 
-    setUser: (user) =>
+    setUser: async (user) => {
+        if (user) {
+            await AsyncStorage.setItem("user", JSON.stringify(user));
+        } else {
+            await AsyncStorage.removeItem("user");
+        }
+
         set({
             user,
             isAuth: !!user,
+        });
+    },
+
+    setLoading: (value) =>
+        set({
+            isLoading: value,
         }),
 
     restoreAuth: async () => {
@@ -33,7 +45,8 @@ export const useAuthStore = create<AuthState>((set) => ({
             const rawUser = await AsyncStorage.getItem("user");
 
             if (rawUser) {
-                const user = JSON.parse(rawUser);
+                const user = JSON.parse(rawUser) as UserType;
+
                 set({
                     user,
                     isAuth: true,
@@ -48,6 +61,8 @@ export const useAuthStore = create<AuthState>((set) => ({
                 isLoading: false,
             });
         } catch (error) {
+            console.log("restoreAuth error:", error);
+
             set({
                 user: null,
                 isAuth: false,
@@ -56,21 +71,13 @@ export const useAuthStore = create<AuthState>((set) => ({
         }
     },
 
-    login: async (user) => {
-        await AsyncStorage.setItem("user", JSON.stringify(user));
-
-        set({
-            user,
-            isAuth: true,
-        });
-    },
-
     logout: async () => {
         await AsyncStorage.removeItem("user");
 
         set({
             user: null,
             isAuth: false,
+            isLoading: false,
         });
     },
 }));

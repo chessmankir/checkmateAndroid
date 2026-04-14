@@ -1,30 +1,53 @@
-import {DarkTheme, DefaultTheme, ThemeProvider} from '@react-navigation/native';
-import {Stack, useRouter, useSegments} from 'expo-router';
-import {StatusBar} from 'expo-status-bar';
-import 'react-native-reanimated';
-import {useAuthStore} from "@/src/store/authStore";
-import {useEffect} from "react";
-import {usePreLogin} from "@/src/hooks/Login/usePreLogin";
-import {ActivityIndicator, View} from "react-native";
-
-export const unstable_settings = {
-    anchor: '(tabs)',
-};
+import { Stack, useRouter, useSegments } from "expo-router";
+import { useEffect } from "react";
+import { ActivityIndicator, View } from "react-native";
+import { useAuthStore } from "@/src/store/authStore";
 
 export default function RootLayout() {
-    console.log('Root Layout');
-    usePreLogin();
-    console.log('isLoading ',isLoading);
-    const {isLoading} = useAuthStore();
-    if(isLoading){
-        <View style={{ flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "#0b1220" }}>
-            <ActivityIndicator size="large" />
-        </View>
+    const router = useRouter();
+    const segments = useSegments();
+
+    const { isAuth, isLoading, restoreAuth } = useAuthStore();
+
+    useEffect(() => {
+        restoreAuth();
+    }, []);
+
+    useEffect(() => {
+        if (isLoading) return;
+
+        const inTabsGroup = segments[0] === "(tabs)";
+        const inLoginPage = segments[0] === "login";
+
+        if (!isAuth && !inLoginPage) {
+            router.replace("/login");
+            return;
+        }
+
+        if (isAuth && !inTabsGroup) {
+            router.replace("/(tabs)/players");
+        }
+    }, [isAuth, isLoading, segments]);
+
+    if (isLoading) {
+        return (
+            <View
+                style={{
+                    flex: 1,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    backgroundColor: "#0b1220",
+                }}
+            >
+                <ActivityIndicator size="large" />
+            </View>
+        );
     }
+
     return (
-        <Stack screenOptions={{headerShown: false}}>
-          {/*  <Stack.Screen name="login" />
-            <Stack.Screen name="(tabs)" />*/}
+        <Stack screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="login" />
+            <Stack.Screen name="(tabs)" />
         </Stack>
     );
 }
