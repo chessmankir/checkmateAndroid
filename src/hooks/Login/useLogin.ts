@@ -25,13 +25,11 @@ export function  useLogin(){
                 })
             });
             const data = await response.json();
-            console.log(data);
             if (!response.ok || !data.ok) {
                 Alert.alert("Ошибка", data.message || "Не удалось войти");
                 return;
             }
             if(data.ok){
-                console.log('ok');
                 setUser(data.data);
                 router.replace("/(tabs)/players");
             }

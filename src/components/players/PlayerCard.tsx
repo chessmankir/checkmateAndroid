@@ -16,7 +16,6 @@ export function PlayerCard({
                                member,
 
                            }: Props) {
-    console.log(member);
     return (
         <View style={styles.card}>
                 <PlayerTop member={member} />

@@ -17,7 +17,6 @@ const filters = ["Все", "Classic", "Metro", "TDM"] as const;
 type FilterType = (typeof filters)[number];
 
 export default function PlayersScreen() {
-    console.log('player screen');
     const [search, setSearch] = useState("");
     const [activeFilter, setActiveFilter] = useState<FilterType>("Все");
 
