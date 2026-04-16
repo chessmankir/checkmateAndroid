@@ -1,0 +1,243 @@
+import {StyleSheet} from "react-native";
+
+export const styles = StyleSheet.create({
+    screen: {
+        paddingBottom: 24,
+    },
+
+    headerBlock: {
+        marginBottom: 14,
+    },
+
+    title: {
+        color: "#F7FAFF",
+        fontSize: 24,
+        fontWeight: "800",
+        marginBottom: 4,
+    },
+
+    titlePhone: {
+        fontSize: 22,
+    },
+
+    subtitle: {
+        color: "#98A4BD",
+        fontSize: 13,
+        lineHeight: 18,
+    },
+
+    clansWrap: {
+        flexDirection: "row",
+        flexWrap: "wrap",
+        gap: 10,
+        marginBottom: 16,
+    },
+
+    clanChip: {
+        minHeight: 48,
+        borderRadius: 18,
+        borderWidth: 1,
+        borderColor: "rgba(120, 138, 255, 0.22)",
+        backgroundColor: "#151C30",
+        paddingHorizontal: 14,
+        paddingVertical: 10,
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+        gap: 10,
+    },
+
+    clanChipPhone: {
+        width: "48%",
+    },
+
+    clanChipTablet: {
+        minWidth: 150,
+        maxWidth: "48%",
+    },
+
+    clanChipActive: {
+        backgroundColor: "#1F63FF",
+        borderColor: "rgba(126, 170, 255, 0.75)",
+    },
+
+    clanChipText: {
+        flex: 1,
+        color: "#E8EEFF",
+        fontSize: 14,
+        fontWeight: "700",
+    },
+
+    clanChipTextActive: {
+        color: "#FFFFFF",
+    },
+
+    countBadge: {
+        minWidth: 26,
+        height: 24,
+        borderRadius: 999,
+        paddingHorizontal: 8,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "rgba(255,255,255,0.08)",
+    },
+
+    countBadgeActive: {
+        backgroundColor: "rgba(255,255,255,0.18)",
+    },
+
+    countBadgeText: {
+        color: "#C9D6F4",
+        fontSize: 12,
+        fontWeight: "800",
+    },
+
+    countBadgeTextActive: {
+        color: "#FFFFFF",
+    },
+
+    searchCard: {
+        backgroundColor: "#131A2C",
+        borderRadius: 24,
+        borderWidth: 1,
+        borderColor: "rgba(115, 142, 255, 0.16)",
+        padding: 14,
+        marginBottom: 16,
+    },
+
+    searchInput: {
+        height: 50,
+        borderRadius: 16,
+        borderWidth: 1,
+        borderColor: "rgba(134, 154, 255, 0.24)",
+        backgroundColor: "#1A2136",
+        paddingHorizontal: 15,
+        color: "#FFFFFF",
+        fontSize: 14,
+    },
+
+    searchInputPhone: {
+        height: 48,
+        fontSize: 14,
+    },
+
+    totalText: {
+        marginTop: 10,
+        color: "#C8D4EF",
+        fontSize: 13,
+        fontWeight: "700",
+        textAlign: "right",
+    },
+
+    listContent: {
+        paddingBottom: 8,
+    },
+
+    separator: {
+        height: 10,
+    },
+
+    memberRow: {
+        minHeight: 82,
+        backgroundColor: "#131A2C",
+        borderRadius: 18,
+        borderWidth: 1,
+        borderColor: "rgba(115, 142, 255, 0.18)",
+        paddingHorizontal: 10,
+        paddingVertical: 10,
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+        gap: 10,
+    },
+
+    memberRowLeft: {
+        flex: 1,
+        flexDirection: "row",
+        alignItems: "center",
+        minWidth: 0,
+    },
+
+    memberRowInfo: {
+        flex: 1,
+        minWidth: 0,
+    },
+
+    avatarCircle: {
+        width: 42,
+        height: 42,
+        borderRadius: 21,
+        backgroundColor: "#235BFF",
+        alignItems: "center",
+        justifyContent: "center",
+        marginRight: 10,
+    },
+
+    avatarText: {
+        color: "#FFFFFF",
+        fontSize: 16,
+        fontWeight: "800",
+    },
+
+    nameRow: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 6,
+    },
+
+    memberRowName: {
+        color: "#F8FBFF",
+        fontSize: 15,
+        fontWeight: "800",
+        flexShrink: 1,
+    },
+
+    memberRowNameSmall: {
+        fontSize: 14,
+    },
+
+    memberRowNick: {
+        color: "#8FA0C3",
+        fontSize: 12,
+        marginTop: 1,
+    },
+
+    memberRowMeta: {
+        color: "#B8C5E0",
+        fontSize: 11,
+        marginTop: 4,
+    },
+
+    onlineDot: {
+        width: 8,
+        height: 8,
+        borderRadius: 999,
+        backgroundColor: "#35D07F",
+    },
+
+    miniProfileButton: {
+        minWidth: 84,
+        height: 34,
+        paddingHorizontal: 12,
+        borderRadius: 11,
+        backgroundColor: "#1F63FF",
+        alignItems: "center",
+        justifyContent: "center",
+    },
+
+    miniProfileButtonText: {
+        color: "#FFFFFF",
+        fontSize: 12,
+        fontWeight: "700",
+    },
+
+    emptyBox: {
+        paddingVertical: 32,
+        alignItems: "center",
+    },
+
+    emptyText: {
+        color: "#98A2B3",
+        fontSize: 14,
+    },
+});

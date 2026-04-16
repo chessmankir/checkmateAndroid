@@ -12,6 +12,10 @@ export interface MemberType {
     online?: boolean
     status?: string;
     modes: string[];
+    clan_id: number;
+
+    clan_name?: string;
+    months_in_clan?: number;
 }
 
 
