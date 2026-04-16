@@ -6,18 +6,19 @@ type ClanType = {
     id: number;
     name: string;
     count?: number;
+    number: number;
 };
 
 type Props = {
     clans: ClanType[];
     selectedClanId: number;
-    onSelectClan: (id: number) => void;
+    handleSearch: (id: number) => void;
 };
 
 export function MyClanListClans({
                                     clans,
                                     selectedClanId,
-                                    onSelectClan,
+                                    setSelectedClanId,
                                 }: Props) {
     const { width } = useWindowDimensions();
     const isPhone = width < 600;
@@ -25,12 +26,12 @@ export function MyClanListClans({
     return (
         <View style={styles.clansWrap}>
             {clans.map((clan) => {
-                const isActive = clan.id === selectedClanId;
+                const isActive = clan.number == selectedClanId;
 
                 return (
                     <Pressable
                         key={clan.id}
-                        onPress={() => onSelectClan(clan.id)}
+                        onPress={() => setSelectedClanId(clan.number)}
                         style={[
                             styles.clanChip,
                             isPhone ? styles.clanChipPhone : styles.clanChipTablet,

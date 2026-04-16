@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import {MemberType} from "@/src/types/MemberType";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export function useMyClan(){
     const [myClans, setMyClans] = useState([]);
@@ -7,12 +8,15 @@ export function useMyClan(){
     const [searchData, setSearchData] = useState<string>("");
     const [clanMembers, setClanMembers] = useState<MemberType[]>([]);
 
+
     const handleSearch = (search) => {
         setSearchData(search);
-        console.log(search);
-        const backend = "http://192.168.0.30:4000/api/android/myclan";
+        const backend = "http://192.168.0.30:4000/api/android/clanmember";
         (async ()=> {
             try {
+                const userText = await AsyncStorage.getItem("user");
+                if(userText == null) return;
+                const user = JSON.parse(userText);
                 const response = await fetch(backend, {
                     method: "POST",
                     headers: {
@@ -20,61 +24,8 @@ export function useMyClan(){
                     },
                     credentials: "include",
                     body: JSON.stringify({
-                        search: searchData
-                    })
-                });
-                const data = await response.json();
-                console.log(data);
-                if(data.ok){
-                    setMyClans(data.clans);
-                }
-            }
-            catch (e){
-                console.error(e);
-            }
-        })();
-    }
-
-    useEffect(() => {
-        (async () => {
-            const backend = "http://192.168.0.30:4000/api/android/myclan";
-            try {
-                const response = await fetch(backend, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    credentials: "include",
-                    body: JSON.stringify({
-                        clan_id: 1
-                    })
-                });
-                const data = await response.json();
-                console.log(data);
-                if(data.ok){
-                    setMyClans(data.clans);
-                }
-            }
-            catch (e){
-                console.error(e);
-            }
-        })();
-    }, [selectedClanId]);
-
-    useEffect(() => {
-        (async () => {
-            const backend = "http://192.168.0.30:4000/api/android/clanmember";
-            try {
-                const response = await fetch(backend, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    credentials: "include",
-                    body: JSON.stringify({
-                        clan_id: 1,
-                        number: selectedClanId,
-                        search: searchData
+                        search: searchData,
+                        clan_id: user.clan_id
                     })
                 });
                 const data = await response.json();
@@ -87,7 +38,67 @@ export function useMyClan(){
                 console.error(e);
             }
         })();
+    }
+
+    useEffect(() => {
+        (async () => {
+            const backend = "http://192.168.0.30:4000/api/android/myclan";
+            try {
+                const userText = await AsyncStorage.getItem("user");
+                if(userText == null) return;
+                const user = JSON.parse(userText);
+                const response = await fetch(backend, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    credentials: "include",
+                    body: JSON.stringify({
+                        clan_id: user.clan_id
+                    })
+                });
+                const data = await response.json();
+                console.log(data);
+                if(data.ok){
+                    setMyClans(data.clans);
+                }
+            }
+            catch (e){
+                console.error(e);
+            }
+        })();
     }, []);
+
+    useEffect(() => {
+        (async () => {
+            const backend = "http://192.168.0.30:4000/api/android/clanmember";
+            try {
+                const userText = await AsyncStorage.getItem("user");
+                if(userText == null) return;
+                const user = JSON.parse(userText);
+                console.log(user.clan_id);
+                const response = await fetch(backend, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    credentials: "include",
+                    body: JSON.stringify({
+                        clan_id: user.clan_id,
+                        number: selectedClanId,
+                        search: searchData
+                    })
+                });
+                const data = await response.json();
+                if(data.ok){
+                    setClanMembers(data.members);
+                }
+            }
+            catch (e){
+                console.error(e);
+            }
+        })();
+    }, [selectedClanId]);
 
     return {myClans, selectedClanId, setSelectedClanId, searchData, handleSearch, clanMembers};
 }

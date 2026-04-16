@@ -15,17 +15,16 @@ export function ProfileClanTab() {
     const { width } = useWindowDimensions();
     const isPhone = width < 600;
     const isSmallPhone = width < 390;
-    const {myClans, selectedClanId, setSelectedClanId, searchData, setSearchData, clanMembers} = useMyClan();
+    const {myClans, selectedClanId, setSelectedClanId, searchData, setSearchData, clanMembers, handleSearch} = useMyClan();
 
     return (
         <View style={styles.screen}>
-            <MyClanSearch isPhone={isPhone} />
             <MyClanListClans
                 clans={myClans}
                 selectedClanId={selectedClanId}
-                onSelectClan={setSelectedClanId}
+                setSelectedClanId={setSelectedClanId}
             />
-           <MyClanSearch search={searchData} isPhone={isPhone} setSearch={setSearchData} />
+           <MyClanSearch search={searchData} isPhone={isPhone} handleSearch={handleSearch} />
 
             <FlatList
                 data={clanMembers}

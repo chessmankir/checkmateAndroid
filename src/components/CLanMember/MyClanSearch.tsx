@@ -2,14 +2,14 @@ import {Text, TextInput, View} from "react-native";
 import {styles} from "@/src/StyleSheets/clanMembers";
 import React from "react";
 
-export function MyClanSearch({search, isPhone, setSearch}){
+export function MyClanSearch({search, isPhone, handleSearch}){
     return (
         <View style={styles.searchCard}>
             <TextInput
                 placeholder="Поиск по имени, нику или PUBG ID"
                 placeholderTextColor="#7F8AA8"
                 value={search}
-                onChangeText={setSearch}
+                onChangeText={handleSearch}
                 style={[styles.searchInput, isPhone && styles.searchInputPhone]}
             />
 
