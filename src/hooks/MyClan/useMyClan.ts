@@ -30,5 +30,5 @@ export function useMyClan(){
         })();
     }, []);
 
-    return {myClans, selectedClanId};
+    return {myClans, selectedClanId, setSelectedClanId};
 }

@@ -139,7 +139,7 @@ export function ProfileClanTab() {
     const { width } = useWindowDimensions();
     const isPhone = width < 600;
     const isSmallPhone = width < 390;
-    const {myClans, selectedClanId} = useMyClan();
+    const {myClans, selectedClanId, setSelectedClanId} = useMyClan();
 
     const [search, setSearch] = useState("");
 
@@ -170,51 +170,11 @@ export function ProfileClanTab() {
                 </Text>
             </View>
 
-        {/*    <View style={styles.clansWrap}>
-                {clansWithCount.map((clan) => {
-                    const isActive = clan.id === selectedClanId;
-
-                    return (
-                        <Pressable
-                            key={clan.id}
-                            onPress={() => setSelectedClanId(clan.id)}
-                            style={[
-                                styles.clanChip,
-                                isPhone ? styles.clanChipPhone : styles.clanChipTablet,
-                                isActive && styles.clanChipActive,
-                            ]}
-                        >
-                            <Text
-                                numberOfLines={1}
-                                style={[
-                                    styles.clanChipText,
-                                    isActive && styles.clanChipTextActive,
-                                ]}
-                            >
-                                {clan.name}
-                            </Text>
-
-                            <View
-                                style={[
-                                    styles.countBadge,
-                                    isActive && styles.countBadgeActive,
-                                ]}
-                            >
-                                <Text
-                                    style={[
-                                        styles.countBadgeText,
-                                        isActive && styles.countBadgeTextActive,
-                                    ]}
-                                >
-                                    {clan.count}
-                                </Text>
-                            </View>
-                        </Pressable>
-                    );
-                })}
-            </View>*/}
-
-            <MyClanListClans clans={myClans} selectedClanId={selectedClanId}/>
+            <MyClanListClans
+                clans={myClans}
+                selectedClanId={selectedClanId}
+                onSelectClan={setSelectedClanId}
+            />
 
             <View style={styles.searchCard}>
                 <TextInput
