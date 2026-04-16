@@ -32,12 +32,12 @@ export default function ProfileScreen() {
 
     return (
         <SafeAreaView style={styles.safeArea} edges={["top"]}>
-            <ScrollView
+      {/*      <ScrollView
                 style={styles.screen}
                 contentContainerStyle={styles.scrollContent}
                 showsVerticalScrollIndicator={false}
                 stickyHeaderIndices={[1]}
-            >
+            >*/}
                <ProfileHeader profileForm={profile} />
 
                 <ProfileTabs topTabs={topTabs} activeTab={activeTab} setActiveTab={setActiveTab} />
@@ -61,7 +61,7 @@ export default function ProfileScreen() {
                     /*<View></View>*/
                 )}
 
-            </ScrollView>
+           {/* </ScrollView>*/}
         </SafeAreaView>
     );
 }
