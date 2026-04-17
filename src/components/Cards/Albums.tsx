@@ -1,29 +1,19 @@
 import {styles} from "@/src/StyleSheets/cards";
 import {Pressable, Text, View} from "react-native";
 import React from "react";
+import {Album} from "@/src/components/Cards/Album";
+import {AlbumType} from "@/src/types/AlbumType";
 
-export function Albums(){
+export function Albums({albums, selectedAlbum, setSelectedAlbum}) {
     return (
         <View style={styles.stickyWrap}>
         <Text style={styles.sectionTitle}>Альбомы</Text>
-
             <View style={styles.albumRow}>
         {albums.map((album) => {
-                const isActive = album.id === selectedAlbumId;
-
+                console.log("Albums", album?.id);
+                const isActive = album?.id == selectedAlbum;
                 return (
-                    <Pressable
-                        key={album.id}
-                onPress={() => setSelectedAlbumId(album.id)}
-                style={[styles.albumChip, isActive && styles.albumChipActive]}
-            >
-                <Text
-                    style={[styles.albumChipText, isActive && styles.albumChipTextActive]}
-                numberOfLines={1}
-                    >
-                    {album.title}
-                    </Text>
-                    </Pressable>
+                   <Album key={album?.id} album={album} setSelectedAlbum={setSelectedAlbum} isActive={isActive} />
             );
             })}
         </View>

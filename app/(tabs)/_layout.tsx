@@ -30,7 +30,7 @@ export default function TabLayout() {
                 options={{
                     title: "Карты",
                     tabBarIcon: ({ color, size }) => (
-                        <Ionicons name="people-outline" size={size} color={color} />
+                        <Ionicons name="albums-outline" size={size} color={color} />
                     ),
                 }}
             />
