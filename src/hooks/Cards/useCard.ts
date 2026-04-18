@@ -2,21 +2,21 @@ import {useEffect, useState} from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {CardType} from "@/src/types/CardType";
 
-export function useCard(){
-    const [albums, setAlbums]= useState([]);
-    const [selectedAlbum, setSelectedAlbum]=useState<number>(1);
-    const [cards, setCards]=useState<CardType[]>([]);
+export function useCard() {
+    const [albums, setAlbums] = useState([]);
+    const [selectedAlbum, setSelectedAlbum] = useState<number>(1);
+    const [cards, setCards] = useState<CardType[]>([]);
 
     const addCard = (card_id) => {
         console.log("addCard");
         const backend = "http://192.168.0.30:4000/api/android/add/card";
 
-        (async () =>{
+        (async () => {
             try {
                 const dataUser = await AsyncStorage.getItem("user");
                 const user = JSON.parse(dataUser);
-                
-                const response = await fetch(backend,{
+
+                const response = await fetch(backend, {
                     method: "POST",
                     credentials: "include",
                     headers: {
@@ -30,12 +30,64 @@ export function useCard(){
                 });
                 const data = await response.json();
                 console.log(data);
-                if(data.ok){
+                if (data.ok) {
                     console.log('data.ok');
-                    //setAlbums(data.data);
+                    const newCards = cards.map((card) => {
+                        if (card.id != card_id) {
+                            return card;
+                        } else {
+                            return {
+                                ...card, count: card.count + 1
+                            }
+                        }
+                    });
+                    setCards(newCards);
                 }
+            } catch (err) {
+                console.log(err);
             }
-            catch(err){
+        })();
+    }
+
+    const removeCard = (card_id) => {
+        console.log("removeCard");
+        const backend = "http://192.168.0.30:4000/api/android/remove/card";
+
+        (async () => {
+            try {
+                const dataUser = await AsyncStorage.getItem("user");
+                const user = JSON.parse(dataUser);
+
+                const response = await fetch(backend, {
+                    method: "POST",
+                    credentials: "include",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        userid: user.id,
+                        card_id: card_id
+                    })
+
+                });
+                const data = await response.json();
+                console.log(data);
+                if (data.ok) {
+                    console.log('data.ok');
+                    const newCards = cards.map((card) => {
+                        if (card.id != card_id) {
+                            return card;
+                        } else {
+                            if (card.count > 0) {
+                                return {
+                                    ...card, count: card.count - 1
+                                }
+                            }
+                        }
+                    });
+                    setCards(newCards);
+                }
+            } catch (err) {
                 console.log(err);
             }
         })();
@@ -44,15 +96,14 @@ export function useCard(){
     useEffect(() => {
         const backend = "http://192.168.0.30:4000/api/albums";
 
-        (async () =>{
+        (async () => {
             try {
                 const response = await fetch(backend);
                 const data = await response.json();
-                if(data.ok){
+                if (data.ok) {
                     setAlbums(data.data);
                 }
-            }
-            catch(err){
+            } catch (err) {
                 console.log(err);
             }
         })();
@@ -60,11 +111,11 @@ export function useCard(){
 
     useEffect(() => {
         const backend = `http://192.168.0.30:4000/api/android/cards/${selectedAlbum}`;
-        (async () =>{
+        (async () => {
             try {
                 const dataUser = await AsyncStorage.getItem("user");
                 const user = JSON.parse(dataUser);
-                const response = await fetch(backend,{
+                const response = await fetch(backend, {
                     method: "POST",
                     credentials: "include",
                     headers: {
@@ -76,15 +127,14 @@ export function useCard(){
 
                 });
                 const data = await response.json();
-                if(data.ok){
+                if (data.ok) {
                     setCards(data.data);
                 }
-            }
-            catch(err){
+            } catch (err) {
                 console.log(err);
             }
         })();
     }, [selectedAlbum]);
 
-    return {albums, selectedAlbum, setSelectedAlbum, cards, addCard};
+    return {albums, selectedAlbum, setSelectedAlbum, cards, addCard, removeCard};
 }

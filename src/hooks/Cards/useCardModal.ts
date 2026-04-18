@@ -9,8 +9,6 @@ export function useCardModal(){
     const openCardModal = (card: CardType) => {
         setSelectedCard(card);
         setModalVisible(true);
-        console.log(card);
-        console.log(modalVisible);
     };
 
     const closeCardModal = () => {

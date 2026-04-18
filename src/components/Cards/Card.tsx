@@ -7,15 +7,10 @@ import {CardType} from "@/src/types/CardType";
 type Props = {
     card: CardType;
     cardWidth: number;
-    addCard: (card_id) => void
+    addCard: (card_id) => void;
+    openCardModal: (card: CardType) => void;
+    removeCard: (card_id) => void;
 };
-
-/*
-const openCardModal = (card: CardType) => {
-    setSelectedCard(card);
-    setModalVisible(true);
-};
-*/
 
 const BASE_URL = "http://192.168.0.30:4000";
 
@@ -33,7 +28,7 @@ function getCardImageSource(imageSrc?: string) {
     return { uri: `${BASE_URL}/${imageSrc}` };
 }
 
-export  function Card({card, cardWidth, openCardModal, addCard} : Props){
+export  function Card({card, cardWidth, openCardModal, addCard, removeCard} : Props){
     const imageSource = getCardImageSource(card.imageSrc);
     return (
         <Pressable
@@ -56,13 +51,13 @@ export  function Card({card, cardWidth, openCardModal, addCard} : Props){
                 </Text>
 
                 <View style={styles.counterRow}>
-                    <Pressable style={styles.counterBtn}>
+                    <Pressable style={styles.counterBtn} onPress={() => removeCard(card.id)}>
                         <Text style={styles.counterBtnText}>-</Text>
                     </Pressable>
 
                     <Text style={styles.countText}>{card.count ?? 0}</Text>
 
-                    <Pressable style={styles.counterBtn} onClick={addCard(card.id)}>
+                    <Pressable style={styles.counterBtn} onPress={() => addCard(card.id)}>
                         <Text style={styles.counterBtnText}>+</Text>
                     </Pressable>
                 </View>

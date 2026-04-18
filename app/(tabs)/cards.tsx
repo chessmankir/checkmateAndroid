@@ -23,7 +23,7 @@ export default function CardsScreen() {
     const router = useRouter();
     const { width } = useWindowDimensions();
     const { albums, selectedAlbum, setSelectedAlbum,
-        cards, addCard} = useCard();
+        cards, addCard, removeCard} = useCard();
     const {selectedCard, modalVisible, openCardModal, closeCardModal, handleFind} = useCardModal();
 
     const horizontalPadding = 12;
@@ -55,7 +55,8 @@ export default function CardsScreen() {
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item }) => {
                     return (
-                        <Card card={item} cardWidth={cardWidth} openCardModal={openCardModal} addCard={addCard}/>
+                        <Card card={item} cardWidth={cardWidth}
+                              openCardModal={openCardModal} addCard={addCard} removeCard={removeCard}/>
                     );
                 }}
                 ListEmptyComponent={
