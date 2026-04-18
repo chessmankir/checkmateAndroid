@@ -15,6 +15,9 @@ import { useCard } from "@/src/hooks/Cards/useCard";
 import { AlbumHeader } from "@/src/components/Cards/AlbumHeader";
 import { Albums } from "@/src/components/Cards/Albums";
 import { CardType } from "@/src/types/CardType";
+import {Card} from "@/src/components/Cards/Card";
+import {useCardModal} from "@/src/hooks/Cards/useCardModal";
+import {ModalCard} from "@/src/components/Cards/ModalCard";
 
 const BASE_URL = "http://192.168.0.30:4000";
 
@@ -35,10 +38,9 @@ function getCardImageSource(imageSrc?: string) {
 export default function CardsScreen() {
     const router = useRouter();
     const { width } = useWindowDimensions();
-    const { albums, selectedAlbum, setSelectedAlbum, cards } = useCard();
-
-    const [selectedCard, setSelectedCard] = useState<CardType | null>(null);
-    const [modalVisible, setModalVisible] = useState(false);
+    const { albums, selectedAlbum, setSelectedAlbum,
+        cards} = useCard();
+    const {selectedCard, modalVisible, openCardModal, closeCardModal, handleFind} = useCardModal();
 
     const horizontalPadding = 12;
     const gap = 10;
@@ -46,26 +48,6 @@ export default function CardsScreen() {
     const numColumns = width < 700 ? 2 : 4;
     const cardWidth =
         (width - horizontalPadding * 2 - gap * (numColumns - 1)) / numColumns;
-
-    const openCardModal = (card: CardType) => {
-        setSelectedCard(card);
-        setModalVisible(true);
-    };
-
-    const closeCardModal = () => {
-        setModalVisible(false);
-        setSelectedCard(null);
-    };
-
-    const handleFind = () => {
-        if (!selectedCard) return;
-        closeCardModal();
-        router.push(`/duplicates?cardid=${selectedCard.id}`);
-    };
-
-    const modalImageSource = selectedCard
-        ? getCardImageSource(selectedCard.imageSrc)
-        : null;
 
     return (
         <SafeAreaView style={styles.safe} edges={["top"]}>
@@ -76,7 +58,7 @@ export default function CardsScreen() {
                 numColumns={numColumns}
                 ListHeaderComponent={
                     <View>
-                        <AlbumHeader />r
+                        <AlbumHeader />
                         <Albums
                             albums={albums}
                             selectedAlbum={selectedAlbum}
@@ -88,41 +70,8 @@ export default function CardsScreen() {
                 columnWrapperStyle={numColumns > 1 ? styles.columnWrapper : undefined}
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item }) => {
-                    const imageSource = getCardImageSource(item.imageSrc);
-
                     return (
-                        <Pressable
-                            onPress={() => openCardModal(item)}
-                            style={[styles.cardBox, { width: cardWidth }]}
-                        >
-                            <View style={styles.imageWrap}>
-                                {imageSource ? (
-                                    <Image source={imageSource} style={styles.image} />
-                                ) : (
-                                    <View style={styles.imageFallback}>
-                                        <Text style={styles.imageFallbackText}>Нет фото</Text>
-                                    </View>
-                                )}
-                            </View>
-
-                            <View style={styles.metaBox}>
-                                <Text style={styles.cardTitle} numberOfLines={2}>
-                                    {item.name}
-                                </Text>
-
-                                <View style={styles.counterRow}>
-                                    <Pressable style={styles.counterBtn}>
-                                        <Text style={styles.counterBtnText}>-</Text>
-                                    </Pressable>
-
-                                    <Text style={styles.countText}>{item.count ?? 0}</Text>
-
-                                    <Pressable style={styles.counterBtn}>
-                                        <Text style={styles.counterBtnText}>+</Text>
-                                    </Pressable>
-                                </View>
-                            </View>
-                        </Pressable>
+                        <Card card={item} cardWidth={cardWidth} openCardModal={openCardModal} />
                     );
                 }}
                 ListEmptyComponent={
@@ -134,7 +83,10 @@ export default function CardsScreen() {
                 }
             />
 
-            <Modal
+            <ModalCard selectedCard={selectedCard} closeCardModal={closeCardModal}
+                       modalVisible={modalVisible} handleFind={handleFind} />
+
+           {/* <Modal
                 visible={modalVisible}
                 transparent
                 animationType="fade"
@@ -176,7 +128,7 @@ export default function CardsScreen() {
                         </View>
                     </Pressable>
                 </Pressable>
-            </Modal>
+            </Modal>*/}
         </SafeAreaView>
     );
 }

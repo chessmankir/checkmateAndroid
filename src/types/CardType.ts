@@ -3,4 +3,5 @@ export type CardType = {
     album_id: number;
     name: string;
     imageSrc: string;
+    count?: number
 };

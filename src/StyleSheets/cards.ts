@@ -1,4 +1,4 @@
-import {StyleSheet} from "react-native";
+import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
     safe: {
@@ -10,6 +10,61 @@ export const styles = StyleSheet.create({
         paddingHorizontal: 12,
         paddingBottom: 20,
         paddingTop: 10,
+    },
+
+    topHeader: {
+        marginBottom: 10,
+    },
+
+    screenTitle: {
+        color: "#FFFFFF",
+        fontSize: 26,
+        fontWeight: "800",
+    },
+
+    stickyWrap: {
+        backgroundColor: "#0B1020",
+        paddingBottom: 10,
+        paddingTop: 2,
+        marginBottom: 8,
+        zIndex: 20,
+    },
+
+    sectionTitle: {
+        color: "#FFFFFF",
+        fontSize: 15,
+        fontWeight: "700",
+        marginBottom: 8,
+    },
+
+    albumRow: {
+        flexDirection: "row",
+        flexWrap: "wrap",
+        gap: 8,
+    },
+
+    albumChip: {
+        backgroundColor: "#151C31",
+        borderWidth: 1,
+        borderColor: "#263252",
+        borderRadius: 10,
+        paddingHorizontal: 10,
+        paddingVertical: 7,
+    },
+
+    albumChipActive: {
+        backgroundColor: "#2457FF",
+        borderColor: "#2457FF",
+    },
+
+    albumChipText: {
+        color: "#DCE5FF",
+        fontSize: 12,
+        fontWeight: "600",
+    },
+
+    albumChipTextActive: {
+        color: "#FFFFFF",
     },
 
     columnWrapper: {

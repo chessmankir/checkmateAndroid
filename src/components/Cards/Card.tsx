@@ -9,43 +9,63 @@ type Props = {
     cardWidth: number;
 };
 
-export  function Card({card, cardWidth} : Props){
-    const imageUrl = `http://192.168.0.30:4000${card.imageSrc}`;
+/*
+const openCardModal = (card: CardType) => {
+    setSelectedCard(card);
+    setModalVisible(true);
+};
+*/
+
+const BASE_URL = "http://192.168.0.30:4000";
+
+function getCardImageSource(imageSrc?: string) {
+    if (!imageSrc) return null;
+
+    if (imageSrc.startsWith("http://") || imageSrc.startsWith("https://")) {
+        return { uri: imageSrc };
+    }
+
+    if (imageSrc.startsWith("/")) {
+        return { uri: `${BASE_URL}${imageSrc}` };
+    }
+
+    return { uri: `${BASE_URL}/${imageSrc}` };
+}
+
+export  function Card({card, cardWidth, openCardModal} : Props){
+    const imageSource = getCardImageSource(card.imageSrc);
     return (
-        <View style={[styles.cardBox, { width: cardWidth }]}>
+        <Pressable
+            onPress={() => openCardModal(card)}
+            style={[styles.cardBox, { width: cardWidth }]}
+        >
             <View style={styles.imageWrap}>
-                <Image source={{ uri: imageUrl }} style={styles.image} />
-               {/* <Image source={{ uri: card.imageSrc }} style={styles.image} />*/}
+                {imageSource ? (
+                    <Image source={imageSource} style={styles.image} />
+                ) : (
+                    <View style={styles.imageFallback}>
+                        <Text style={styles.imageFallbackText}>Нет фото</Text>
+                    </View>
+                )}
             </View>
 
             <View style={styles.metaBox}>
-               {/* <Text style={styles.cardTitle} numberOfLines={2}>*/}
-
-                <Text style={{ color: "white" }} numberOfLines={2}>
+                <Text style={styles.cardTitle} numberOfLines={2}>
                     {card.name}
                 </Text>
 
                 <View style={styles.counterRow}>
-                    <Pressable
-                       /* onPress={() => decreaseCount(item.id)}
-                        style={[
-                            styles.counterBtn,
-                            count === 0 && styles.counterBtnDisabled,
-                        ]}*/
-                    >
+                    <Pressable style={styles.counterBtn}>
                         <Text style={styles.counterBtnText}>-</Text>
                     </Pressable>
 
-                   {/* <Text style={styles.countText}>{count}</Text>*/}
-                     <Text style={styles.countText}>0</Text>
-                    <Pressable
-                      /*  onPress={() => increaseCount(item.id)}
-                        style={styles.counterBtn}*/
-                    >
+                    <Text style={styles.countText}>{card.count ?? 0}</Text>
+
+                    <Pressable style={styles.counterBtn}>
                         <Text style={styles.counterBtnText}>+</Text>
                     </Pressable>
                 </View>
             </View>
-        </View>
+        </Pressable>
     )
 }
