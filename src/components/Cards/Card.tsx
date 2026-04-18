@@ -10,8 +10,6 @@ type Props = {
 };
 
 export  function Card({card, cardWidth} : Props){
-    console.log('card');
-    console.log(card);
     const imageUrl = `http://192.168.0.30:4000${card.imageSrc}`;
     return (
         <View style={[styles.cardBox, { width: cardWidth }]}>

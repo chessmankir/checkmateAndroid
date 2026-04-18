@@ -26,7 +26,6 @@ export function useCard(){
 
     useEffect(() => {
         const backend = `http://192.168.0.30:4000/api/android/cards/${selectedAlbum}`;
-        console.log(backend);
         (async () =>{
             try {
                 const dataUser = await AsyncStorage.getItem("user");

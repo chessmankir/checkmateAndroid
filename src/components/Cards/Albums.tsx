@@ -1,8 +1,8 @@
-import {styles} from "@/src/StyleSheets/cards";
 import {Pressable, Text, View} from "react-native";
 import React from "react";
 import {Album} from "@/src/components/Cards/Album";
 import {AlbumType} from "@/src/types/AlbumType";
+import {styles} from  "@/src/StyleSheets/cards";
 
 export function Albums({albums, selectedAlbum, setSelectedAlbum}) {
     return (
