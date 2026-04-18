@@ -18,7 +18,6 @@ function getCardImageSource(imageSrc?: string) {
     return { uri: `${BASE_URL}/${imageSrc}` };
 }
 
-
 export function ModalCard({selectedCard, modalVisible,  closeCardModal, handleFind}){
     const modalImageSource = true;
     const imageSrc = getCardImageSource(selectedCard?.imageSrc);

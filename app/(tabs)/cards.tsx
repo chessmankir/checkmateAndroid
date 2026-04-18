@@ -19,22 +19,6 @@ import {Card} from "@/src/components/Cards/Card";
 import {useCardModal} from "@/src/hooks/Cards/useCardModal";
 import {ModalCard} from "@/src/components/Cards/ModalCard";
 
-const BASE_URL = "http://192.168.0.30:4000";
-
-function getCardImageSource(imageSrc?: string) {
-    if (!imageSrc) return null;
-
-    if (imageSrc.startsWith("http://") || imageSrc.startsWith("https://")) {
-        return { uri: imageSrc };
-    }
-
-    if (imageSrc.startsWith("/")) {
-        return { uri: `${BASE_URL}${imageSrc}` };
-    }
-
-    return { uri: `${BASE_URL}/${imageSrc}` };
-}
-
 export default function CardsScreen() {
     const router = useRouter();
     const { width } = useWindowDimensions();
@@ -85,50 +69,6 @@ export default function CardsScreen() {
 
             <ModalCard selectedCard={selectedCard} closeCardModal={closeCardModal}
                        modalVisible={modalVisible} handleFind={handleFind} />
-
-           {/* <Modal
-                visible={modalVisible}
-                transparent
-                animationType="fade"
-                onRequestClose={closeCardModal}
-            >
-                <Pressable style={styles.modalOverlay} onPress={closeCardModal}>
-                    <Pressable style={styles.modalCard} onPress={() => {}}>
-                        <Pressable
-                            style={styles.modalClose}
-                            onPress={closeCardModal}
-                        >
-                            <Text style={styles.modalCloseText}>×</Text>
-                        </Pressable>
-
-                        <View style={styles.modalImageWrap}>
-                            {modalImageSource ? (
-                                <Image
-                                    source={modalImageSource}
-                                    style={styles.modalImage}
-                                />
-                            ) : (
-                                <View style={styles.imageFallback}>
-                                    <Text style={styles.imageFallbackText}>Нет фото</Text>
-                                </View>
-                            )}
-                        </View>
-
-                        <Text style={styles.modalTitle}>
-                            {selectedCard?.name}
-                        </Text>
-
-                        <View style={styles.modalActions}>
-                            <Pressable
-                                style={styles.modalButton}
-                                onPress={handleFind}
-                            >
-                                <Text style={styles.modalButtonText}>Найти</Text>
-                            </Pressable>
-                        </View>
-                    </Pressable>
-                </Pressable>
-            </Modal>*/}
         </SafeAreaView>
     );
 }
