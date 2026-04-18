@@ -15,6 +15,7 @@ export default function RootLayout() {
 
     useEffect(() => {
         if (isLoading) return;
+        if (isLoading) return;
 
         const inTabsGroup = segments[0] === "(tabs)";
         const inLoginPage = segments[0] === "login";

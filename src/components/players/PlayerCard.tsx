@@ -14,12 +14,11 @@ type Props = {
 
 export function PlayerCard({
                                member,
-
                            }: Props) {
     return (
         <View style={styles.card}>
                 <PlayerTop member={member} />
-                <PlayerBottom member={member} />
+                <PlayerBottom member={member}/>
         </View>
     );
 }

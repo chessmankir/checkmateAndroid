@@ -1,11 +1,17 @@
 import { useEffect, useState } from "react";
 import type { MemberType } from "@/src/types/MemberType";
 import { getPlayers } from "@/src/services/api/player";
+import {router} from "expo-router";
 
 export function usePlayers() {
     const [members, setMembers] = useState<MemberType[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+
+    const onRouterProfile = (id) => {
+        console.log(id)
+      //  router.push(`/profile/${id}`);
+    }
 
     useEffect(() => {
         let mounted = true;
@@ -36,5 +42,5 @@ export function usePlayers() {
         };
     }, []);
 
-    return { members, loading, error };
+    return { members, loading, error, onRouterProfile };
 }

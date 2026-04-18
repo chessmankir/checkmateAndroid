@@ -19,7 +19,8 @@ type DuplicateMember = {
 
 export function useDuplicatesCard() {
     const { cardid } = useLocalSearchParams<{ cardid?: string }>();
-
+    console.log('card id');
+    console.log(cardid);
     const [card, setCard] = useState<CardType | null>(null);
     const [members, setMembers] = useState<DuplicateMember[]>([]);
     const [loading, setLoading] = useState(true);
@@ -31,28 +32,33 @@ export function useDuplicatesCard() {
             try {
                 setLoading(true);
 
-                const backend = "http://192.168.0.30:4000/api";
-
+                const backend = "http://192.168.0.30:4000";
+                console.log(`${backend}/api/card?card_id=${cardid}`);
+                console.log(`${backend}/api/get/usercard?card_id=${cardid}`);
                 const [cardRes, membersRes] = await Promise.all([
-                    fetch(`${backend}/card?card_id=${cardid}`, {
+                    fetch(`${backend}/api/card?card_id=${cardid}`, {
                         credentials: "include",
                     }),
-                    fetch(`${backend}/get/usercard?cardid=${cardid}`, {
+                    fetch(`${backend}/api/get/usercard?card_id=${cardid}`, {
                         credentials: "include",
                     }),
                 ]);
-
+                console.log('pre');
+                console.log(cardRes);
+                console.log('members');
+                console.log(membersRes);
                 const cardData = await cardRes.json();
                 const membersData = await membersRes.json();
-
+                console.log("cardData", cardData);
+                console.log("membersData", membersData);
                 if (cardData?.ok) {
                     console.log('cardData');
-                    setCard(cardData.card ?? null);
+                    setCard(cardData.data ?? null);
                 }
 
                 if (membersData?.ok) {
                     console.log('members');
-                    setMembers(membersData.members ?? []);
+                    setMembers(membersData.data ?? []);
                 }
             } catch (e) {
                 console.log("useDuplicatesCard error", e);

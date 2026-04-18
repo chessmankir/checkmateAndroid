@@ -19,7 +19,7 @@ export function useCardModal(){
     const handleFind = () => {
         if (!selectedCard) return;
         closeCardModal();
-        router.push(`/duplicates?cardid=${selectedCard.id}`);
+        router.push(`/(tabs)/duplicates?cardid=${selectedCard.id}`);
     };
 
     return {selectedCard, modalVisible, openCardModal, closeCardModal, handleFind}

@@ -2,8 +2,15 @@ import {Pressable, Text, View} from "react-native";
 import {styles} from "@/src/StyleSheets/PlayerCard.styles";
 import {Ionicons} from "@expo/vector-icons";
 import React from "react";
+import {router} from "expo-router";
 
 export function PlayerBottom({member}) {
+
+    const onRouterProfile = (id) => {
+        console.log(id);
+        // router.push(`/profile/${id}`);
+    }
+    console.log(member);
     return (
         <View style={styles.cardBottom}>
             <View style={styles.onlineBox}>
@@ -18,7 +25,7 @@ export function PlayerBottom({member}) {
             </View>
 
             <View style={styles.actionRow}>
-                <Pressable
+                <Pressable onPress={() => onRouterProfile(member.id)}
                     style={styles.secondaryButton}
                    /* onPress={() => onProfilePress?.(member)}*/
                 >

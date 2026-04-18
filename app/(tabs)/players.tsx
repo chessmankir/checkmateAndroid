@@ -20,7 +20,7 @@ export default function PlayersScreen() {
     const [search, setSearch] = useState("");
     const [activeFilter, setActiveFilter] = useState<FilterType>("Все");
 
-    const { members } = useMember();
+    const { members, onRouterProfile } = useMember();
 
     const renderMember = ({ item }: { item: MemberType }) => (
         <PlayerCard member={item} />

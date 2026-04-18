@@ -45,6 +45,15 @@ export default function TabLayout() {
                     ),
                 }}
             />
+
+            <Tabs.Screen
+                name="duplicates"
+                options={{
+                    href: null,
+                    headerShown: false,
+                }}
+            />
+
         </Tabs>
     );
 }
