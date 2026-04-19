@@ -5,9 +5,10 @@ import {router} from "expo-router";
 export function MyClanProfile({member, isSmallPhone}){
 
     const openProfile = (pubg_id) => {
+        console.log(pubg_id);
         router.push({
                 pathname: `/profile/[pubg_id]`,
-                params: {pubg_id: String(member.pubg_id)}
+                params: {pubg_id: String(pubg_id)}
             }
         );
     }
