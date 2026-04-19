@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, ScrollView, Text, View } from "react-native";
+import {ActivityIndicator, Pressable, ScrollView, Text, View} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { ProfileHeader } from "@/src/components/Profie/ProfileHeader";
@@ -20,6 +20,10 @@ export default function MemberProfileScreen() {
     const { pubg_id } = useLocalSearchParams<{ pubg_id: string }>();
     const [member, setMember] = useState<MemberProfile | null>(null);
     const [loading, setLoading] = useState(true);
+
+    const onPressMessage = () => {
+        console.log("onPressMessage");
+    }
 
     useEffect(() => {
         const loadMember = async () => {
