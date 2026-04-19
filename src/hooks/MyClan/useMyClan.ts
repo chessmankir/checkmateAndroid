@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import {MemberType} from "@/src/types/MemberType";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import {BASE_URL} from "@/src/config/api";
 
 export function useMyClan(){
     const [myClans, setMyClans] = useState([]);
@@ -11,7 +12,6 @@ export function useMyClan(){
 
     const handleSearch = (search) => {
         setSearchData(search);
-        const BASE_URL = process.env.EXPO_PUBLIC_API_URL;
         const backend = `${BASE_URL}/api/android/clanmember`;
         (async ()=> {
             try {
@@ -42,7 +42,6 @@ export function useMyClan(){
 
     useEffect(() => {
         (async () => {
-            const BASE_URL = process.env.EXPO_PUBLIC_API_URL;
             const backend = `${BASE_URL}/api/android/myclan`;
             try {
                 const userText = await AsyncStorage.getItem("user");
@@ -71,7 +70,6 @@ export function useMyClan(){
 
     useEffect(() => {
         (async () => {
-            const BASE_URL = process.env.EXPO_PUBLIC_API_URL;
             const backend = `${BASE_URL}/api/android/clanmember`;
             try {
                 const userText = await AsyncStorage.getItem("user");

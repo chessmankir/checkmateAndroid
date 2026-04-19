@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useLocalSearchParams } from "expo-router";
 import { CardType } from "@/src/types/CardType";
+import {BASE_URL} from "@/src/config/api";
 
 type MissingCard = {
     id: number;
@@ -30,12 +31,11 @@ export function useDuplicatesCard() {
             try {
                 setLoading(true);
 
-                const backend = process.env.EXPO_PUBLIC_API_URL;
                 const [cardRes, membersRes] = await Promise.all([
-                    fetch(`${backend}/api/card?card_id=${cardid}`, {
+                    fetch(`${BASE_URL}/api/card?card_id=${cardid}`, {
                         credentials: "include",
                     }),
-                    fetch(`${backend}/api/get/usercard?card_id=${cardid}`, {
+                    fetch(`${BASE_URL}/api/get/usercard?card_id=${cardid}`, {
                         credentials: "include",
                     }),
                 ]);

@@ -2,6 +2,7 @@ import {styles} from "@/src/StyleSheets/cards";
 import {Image, Pressable, Text, View} from "react-native";
 import React from "react";
 import {CardType} from "@/src/types/CardType";
+import {BASE_URL} from "@/src/config/api";
 
 
 type Props = {
@@ -12,7 +13,6 @@ type Props = {
     removeCard: (card_id) => void;
 };
 
-const BASE_URL = process.env.EXPO_PUBLIC_API_URL;
 
 function getCardImageSource(imageSrc?: string) {
     if (!imageSrc) return null;

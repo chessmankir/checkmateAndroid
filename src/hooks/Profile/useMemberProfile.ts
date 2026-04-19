@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import {BASE_URL} from "@/src/config/api";
 
 export function useMemberProfile(pubgId?: string) {
     const [member, setMember] = useState<any>(null);
@@ -7,7 +8,6 @@ export function useMemberProfile(pubgId?: string) {
     useEffect(() => {
         const loadMember = async () => {
             if (!pubgId) return;
-            const BASE_URL = process.env.EXPO_PUBLIC_API_URL;
             try {
                 const response = await fetch(
                     `${BASE_URL}/api/members?pubg_id=${pubgId}`,

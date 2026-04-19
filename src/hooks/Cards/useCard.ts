@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {CardType} from "@/src/types/CardType";
+import {BASE_URL} from "@/src/config/api";
 
 export function useCard() {
     const [albums, setAlbums] = useState([]);
@@ -8,7 +9,6 @@ export function useCard() {
     const [cards, setCards] = useState<CardType[]>([]);
 
     const addCard = (card_id) => {
-        const BASE_URL = process.env.EXPO_PUBLIC_API_URL;
         const backend = `${BASE_URL}/api/android/add/card`;
 
         (async () => {
@@ -48,7 +48,6 @@ export function useCard() {
     }
 
     const removeCard = (card_id) => {
-        const BASE_URL = process.env.EXPO_PUBLIC_API_URL;
         const backend = `${BASE_URL}/api/android/remove/card`;
 
         (async () => {
@@ -90,7 +89,6 @@ export function useCard() {
     }
 
     useEffect(() => {
-        const BASE_URL = process.env.EXPO_PUBLIC_API_URL;
         const backend = `${BASE_URL}/api/albums`;
 
         (async () => {
@@ -107,7 +105,6 @@ export function useCard() {
     }, []);
 
     useEffect(() => {
-        const BASE_URL = process.env.EXPO_PUBLIC_API_URL;
         const backend = `${BASE_URL}/api/android/cards/${selectedAlbum}`;
         (async () => {
             try {

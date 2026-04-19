@@ -4,6 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { ProfileHeader } from "@/src/components/Profie/ProfileHeader";
 import { styles } from "@/src/StyleSheets/profile";
+import {BASE_URL} from "@/src/config/api";
 
 type MemberProfile = {
     id: number;
@@ -16,7 +17,7 @@ type MemberProfile = {
     modes?: string[];
 };
 
-const BASE_URL = process.env.EXPO_PUBLIC_API_URL;
+
 
 export default function MemberProfileScreen() {
     const { pubg_id } = useLocalSearchParams<{ pubg_id: string }>();
@@ -38,7 +39,6 @@ export default function MemberProfileScreen() {
                 );
 
                 const data = await response.json();
-                console.log(data);
                 if (data.ok) {
                     const currentMember = Array.isArray(data.data) ? data.data[0] : data.data;
                     setMember(currentMember ?? null);

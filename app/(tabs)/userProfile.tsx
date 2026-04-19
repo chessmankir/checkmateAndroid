@@ -5,6 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { styles } from "@/src/StyleSheets/profile";
 import { ProfileHeader } from "@/src/components/Profie/ProfileHeader";
 import { ProfileClanTab } from "@/src/components/CLanMember/ProfileClanTab";
+import {BASE_URL} from "@/src/config/api";
 
 type MemberProfile = {
     id: number;
@@ -18,8 +19,6 @@ type MemberProfile = {
     clan_id?: number;
     clan_name?: string;
 };
-
-const BASE_URL = process.env.EXPO_PUBLIC_API_URL;
 
 export default function MemberProfileScreen() {
     const { pubg_id } = useLocalSearchParams<{ pubg_id: string }>();

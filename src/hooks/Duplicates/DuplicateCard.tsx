@@ -1,8 +1,7 @@
 import {styles} from "@/src/StyleSheets/duplicates";
 import {Image, Text, View} from "react-native";
 import React from "react";
-
-const BASE_URL = process.env.EXPO_PUBLIC_API_URL;
+import {BASE_URL} from "@/src/config/api";
 
 function getCardImageSource(imageSrc?: string) {
     if (!imageSrc) return null;

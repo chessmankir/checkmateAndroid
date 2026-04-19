@@ -17,8 +17,8 @@ import {DuplicateHeader} from "@/src/hooks/Duplicates/DuplicateHeader";
 import {DuplicateCard} from "@/src/hooks/Duplicates/DuplicateCard";
 import {DuplicateCardTop} from "@/src/hooks/Duplicates/DuplicateCardTop";
 import {DuplicateSearch} from "@/src/hooks/Duplicates/DuplicateSearch";
+import {BASE_URL} from "@/src/config/api";
 
-const BASE_URL = process.env.EXPO_PUBLIC_API_URL;
 
 function getCardImageSource(imageSrc?: string) {
     if (!imageSrc) return null;

@@ -3,6 +3,7 @@ import {MemberType} from "@/src/types/MemberType";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {Alert} from "react-native";
 import {fetch} from "expo/fetch";
+import {BASE_URL} from "@/src/config/api";
 
 export function useProfile(){
     const initialProfile = {
@@ -26,8 +27,6 @@ export function useProfile(){
     };
 
     useEffect(() => {
-       // const BASE_URL = process.env.EXPO_PUBLIC_API_URL;
-       // const backend = `${BASE_URL}/api/members?pubg_id=5`;
         const loadUser = (async() => {
             const userData = await AsyncStorage.getItem('user');
         /*    AsyncStorage.removeItem("user");*/
@@ -44,7 +43,6 @@ export function useProfile(){
     }
 
     const updateProfile = async () => {
-        const BASE_URL = process.env.EXPO_PUBLIC_API_URL;
         const backend = `${BASE_URL}/api/update/member`;
         try {
             const response = await fetch(backend, {

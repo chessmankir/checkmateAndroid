@@ -2,6 +2,7 @@ import {useAuthStore} from "@/src/store/authStore";
 import {useState} from "react";
 import {router} from "expo-router";
 import {Alert} from "react-native";
+import {BASE_URL} from "@/src/config/api";
 
 export function  useLogin(){
     const setUser = useAuthStore((state) => state.setUser);
@@ -11,7 +12,6 @@ export function  useLogin(){
         if(!pubgId.trim()){
             Alert.alert("Ошибка", "Введите Pubg Id");
         }
-        const BASE_URL = process.env.EXPO_PUBLIC_API_URL;
         const backend = `${BASE_URL}/api/android/login`;
         try {
 
