@@ -14,7 +14,6 @@ export function PlayerBottom({member}) {
         }
         );
     }
-    console.log(member);
     return (
         <View style={styles.cardBottom}>
             <View style={styles.onlineBox}>

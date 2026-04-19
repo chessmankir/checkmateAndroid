@@ -37,8 +37,6 @@ function getCardImageSource(imageSrc?: string) {
 export default function DuplicatesScreen() {
     const router = useRouter();
     const {card, members, loading} = useDuplicatesCard();
-    console.log(card);
-    console.log(members);
 
     if (loading) {
         return (

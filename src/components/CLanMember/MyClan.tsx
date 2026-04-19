@@ -3,7 +3,6 @@ import {styles} from "@/src/StyleSheets/clanMembers";
 import React from "react";
 
 export  function MyClan({clan, isPhone, isActive}){
-    console.log(clan);
     return(
         <Pressable
             key={clan.id}

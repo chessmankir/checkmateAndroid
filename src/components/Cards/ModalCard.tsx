@@ -21,8 +21,6 @@ function getCardImageSource(imageSrc?: string) {
 export function ModalCard({selectedCard, modalVisible,  closeCardModal, handleFind}){
     const modalImageSource = true;
     const imageSrc = getCardImageSource(selectedCard?.imageSrc);
-    console.log(selectedCard);
-    console.log(imageSrc);
     return (
         <Modal
             visible={modalVisible}

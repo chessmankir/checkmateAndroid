@@ -71,9 +71,7 @@ export function useCard() {
 
                 });
                 const data = await response.json();
-                console.log(data);
                 if (data.ok) {
-                    console.log('data.ok');
                     const newCards = cards.map((card) => {
                         if (card.id != card_id) {
                             return card;
