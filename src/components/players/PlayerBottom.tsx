@@ -6,9 +6,9 @@ import {router} from "expo-router";
 
 export function PlayerBottom({member}) {
 
-    const onRouterProfile = (id) => {
-        console.log(id);
-        // router.push(`/profile/${id}`);
+    const onRouterProfile = (pubg_id) => {
+        console.log(pubg_id);
+        router.push(`/profile/${pubg_id}`);
     }
     console.log(member);
     return (
@@ -25,7 +25,7 @@ export function PlayerBottom({member}) {
             </View>
 
             <View style={styles.actionRow}>
-                <Pressable onPress={() => onRouterProfile(member.id)}
+                <Pressable onPress={() => onRouterProfile(member.pubg_id)}
                     style={styles.secondaryButton}
                    /* onPress={() => onProfilePress?.(member)}*/
                 >
