@@ -16,6 +16,8 @@ type MemberProfile = {
     modes?: string[];
 };
 
+const BASE_URL = process.env.EXPO_PUBLIC_API_URL;
+
 export default function MemberProfileScreen() {
     const { pubg_id } = useLocalSearchParams<{ pubg_id: string }>();
     const [member, setMember] = useState<MemberProfile | null>(null);
@@ -29,7 +31,7 @@ export default function MemberProfileScreen() {
         const loadMember = async () => {
             try {
                 const response = await fetch(
-                    `http://192.168.0.30:4000/api/members?pubg_id=${pubg_id}`,
+                    `${BASE_URL}/api/members?pubg_id=${pubg_id}`,
                     {
                         credentials: "include",
                     }

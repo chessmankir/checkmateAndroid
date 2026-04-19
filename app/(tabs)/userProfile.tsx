@@ -19,6 +19,8 @@ type MemberProfile = {
     clan_name?: string;
 };
 
+const BASE_URL = process.env.EXPO_PUBLIC_API_URL;
+
 export default function MemberProfileScreen() {
     const { pubg_id } = useLocalSearchParams<{ pubg_id: string }>();
     const [member, setMember] = useState<MemberProfile | null>(null);
@@ -27,7 +29,7 @@ export default function MemberProfileScreen() {
     useEffect(() => {
         const loadMember = async () => {
             try {
-                const backend = `http://192.168.0.30:4000/api/members?pubg_id=${pubg_id}`;
+                const backend = `${BASE_URL}/api/members?pubg_id=${pubg_id}`;
                 const response = await fetch(backend, {
                     credentials: "include",
                 });
