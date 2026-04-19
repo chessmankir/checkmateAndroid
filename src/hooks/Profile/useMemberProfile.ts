@@ -7,15 +7,13 @@ export function useMemberProfile(pubgId?: string) {
     useEffect(() => {
         const loadMember = async () => {
             if (!pubgId) return;
-
+            const BASE_URL = process.env.EXPO_PUBLIC_API_URL;
             try {
                 const response = await fetch(
-                    `http://192.168.0.30:4000/api/members?pubg_id=${pubgId}`,
+                    `${BASE_URL}/api/members?pubg_id=${pubgId}`,
                     { credentials: "include" }
                 );
                 const data = await response.json();
-                console.log('usr profile');
-                console.log(data);
                 if (data.ok) {
                     setMember(Array.isArray(data.data) ? data.data[0] : data.data);
                 }

@@ -12,7 +12,7 @@ type Props = {
     removeCard: (card_id) => void;
 };
 
-const BASE_URL = "http://192.168.0.30:4000";
+const BASE_URL = process.env.EXPO_PUBLIC_API_URL;
 
 function getCardImageSource(imageSrc?: string) {
     if (!imageSrc) return null;

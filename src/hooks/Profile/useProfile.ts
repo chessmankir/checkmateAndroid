@@ -26,7 +26,8 @@ export function useProfile(){
     };
 
     useEffect(() => {
-       // const backend = `http://192.168.0.30:4000/api/members?pubg_id=5`;
+       // const BASE_URL = process.env.EXPO_PUBLIC_API_URL;
+       // const backend = `${BASE_URL}/api/members?pubg_id=5`;
         const loadUser = (async() => {
             const userData = await AsyncStorage.getItem('user');
         /*    AsyncStorage.removeItem("user");*/
@@ -43,7 +44,8 @@ export function useProfile(){
     }
 
     const updateProfile = async () => {
-        const backend = `http://192.168.0.30:4000/api/update/member`;
+        const BASE_URL = process.env.EXPO_PUBLIC_API_URL;
+        const backend = `${BASE_URL}/api/update/member`;
         try {
             const response = await fetch(backend, {
                 method: "PUT",

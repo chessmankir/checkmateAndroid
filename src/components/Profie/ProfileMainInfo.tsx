@@ -9,10 +9,6 @@ import {ProfileStatusBlock} from "@/src/components/Profie/ProfileStatusBlock";
 import {ProfileModeBlock} from "@/src/components/Profie/ProfileModeBlock";
 import {ProfileMainButton} from "@/src/components/Profie/ProfileMainButton";
 
-/*function handleSave(){
-    console.log('save');
-}*/
-
 export function ProfileMainInfo({profileForm, statuses, availableModes, updateField , handleSave, onToggleMode}){
     return (
         <View style={styles.contentBlock}>

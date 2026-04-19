@@ -11,7 +11,8 @@ export function useMyClan(){
 
     const handleSearch = (search) => {
         setSearchData(search);
-        const backend = "http://192.168.0.30:4000/api/android/clanmember";
+        const BASE_URL = process.env.EXPO_PUBLIC_API_URL;
+        const backend = `${BASE_URL}/api/android/clanmember`;
         (async ()=> {
             try {
                 const userText = await AsyncStorage.getItem("user");
@@ -29,7 +30,6 @@ export function useMyClan(){
                     })
                 });
                 const data = await response.json();
-                console.log(data);
                 if(data.ok){
                     setClanMembers(data.members);
                 }
@@ -42,7 +42,8 @@ export function useMyClan(){
 
     useEffect(() => {
         (async () => {
-            const backend = "http://192.168.0.30:4000/api/android/myclan";
+            const BASE_URL = process.env.EXPO_PUBLIC_API_URL;
+            const backend = `${BASE_URL}/api/android/myclan`;
             try {
                 const userText = await AsyncStorage.getItem("user");
                 if(userText == null) return;
@@ -58,7 +59,6 @@ export function useMyClan(){
                     })
                 });
                 const data = await response.json();
-                console.log(data);
                 if(data.ok){
                     setMyClans(data.clans);
                 }
@@ -71,12 +71,12 @@ export function useMyClan(){
 
     useEffect(() => {
         (async () => {
-            const backend = "http://192.168.0.30:4000/api/android/clanmember";
+            const BASE_URL = process.env.EXPO_PUBLIC_API_URL;
+            const backend = `${BASE_URL}/api/android/clanmember`;
             try {
                 const userText = await AsyncStorage.getItem("user");
                 if(userText == null) return;
                 const user = JSON.parse(userText);
-                console.log(user.clan_id);
                 const response = await fetch(backend, {
                     method: "POST",
                     headers: {

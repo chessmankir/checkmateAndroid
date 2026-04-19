@@ -11,7 +11,8 @@ export function  useLogin(){
         if(!pubgId.trim()){
             Alert.alert("Ошибка", "Введите Pubg Id");
         }
-        const backend = "http://192.168.0.30:4000/api/android/login";
+        const BASE_URL = process.env.EXPO_PUBLIC_API_URL;
+        const backend = `${BASE_URL}/api/android/login`;
         try {
 
             const response = await fetch(backend, {

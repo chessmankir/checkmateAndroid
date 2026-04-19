@@ -2,7 +2,7 @@ import {Image, Modal, Pressable, Text, View} from "react-native";
 import React from "react";
 import {styles} from "@/src/StyleSheets/cards";
 
-const BASE_URL = "http://192.168.0.30:4000";
+const BASE_URL = process.env.EXPO_PUBLIC_API_URL;
 
 function getCardImageSource(imageSrc?: string) {
     if (!imageSrc) return null;

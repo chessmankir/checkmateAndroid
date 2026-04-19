@@ -9,7 +9,6 @@ export function usePlayers() {
     const [error, setError] = useState<string | null>(null);
 
     const onRouterProfile = (id) => {
-        console.log(id)
       //  router.push(`/profile/${id}`);
     }
 

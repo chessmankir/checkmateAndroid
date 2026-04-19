@@ -8,8 +8,8 @@ export function useCard() {
     const [cards, setCards] = useState<CardType[]>([]);
 
     const addCard = (card_id) => {
-        console.log("addCard");
-        const backend = "http://192.168.0.30:4000/api/android/add/card";
+        const BASE_URL = process.env.EXPO_PUBLIC_API_URL;
+        const backend = `${BASE_URL}/api/android/add/card`;
 
         (async () => {
             try {
@@ -29,9 +29,7 @@ export function useCard() {
 
                 });
                 const data = await response.json();
-                console.log(data);
                 if (data.ok) {
-                    console.log('data.ok');
                     const newCards = cards.map((card) => {
                         if (card.id != card_id) {
                             return card;
@@ -50,8 +48,8 @@ export function useCard() {
     }
 
     const removeCard = (card_id) => {
-        console.log("removeCard");
-        const backend = "http://192.168.0.30:4000/api/android/remove/card";
+        const BASE_URL = process.env.EXPO_PUBLIC_API_URL;
+        const backend = `${BASE_URL}/api/android/remove/card`;
 
         (async () => {
             try {
@@ -92,7 +90,8 @@ export function useCard() {
     }
 
     useEffect(() => {
-        const backend = "http://192.168.0.30:4000/api/albums";
+        const BASE_URL = process.env.EXPO_PUBLIC_API_URL;
+        const backend = `${BASE_URL}/api/albums`;
 
         (async () => {
             try {
@@ -108,7 +107,8 @@ export function useCard() {
     }, []);
 
     useEffect(() => {
-        const backend = `http://192.168.0.30:4000/api/android/cards/${selectedAlbum}`;
+        const BASE_URL = process.env.EXPO_PUBLIC_API_URL;
+        const backend = `${BASE_URL}/api/android/cards/${selectedAlbum}`;
         (async () => {
             try {
                 const dataUser = await AsyncStorage.getItem("user");

@@ -5,7 +5,8 @@ export function useMember(){
     const [members, setMembers] = useState<MemberType[]>([]);
     useEffect(() => {
         (async () => {
-            const backend = "http://192.168.0.30:4000/api/members?limit=5";
+            const BASE_URL = process.env.EXPO_PUBLIC_API_URL;
+            const backend = `${BASE_URL}/api/members?limit=5`;
             try{
                 const response = await fetch(backend,{
                     credentials: "include",
