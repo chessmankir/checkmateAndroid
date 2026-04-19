@@ -23,16 +23,20 @@ export const useAuthStore = create<AuthState>((set) => ({
     isLoading: true,
 
     setUser: async (user) => {
-        if (user) {
-            await AsyncStorage.setItem("user", JSON.stringify(user));
-        } else {
-            await AsyncStorage.removeItem("user");
-        }
+        try {
+            if (user) {
+                await AsyncStorage.setItem("user", JSON.stringify(user));
+            } else {
+                await AsyncStorage.removeItem("user");
+            }
 
-        set({
-            user,
-            isAuth: !!user,
-        });
+            set({
+                user,
+                isAuth: !!user,
+            });
+        } catch (error) {
+            console.log("setUser error:", error);
+        }
     },
 
     setLoading: (value) =>
@@ -44,24 +48,41 @@ export const useAuthStore = create<AuthState>((set) => ({
         try {
             const rawUser = await AsyncStorage.getItem("user");
 
-            if (rawUser) {
-                const user = JSON.parse(rawUser) as UserType;
-
+            if (!rawUser) {
                 set({
-                    user,
-                    isAuth: true,
+                    user: null,
+                    isAuth: false,
+                    isLoading: false,
+                });
+                return;
+            }
+
+            const parsed = JSON.parse(rawUser);
+
+            const isValidUser =
+                parsed &&
+                typeof parsed === "object" &&
+                typeof parsed.id === "number" &&
+                typeof parsed.pubg_id === "string";
+
+            if (!isValidUser) {
+                await AsyncStorage.removeItem("user");
+                set({
+                    user: null,
+                    isAuth: false,
                     isLoading: false,
                 });
                 return;
             }
 
             set({
-                user: null,
-                isAuth: false,
+                user: parsed,
+                isAuth: true,
                 isLoading: false,
             });
         } catch (error) {
             console.log("restoreAuth error:", error);
+            await AsyncStorage.removeItem("user");
 
             set({
                 user: null,
