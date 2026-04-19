@@ -399,4 +399,22 @@ export const styles = StyleSheet.create({
         fontSize: 14,
         lineHeight: 20,
     },
+    messageButton: {
+        marginTop: 4,
+        backgroundColor: "#2563eb",
+        borderRadius: 18,
+        paddingVertical: 16,
+        alignItems: "center",
+        justifyContent: "center",
+        shadowColor: "#000",
+        shadowOpacity: 0.2,
+        shadowRadius: 8,
+        shadowOffset: { width: 0, height: 4 },
+        elevation: 4,
+    },
+    messageButtonText: {
+        color: "#ffffff",
+        fontSize: 16,
+        fontWeight: "700",
+    },
 });
