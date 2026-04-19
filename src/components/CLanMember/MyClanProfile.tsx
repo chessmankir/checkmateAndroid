@@ -1,7 +1,16 @@
 import {styles} from "@/src/StyleSheets/clanMembers";
 import {Pressable, Text, View} from "react-native";
 import React from "react";
+import {router} from "expo-router";
 export function MyClanProfile({member, isSmallPhone}){
+
+    const openProfile = (pubg_id) => {
+        router.push({
+                pathname: `/profile/[pubg_id]`,
+                params: {pubg_id: String(member.pubg_id)}
+            }
+        );
+    }
     return (
         <Pressable style={styles.memberRow}>
             <View style={styles.memberRowLeft}>
@@ -35,7 +44,7 @@ export function MyClanProfile({member, isSmallPhone}){
                 </View>
             </View>
 
-            <Pressable style={styles.miniProfileButton}>
+            <Pressable style={styles.miniProfileButton} onPress={()=>openProfile(member.pubg_id)}>
                 <Text style={styles.miniProfileButtonText}>Профиль</Text>
             </Pressable>
         </Pressable>
