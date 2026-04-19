@@ -8,7 +8,11 @@ export function PlayerBottom({member}) {
 
     const onRouterProfile = (pubg_id) => {
         console.log(pubg_id);
-        router.push(`/profile/${pubg_id}`);
+        router.push({
+            pathname: `/profile/[pubg_id]`,
+            params: {pubg_id: String(member.pubg_id)}
+        }
+        );
     }
     console.log(member);
     return (

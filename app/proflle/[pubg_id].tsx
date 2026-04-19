@@ -21,6 +21,7 @@ type MemberProfile = {
 
 export default function MemberProfileScreen() {
     const { pubg_id } = useLocalSearchParams<{ pubg_id: string }>();
+    console.log("MemberProfileScreen");
     console.log(pubg_id);
     const [member, setMember] = useState<MemberProfile | null>(null);
     const [loading, setLoading] = useState(true);

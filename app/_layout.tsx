@@ -15,9 +15,7 @@ export default function RootLayout() {
 
     useEffect(() => {
         if (isLoading) return;
-        if (isLoading) return;
 
-        const inTabsGroup = segments[0] === "(tabs)";
         const inLoginPage = segments[0] === "login";
 
         if (!isAuth && !inLoginPage) {
@@ -25,7 +23,7 @@ export default function RootLayout() {
             return;
         }
 
-        if (isAuth && !inTabsGroup) {
+        if (isAuth && inLoginPage) {
             router.replace("/(tabs)/players");
         }
     }, [isAuth, isLoading, segments]);

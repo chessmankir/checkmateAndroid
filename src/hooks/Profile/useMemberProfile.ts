@@ -14,7 +14,8 @@ export function useMemberProfile(pubgId?: string) {
                     { credentials: "include" }
                 );
                 const data = await response.json();
-
+                console.log('usr profile');
+                console.log(data);
                 if (data.ok) {
                     setMember(Array.isArray(data.data) ? data.data[0] : data.data);
                 }
