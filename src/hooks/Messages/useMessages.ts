@@ -17,7 +17,6 @@ export function useMessages() {
     }
 
     useEffect(() => {
-        console.log(id);
         const backend = BASE_URL + `/api/conversations/android/${id}/messages`;
         (async() => {
             const response = await fetch(backend, {
@@ -26,19 +25,31 @@ export function useMessages() {
                 headers: {
                     "Content-Type": "application/json",
                 },
+                body: JSON.stringify({
+                    userid: 34
+                })
             });
-            return;
             const data = await response.json();
-            console.log('messages');
-            console.log(data);
+            if(data.ok){
+                const updatedMessages = data.messages.map((message: Message) => ({
+                    ...message,
+                    time: new Date(message.created_at).toLocaleTimeString([], {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                    }),
+                }));
+
+                setMessages(updatedMessages);
+            }
         })();
     }, []);
 
     useEffect(() => {
         console.log(id);
-        const backend = BASE_URL + `/api/android/conversations${id}`;
+        const backend = BASE_URL + `/api/android/conversations/${id}`;
         (async() => {
             const userData = await AsyncStorage.getItem("user");
+            if(!userData) return;
             const user = JSON.parse(userData);
 
             const response = await fetch(backend, {
@@ -51,13 +62,15 @@ export function useMessages() {
                     userid: user.id
                 })
             });
-            return;
             const data = await response.json();
             console.log('converations');
             console.log(data);
+            if(data.ok){
+                setConversation(data.data);
+            }
         })();
     }, []);
 
 
-    return { text, setText, onHandleMessage};
+    return { text, setText, messages, onHandleMessage, conversation};
 }

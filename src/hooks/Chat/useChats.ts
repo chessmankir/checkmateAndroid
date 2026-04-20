@@ -14,13 +14,10 @@ export function useChats() {
 
     useEffect(() => {
         const backend = BASE_URL + "/api/android/conversations";
-        console.log(backend);
         (async() => {
             const userData = await AsyncStorage.getItem("user");
-            console.log(userData);
             if(!userData) return;
             const user = JSON.parse(userData);
-            console.log(user.id);
             try {
                 const data = await fetch(backend, {
                     credentials: "include",
@@ -33,10 +30,7 @@ export function useChats() {
                     })
                 });
                 const response = await data.json();
-                console.log("response");
-                console.log(response);
                 if(response.ok) {
-                    console.log( response.conversations);
                     setChats(response.conversations)
                 }
             }

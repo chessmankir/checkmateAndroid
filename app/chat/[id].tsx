@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import {
     FlatList,
     KeyboardAvoidingView,
@@ -16,6 +16,8 @@ import {styles} from "@/src/StyleSheets/message";
 import {useMessages} from "@/src/hooks/Messages/useMessages";
 import {MessageHeader} from "@/src/components/Message/MessageHeader";
 import {MessageSend} from "@/src/components/Message/MessageSend";
+import {awaitExpression} from "@babel/types";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type Message = {
     id: string;
@@ -24,59 +26,33 @@ type Message = {
     isMine: boolean;
 };
 
-type ChatUser = {
-    id: string;
-    name: string;
-    lastSeen: string;
-};
-
-const fakeUsers: ChatUser[] = [
-    { id: "1", name: "CM×Funtik×", lastSeen: "была 5 мин назад" },
-    { id: "2", name: "Vetrel", lastSeen: "был сегодня в 22:15" },
-    { id: "3", name: "TatiZavr", lastSeen: "была недавно" },
-    { id: "4", name: "AnTOnY", lastSeen: "был вчера" },
-];
-
-const fakeMessagesMap: Record<string, Message[]> = {
-    "1": [
-        { id: "1", text: "нихао", time: "23:22", isMine: false },
-        { id: "2", text: "о, работает", time: "23:23", isMine: false },
-        { id: "3", text: "дратути", time: "23:36", isMine: false },
-        { id: "4", text: "Здорово, вроде работает", time: "01:23", isMine: true },
-        {
-            id: "5",
-            text: "Я просто базу поменял на другую",
-            time: "01:23",
-            isMine: true,
-        },
-    ],
-    "2": [
-        { id: "1", text: "Ты сегодня играешь?", time: "21:50", isMine: false },
-        { id: "2", text: "Да, после 10 буду", time: "21:55", isMine: true },
-    ],
-    "3": [
-        { id: "1", text: "Сделай обложку без текста", time: "20:40", isMine: false },
-        { id: "2", text: "Ок, сейчас сделаю", time: "20:41", isMine: true },
-    ],
-    "4": [
-        { id: "1", text: "Надо обсудить турнир", time: "Вчера", isMine: false },
-    ],
-};
-
 export default function ChatDetailsScreen() {
-    const { id } = useLocalSearchParams<{ id: string }>();
-    const { text, setText, onHandleMessage} = useMessages();
+    const { text, setText, onHandleMessage, messages, setMessages, conversation} = useMessages();
+    const [user, setUser] = useState<any>(null);
+    const [loading, setLoading] = useState(true);
+    // Загружаем пользователя из AsyncStorage
+    useEffect(() => {
+        const loadUser = async () => {
+            try {
+                const userData = await AsyncStorage.getItem("user");
+                if (userData) {
+                    const parsedUser = JSON.parse(userData);
+                    setUser(parsedUser);
+                } else {
+                    console.log("Пользователь не найден в AsyncStorage");
+                    // Можно сделать редирект на логин, если нужно
+                }
+            } catch (e) {
+                console.log("Ошибка при чтении пользователя:", e);
+            } finally {
+                setLoading(false);
+            }
+        };
 
-    const user = useMemo(
-        () => fakeUsers.find((item) => item.id === id) ?? fakeUsers[0],
-        [id]
-    );
+        loadUser();
+    }, []);
 
-    const [messages, setMessages] = useState<Message[]>(
-        fakeMessagesMap[id as string] ?? []
-    );
-
-    const handleSend = () => {
+ /*   const handleSend = () => {
         const value = text.trim();
         if (!value) return;
 
@@ -89,7 +65,7 @@ export default function ChatDetailsScreen() {
 
         setMessages((prev) => [...prev, newMessage]);
         setText("");
-    };
+    };*/
 
     return (
         <SafeAreaView style={styles.container}>
@@ -98,7 +74,7 @@ export default function ChatDetailsScreen() {
                 behavior={Platform.OS === "ios" ? "padding" : undefined}
                 keyboardVerticalOffset={Platform.OS === "ios" ? 90 : 0}
             >
-                <MessageHeader user={user} />)
+                <MessageHeader conversation={conversation} />
 
                 <FlatList
                     data={messages}
@@ -108,7 +84,7 @@ export default function ChatDetailsScreen() {
                         <View
                             style={[
                                 styles.messageRow,
-                                item.isMine ? styles.messageRowMine : styles.messageRowOther,
+                                user.id == item.sender_id ? styles.messageRowMine : styles.messageRowOther,
                             ]}
                         >
                             <View
@@ -117,14 +93,14 @@ export default function ChatDetailsScreen() {
                                     item.isMine ? styles.messageBubbleMine : styles.messageBubbleOther,
                                 ]}
                             >
-                                <Text style={styles.messageText}>{item.text}</Text>
+                                <Text style={styles.messageText}>{item.body}</Text>
                                 <Text style={styles.messageTime}>{item.time}</Text>
                             </View>
                         </View>
                     )}
                 />
 
-              {/*  <MessageSend text={text} setText={setText} handleSend={handleSend} />*/}
+                <MessageSend text={text} setText={setText} handleSend={onHandleMessage} />
             </KeyboardAvoidingView>
         </SafeAreaView>
     );

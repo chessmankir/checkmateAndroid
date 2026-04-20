@@ -4,9 +4,6 @@ import {router} from "expo-router";
 import React from "react";
 
 export function ChatItem({chat}){
-    console.log("ChatItem");
-    console.log(chat);
-    console.log(chat.conversation_id);
     return (
         <Pressable
             style={styles.chatCard}
