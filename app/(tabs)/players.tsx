@@ -2,7 +2,7 @@ import React, { useMemo, useState } from "react";
 import {
     FlatList,
     Pressable,
-    ScrollView,
+    ScrollView, StyleSheet,
     Text,
     TextInput,
     View,
@@ -10,7 +10,7 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { useMember } from "@/src/hooks/Members/useMember";
 import { MemberType } from "@/src/types/MemberType";
-import { styles } from "@/app/(tabs)/styles";
+import { styles } from "@/src/StyleSheets/playerStyles"
 import {PlayerCard} from "@/src/components/players/PlayerCard";
 
 const filters = ["Все", "Classic", "Metro", "TDM"] as const;

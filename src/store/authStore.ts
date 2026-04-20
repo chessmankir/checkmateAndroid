@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import {getSocket} from "@/src/libs/socket";
 
 type UserType = {
     id: number;

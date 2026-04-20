@@ -2,6 +2,7 @@ import {Image, Modal, Pressable, Text, View} from "react-native";
 import React from "react";
 import {styles} from "@/src/StyleSheets/cards";
 import {BASE_URL} from "@/src/config/api";
+import {ModalCardImage} from "@/src/components/Cards/ModalCardImage";
 
 function getCardImageSource(imageSrc?: string) {
     if (!imageSrc) return null;
@@ -36,18 +37,7 @@ export function ModalCard({selectedCard, modalVisible,  closeCardModal, handleFi
                         <Text style={styles.modalCloseText}>×</Text>
                     </Pressable>
 
-                    <View style={styles.modalImageWrap}>
-                        {modalImageSource ? (
-                            <Image
-                                source={imageSrc}
-                                style={styles.modalImage}
-                            />
-                        ) : (
-                            <View style={styles.imageFallback}>
-                                <Text style={styles.imageFallbackText}>Нет фото</Text>
-                            </View>
-                        )}
-                    </View>
+                    <ModalCardImage modalImageSource={modalImageSource} imageSrc={imageSrc} />
 
                     <Text style={styles.modalTitle}>
                         {selectedCard?.name}

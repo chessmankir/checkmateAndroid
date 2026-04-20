@@ -1,8 +1,16 @@
 import React from "react";
 import { Tabs } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
+import {useAuthStore} from "@/src/store/authStore";
+import {useSocket} from "@/src/hooks/Socket/useSocket";
 
 export default function TabLayout() {
+    const user = useAuthStore((state) => state.user);
+
+    useSocket({
+        userId: user?.id,
+    });
+
     return (
         <Tabs
             screenOptions={{
@@ -35,7 +43,6 @@ export default function TabLayout() {
                 }}
             />
 
-
             <Tabs.Screen
                 name="profile"
                 options={{
@@ -53,10 +60,28 @@ export default function TabLayout() {
                     headerShown: false,
                 }}
             />
+
             <Tabs.Screen
                 name="userProfile"
                 options={{
                     href: null,
+                }}
+            />
+
+            <Tabs.Screen
+                name="index"
+                options={{
+                    href: null, // 👈 скрывает из табов
+                }}
+            />
+
+            <Tabs.Screen
+                name="chat"
+                options={{
+                    title: "Чат",
+                    tabBarIcon: ({ color, size }) => (
+                        <Ionicons name="chatbubbles-outline" size={size} color={color} />
+                    ),
                 }}
             />
 

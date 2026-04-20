@@ -6,6 +6,7 @@ import { styles } from "@/src/StyleSheets/profile";
 import { ProfileHeader } from "@/src/components/Profie/ProfileHeader";
 import { ProfileClanTab } from "@/src/components/CLanMember/ProfileClanTab";
 import {BASE_URL} from "@/src/config/api";
+import {UserProfileMain} from "@/src/UserProfile/UserProfileMain";
 
 type MemberProfile = {
     id: number;
@@ -71,20 +72,7 @@ export default function MemberProfileScreen() {
         <SafeAreaView style={styles.container}>
             <ScrollView contentContainerStyle={{ paddingBottom: 24 }}>
                 <ProfileHeader profileForm={member} />
-
-                <View style={styles.sectionCard}>
-                    <Text style={styles.sectionTitle}>Основная информация</Text>
-                    <Text style={styles.infoText}>Ник: {member.nickname || "—"}</Text>
-                    <Text style={styles.infoText}>PUBG ID: {member.pubg_id || "—"}</Text>
-                    <Text style={styles.infoText}>Имя: {member.name || "—"}</Text>
-                    <Text style={styles.infoText}>Возраст: {member.age || "—"}</Text>
-                    <Text style={styles.infoText}>Город: {member.city || "—"}</Text>
-                    <Text style={styles.infoText}>Статус: {member.status || "—"}</Text>
-                    <Text style={styles.infoText}>
-                        Режимы: {member.modes?.length ? member.modes.join(", ") : "—"}
-                    </Text>
-                </View>
-
+                <UserProfileMain member={member} />
                 <ProfileClanTab />
             </ScrollView>
         </SafeAreaView>

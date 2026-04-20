@@ -32,19 +32,8 @@ export default function ProfileScreen() {
 
     return (
         <SafeAreaView style={styles.safeArea} edges={["top"]}>
-      {/*      <ScrollView
-                style={styles.screen}
-                contentContainerStyle={styles.scrollContent}
-                showsVerticalScrollIndicator={false}
-                stickyHeaderIndices={[1]}
-            >*/}
                <ProfileHeader profileForm={profile} />
-
                 <ProfileTabs topTabs={topTabs} activeTab={activeTab} setActiveTab={setActiveTab} />
-
-                {/*<ProfileMainInfo profileForm={profile} statuses={statuses} availableModes={availableModes}
-                                 handleSave={handleSave} updateField={updateField} onToggleMode={onToggleMode}/>*/}
-
                 {activeTab === "Профиль" ? (
                     <View>
                         <ProfileMainInfo
