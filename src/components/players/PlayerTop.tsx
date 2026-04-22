@@ -3,17 +3,18 @@ import React from "react";
 import { styles } from "@/src/StyleSheets/PlayerCard.styles";
 
 export function PlayerTop ({member}){
+    console.log(member);
     return (
         <View style={styles.cardTop}>
             <View style={styles.avatar}>
                 <Text style={styles.avatarText}>
-                    {member.nickname.charAt(0).toUpperCase()}
+                    {member?.nickname.charAt(0).toUpperCase()}
                 </Text>
             </View>
 
             <View style={styles.cardInfo}>
                 <View style={styles.nameRow}>
-                    <Text style={styles.nickname}>{member.nickname}</Text>
+                    <Text style={styles.nickname}>{member?.nickname}</Text>
                     <View
                         style={[
                             styles.statusDot,

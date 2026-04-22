@@ -6,7 +6,6 @@ import {useSocket} from "@/src/hooks/Socket/useSocket";
 
 export default function TabLayout() {
     const user = useAuthStore((state) => state.user);
-
     useSocket({
         userId: user?.id,
     });

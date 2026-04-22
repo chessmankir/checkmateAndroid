@@ -17,22 +17,6 @@ import {DuplicateHeader} from "@/src/hooks/Duplicates/DuplicateHeader";
 import {DuplicateCard} from "@/src/hooks/Duplicates/DuplicateCard";
 import {DuplicateCardTop} from "@/src/hooks/Duplicates/DuplicateCardTop";
 import {DuplicateSearch} from "@/src/hooks/Duplicates/DuplicateSearch";
-import {BASE_URL} from "@/src/config/api";
-
-
-function getCardImageSource(imageSrc?: string) {
-    if (!imageSrc) return null;
-
-    if (imageSrc.startsWith("http://") || imageSrc.startsWith("https://")) {
-        return { uri: imageSrc };
-    }
-
-    if (imageSrc.startsWith("/")) {
-        return { uri: `${BASE_URL}${imageSrc}` };
-    }
-
-    return { uri: `${BASE_URL}/${imageSrc}` };
-}
 
 export default function DuplicatesScreen() {
     const router = useRouter();

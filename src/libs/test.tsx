@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {
     FlatList,
     KeyboardAvoidingView,
@@ -7,30 +7,30 @@ import {
     Text,
     View,
 } from "react-native";
-import { styles } from "@/src/StyleSheets/message";
-import { useMessages } from "@/src/hooks/Messages/useMessages";
-import { MessageHeader } from "@/src/components/Message/MessageHeader";
-import { MessageSend } from "@/src/components/Message/MessageSend";
+import {styles} from "@/src/StyleSheets/message";
+import {useMessages} from "@/src/hooks/Messages/useMessages";
+import {MessageHeader} from "@/src/components/Message/MessageHeader";
+import {MessageSend} from "@/src/components/Message/MessageSend";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function ChatDetailsScreen() {
-    const { text, setText, onHandleMessage, messages, conversation } = useMessages();
+    const {text, setText, onHandleMessage, messages, conversation} = useMessages();
     const [user, setUser] = useState<any>(null);
+    const [loading, setLoading] = useState(true);
     const flatListRef = useRef<FlatList>(null);
 
     useEffect(() => {
         const loadUser = async () => {
             try {
                 const userData = await AsyncStorage.getItem("user");
-
                 if (userData) {
                     const parsedUser = JSON.parse(userData);
                     setUser(parsedUser);
-                } else {
-                    console.log("Пользователь не найден в AsyncStorage");
                 }
             } catch (e) {
                 console.log("Ошибка при чтении пользователя:", e);
+            } finally {
+                setLoading(false);
             }
         };
 
@@ -41,7 +41,7 @@ export default function ChatDetailsScreen() {
         if (!messages.length) return;
 
         const timer = setTimeout(() => {
-            flatListRef.current?.scrollToEnd({ animated: true });
+            flatListRef.current?.scrollToEnd({animated: true});
         }, 100);
 
         return () => clearTimeout(timer);
@@ -51,22 +51,20 @@ export default function ChatDetailsScreen() {
         <SafeAreaView style={styles.container}>
             <KeyboardAvoidingView
                 style={styles.container}
-                behavior={Platform.OS === "ios" ? "padding" : "height"}
-                keyboardVerticalOffset={Platform.OS === "ios" ? 90 : 20}
+                behavior={Platform.OS === "ios" ? "padding" : undefined}
+                keyboardVerticalOffset={Platform.OS === "ios" ? 90 : 0}
             >
-                <MessageHeader conversation={conversation} />
+                <MessageHeader conversation={conversation}/>
 
                 <FlatList
                     ref={flatListRef}
                     data={messages}
                     keyExtractor={(item) => String(item.id)}
-                    style={{ flex: 1 }}
                     contentContainerStyle={styles.messagesContent}
-                    keyboardShouldPersistTaps="handled"
                     onContentSizeChange={() =>
-                        flatListRef.current?.scrollToEnd({ animated: true })
+                        flatListRef.current?.scrollToEnd({animated: true})
                     }
-                    renderItem={({ item }) => (
+                    renderItem={({item}) => (
                         <View
                             style={[
                                 styles.messageRow,

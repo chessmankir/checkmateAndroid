@@ -5,6 +5,7 @@ import { Stack, useLocalSearchParams } from "expo-router";
 import { ProfileHeader } from "@/src/components/Profie/ProfileHeader";
 import { styles } from "@/src/StyleSheets/profile";
 import {BASE_URL} from "@/src/config/api";
+import {useMemberProfile} from "@/src/hooks/Profile/useMemberProfile";
 
 type MemberProfile = {
     id: number;
@@ -17,43 +18,9 @@ type MemberProfile = {
     modes?: string[];
 };
 
-
-
 export default function MemberProfileScreen() {
     const { pubg_id } = useLocalSearchParams<{ pubg_id: string }>();
-    const [member, setMember] = useState<MemberProfile | null>(null);
-    const [loading, setLoading] = useState(true);
-
-    const onPressMessage = () => {
-        console.log("onPressMessage");
-    }
-
-    useEffect(() => {
-        const loadMember = async () => {
-            try {
-                const response = await fetch(
-                    `${BASE_URL}/api/members?pubg_id=${pubg_id}`,
-                    {
-                        credentials: "include",
-                    }
-                );
-
-                const data = await response.json();
-                if (data.ok) {
-                    const currentMember = Array.isArray(data.data) ? data.data[0] : data.data;
-                    setMember(currentMember ?? null);
-                }
-            } catch (error) {
-                console.log("profile load error", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        if (pubg_id) {
-            loadMember();
-        }
-    }, [pubg_id]);
+    const {  member, loading, onPressMessage} =  useMemberProfile(pubg_id);
 
     if (loading) {
         return (

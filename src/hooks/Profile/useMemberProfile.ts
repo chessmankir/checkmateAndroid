@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import {BASE_URL} from "@/src/config/api";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import {router} from "expo-router";
 
 export function useMemberProfile(pubgId?: string) {
     const [member, setMember] = useState<any>(null);
@@ -27,5 +29,38 @@ export function useMemberProfile(pubgId?: string) {
         loadMember();
     }, [pubgId]);
 
-    return { member, loading };
+    const onPressMessage = () => {
+        console.log("onPressMessage");
+        createConversation();
+    }
+
+    const createConversation = async () => {
+        const backend = BASE_URL + "/api/android/conversation";
+        const userData = await AsyncStorage.getItem('user');
+        if(userData == null ) return null;
+        const user = JSON.parse(userData);
+        try{
+            const response = await fetch(backend, {
+                method: "POST",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    member_id: member.id,
+                    userid: user.id,
+                })
+            });
+            const data = await response.json();
+            console.log(data);
+            if(data.ok){
+                router.replace("/(tabs)/chat");
+            }
+        }
+        catch (e){
+            console.error(e);
+        }
+    }
+
+    return { member, loading, onPressMessage};
 }

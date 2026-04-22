@@ -1,0 +1,1 @@
+export  type PlayerMode = "classic" | "metro" | "tdm" | "ultimate";

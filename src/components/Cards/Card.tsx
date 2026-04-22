@@ -3,6 +3,7 @@ import {Image, Pressable, Text, View} from "react-native";
 import React from "react";
 import {CardType} from "@/src/types/CardType";
 import {BASE_URL} from "@/src/config/api";
+import {getCardImageSource} from "@/src/libs/cardUrl";
 
 
 type Props = {
@@ -13,20 +14,6 @@ type Props = {
     removeCard: (card_id) => void;
 };
 
-
-function getCardImageSource(imageSrc?: string) {
-    if (!imageSrc) return null;
-
-    if (imageSrc.startsWith("http://") || imageSrc.startsWith("https://")) {
-        return { uri: imageSrc };
-    }
-
-    if (imageSrc.startsWith("/")) {
-        return { uri: `${BASE_URL}${imageSrc}` };
-    }
-
-    return { uri: `${BASE_URL}/${imageSrc}` };
-}
 
 export  function Card({card, cardWidth, openCardModal, addCard, removeCard} : Props){
     const imageSource = getCardImageSource(card.imageSrc);

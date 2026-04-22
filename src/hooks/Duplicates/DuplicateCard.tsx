@@ -1,22 +1,7 @@
 import {styles} from "@/src/StyleSheets/duplicates";
 import {Image, Text, View} from "react-native";
 import React from "react";
-import {BASE_URL} from "@/src/config/api";
-
-function getCardImageSource(imageSrc?: string) {
-    if (!imageSrc) return null;
-
-    if (imageSrc.startsWith("http://") || imageSrc.startsWith("https://")) {
-        return { uri: imageSrc };
-    }
-
-    if (imageSrc.startsWith("/")) {
-        return { uri: `${BASE_URL}${imageSrc}` };
-    }
-
-    return { uri: `${BASE_URL}/${imageSrc}` };
-}
-
+import {getCardImageSource} from "@/src/libs/cardUrl";
 
 export function DuplicateCard({card}){
     return (

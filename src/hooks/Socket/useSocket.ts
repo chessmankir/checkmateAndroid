@@ -14,10 +14,7 @@ export function useSocket({userId}: Props) {
         if(!socket.connected) socket.connect();
 
         socket.on("connect", ()=> {
-            console.log("connecting");
-            socket.emit("join", {
-                userId: userId,
-            })
+            socket.emit("join",  userId)
         });
 
         socket.on("disconnect", ()=> {

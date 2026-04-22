@@ -14,7 +14,7 @@ export function MessageSend({text, setText, handleSend}){
                 onChangeText={setText}
             />
 
-            <Pressable style={styles.sendBtn} onPress={handleSend}>
+            <Pressable style={styles.sendBtn} onPress={() => handleSend(text)}>
                 <Ionicons name="send" size={18} color="#fff" />
             </Pressable>
         </View>
