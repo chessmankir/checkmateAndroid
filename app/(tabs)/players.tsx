@@ -188,7 +188,7 @@ export default function PlayersScreen() {
                     selectedStatus={selectedStatus} getStatusLabel={getStatusLabel} setSelectedStatus={setSelectedStatus} />
                 )}
 
-               <PlayerBlock members={PLAYERS} />
+               <PlayerBlock members={PLAYERS} getStatusLabel={getStatusLabel} getModeLabel={getModeLabel}/>
 
                 <PlayerFilterModal filterModalVisible={filterModalVisible} setFilterModalVisible={setFilterModalVisible}
                     draftMode={draftMode} setDraftMode={setDraftMode}
