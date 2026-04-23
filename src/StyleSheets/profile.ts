@@ -417,4 +417,18 @@ export const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: "700",
     },
+    logoutButton: {
+        backgroundColor: "#ff3b30",
+        paddingVertical: 12,
+        borderRadius: 10,
+        alignItems: "center",
+        flexDirection: "row",
+        justifyContent: "center",
+        gap: 6,
+    },
+    logoutButtonText: {
+        color: "#fff",
+        fontWeight: "600",
+        fontSize: 14,
+    },
 });

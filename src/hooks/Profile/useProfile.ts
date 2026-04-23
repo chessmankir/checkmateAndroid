@@ -4,8 +4,12 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import {Alert} from "react-native";
 import {fetch} from "expo/fetch";
 import {BASE_URL} from "@/src/config/api";
+import {useAuthStore} from "@/src/store/authStore";
+import {router} from "expo-router";
 
 export function useProfile(){
+    const logoutUser = useAuthStore((state) => state.logout);
+
     const initialProfile = {
         id: 1,
         nickname: "",
@@ -40,6 +44,12 @@ export function useProfile(){
     const handleSave = () => {
         updateProfile();
         Alert.alert("Профиль успешно обновлен");
+    }
+
+    const handleLogout = async () => {
+        await logoutUser();
+        console.log("logout");
+        router.replace("/login");
     }
 
     const updateProfile = async () => {
@@ -89,5 +99,5 @@ export function useProfile(){
         });
     }
 
-    return {profile, updateField, handleSave, onToggleMode};
+    return {profile, updateField, handleSave, onToggleMode, handleLogout};
 }

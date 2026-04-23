@@ -9,13 +9,13 @@ import {ProfileStatusBlock} from "@/src/components/Profie/ProfileStatusBlock";
 import {ProfileModeBlock} from "@/src/components/Profie/ProfileModeBlock";
 import {ProfileMainButton} from "@/src/components/Profie/ProfileMainButton";
 
-export function ProfileMainInfo({profileForm, statuses, availableModes, updateField , handleSave, onToggleMode}){
+export function ProfileMainInfo({profileForm, statuses, availableModes, updateField , handleSave, onToggleMode, handleLogout}){
     return (
-        <View style={styles.contentBlock}>
+        <View style={{ gap: 10 }}>
             <ProfileMainBlock profileForm={ profileForm}  updateField={updateField}/>
             <ProfileStatusBlock statuses={statuses} profileForm={profileForm} updateField={updateField} />
             <ProfileModeBlock onToggleMode={onToggleMode} profileForm={profileForm} availableModes={availableModes} />
-            <ProfileMainButton handleSave={handleSave}/>
+            <ProfileMainButton handleSave={handleSave} handleLogout={handleLogout}/>
         </View>
     )
 }

@@ -28,7 +28,7 @@ const statuses = [
 
 export default function ProfileScreen() {
     const [activeTab, setActiveTab] = useState<TopTab>("Профиль");
-    const {profile,updateField, handleSave, onToggleMode} = useProfile();
+    const {profile,updateField, handleSave, onToggleMode, handleLogout} = useProfile();
 
     return (
         <SafeAreaView style={styles.safeArea} edges={["top"]}>
@@ -43,6 +43,7 @@ export default function ProfileScreen() {
                             onToggleMode={onToggleMode}
                             availableModes={availableModes}
                             statuses={statuses}
+                            handleLogout={handleLogout}
                         />
                     </View>
                 ) : (
