@@ -30,7 +30,6 @@ export function useMemberProfile(pubgId?: string) {
     }, [pubgId]);
 
     const onPressMessage = () => {
-        console.log("onPressMessage");
         createConversation();
     }
 
@@ -52,7 +51,6 @@ export function useMemberProfile(pubgId?: string) {
                 })
             });
             const data = await response.json();
-            console.log(data);
             if(data.ok){
                 router.replace("/(tabs)/chat");
             }

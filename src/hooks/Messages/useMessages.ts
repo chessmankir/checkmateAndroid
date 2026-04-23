@@ -13,8 +13,6 @@ export function useMessages() {
     const [messages, setMessages] = useState<Message[]>([]);
     const [conversation, setConversation] = useState();
     const onHandleMessage = (message: string) => {
-        console.log("send");
-        console.log(message);
         const backend = BASE_URL + `/api/conversations/android/${id}/send/messages`;
         (async() => {
             const userData = await AsyncStorage.getItem("user");
@@ -40,7 +38,6 @@ export function useMessages() {
 
     useEffect(() => {
         const handleNewMessage = async (newMessage: Message) => {
-            console.log("handleNewMessage:", newMessage);
 
             const isActiveChat =
                 Number(id) === Number(newMessage.conversation_id);

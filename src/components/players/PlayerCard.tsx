@@ -1,10 +1,11 @@
-import {router} from "expo-router";
-import {Pressable, Text, View} from "react-native";
-import {Ionicons} from "@expo/vector-icons";
+import { router } from "expo-router";
+import { Pressable, Text, View } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import React from "react";
-import {styles} from "@/src/StyleSheets/playersPage";
-import {PlayerMode} from "@/src/types/PlayerMode";
-import {PlayerStatus} from "@/src/types/PlayerStatus";
+import { styles } from "@/src/StyleSheets/playersPage";
+import { PlayerMode } from "@/src/types/PlayerMode";
+import { PlayerStatus } from "@/src/types/PlayerStatus";
+import {PlayerCardBottom} from "@/src/components/players/PlayerCardBottom";
 
 type PlayerType = {
     id: number;
@@ -18,19 +19,17 @@ type PlayerType = {
     status: Exclude<PlayerStatus, "all">;
 };
 
-export function PlayerCard({
-                               member,
-                               isSmallPhone,
-                               getModeLabel,
-                               getStatusLabel
-                           }: {
+type Props = {
     member: PlayerType;
     isSmallPhone: boolean;
-    getModeLabel: (mode?: PlayerMode | null) => void;
-    getStatusLabel: (status?: PlayerStatus | null) => void;
-}) {
-    console.log("member");
-    console.log(member);
+    getModeLabel: (mode?: PlayerMode | null) => string;
+    getStatusLabel: (status?: PlayerStatus | null) => string;
+};
+
+export function PlayerCard({
+                               member,
+                               isSmallPhone
+                           }: Props) {
     const openProfile = (pubg_id: string | number | undefined) => {
         if (!pubg_id) return;
 
@@ -44,19 +43,19 @@ export function PlayerCard({
 
     return (
         <View style={styles.playerCard}>
-            <View style={styles.playerCardTop}>
-                <View style={styles.memberRowLeft}>
+            <View style={styles.playerTop}>
+                <View style={styles.playerLeft}>
                     <View style={styles.avatarCircle}>
                         <Text style={styles.avatarText}>{firstLetter}</Text>
                     </View>
 
-                    <View style={styles.memberRowInfo}>
+                    <View style={styles.playerInfo}>
                         <View style={styles.nameRow}>
                             <Text
                                 numberOfLines={1}
                                 style={[
-                                    styles.memberRowName,
-                                    isSmallPhone && styles.memberRowNameSmall,
+                                    styles.playerName,
+                                    isSmallPhone && { fontSize: 16 },
                                 ]}
                             >
                                 {member?.name || "Без имени"}
@@ -65,41 +64,27 @@ export function PlayerCard({
                             {member?.online && <View style={styles.onlineDot} />}
                         </View>
 
-                        <Text numberOfLines={1} style={styles.memberRowNick}>
+                        <Text numberOfLines={1} style={styles.playerNick}>
                             @{member?.nickname || "unknown"}
                         </Text>
 
-                        <Text numberOfLines={1} style={styles.memberRowMeta}>
+                        <Text numberOfLines={1} style={styles.playerMeta}>
                             ID {member?.pubg_id || "—"} • {member?.age || "—"} лет •{" "}
                             {member?.city || "—"}
                         </Text>
+
+                        <PlayerCardBottom  member={member} />
                     </View>
                 </View>
 
                 <Pressable
-                    style={styles.miniProfileButton}
+                    style={styles.profileButton}
                     onPress={() => openProfile(member?.pubg_id)}
                 >
-                    <Text style={styles.miniProfileButtonText}>Профиль</Text>
+                    <Text style={styles.profileButtonText}>Профиль</Text>
                 </Pressable>
-            </View>
-
-            <View style={styles.cardBottom}>
-              {/*  <View style={styles.tagsRow}>
-                    {member?.modes.map((mode) => (
-                        <View key={mode} style={styles.tagChip}>
-                            <Text style={styles.tagChipText}>{getModeLabel(mode)}</Text>
-                        </View>
-                    ))}
-                </View>*/}
-
-                <View style={styles.statusBadge}>
-                    <Ionicons name="flash" size={14} color="#87a8ff" />
-                    <Text style={styles.statusBadgeText}>
-                        {getStatusLabel(member.status)}
-                    </Text>
-                </View>
             </View>
         </View>
     );
 }
+

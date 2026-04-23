@@ -4,8 +4,7 @@ import {Ionicons} from "@expo/vector-icons";
 import React from "react";
 import {PlayerCard} from "@/src/components/players/PlayerCard";
 
-export function PlayerBlock({members, getStatusLabel, getModeLabel}) {
-    console.log(members);
+export function PlayerBlock({members}) {
     return (
         <ScrollView
             showsVerticalScrollIndicator={false}
@@ -13,8 +12,7 @@ export function PlayerBlock({members, getStatusLabel, getModeLabel}) {
         >
             {members.length > 0 ? (
                 members.map((member) => (
-                    <PlayerCard key={member.id} member={member}  getModeLabel={getModeLabel}
-                getStatusLabel={getStatusLabel}/>
+                    <PlayerCard key={member.id} member={member}  />
                 ))
             ) : (
                 <View style={styles.emptyBox}>

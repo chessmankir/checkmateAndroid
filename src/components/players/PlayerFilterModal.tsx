@@ -4,6 +4,7 @@ import {Ionicons} from "@expo/vector-icons";
 import React from "react";
 import {PlayerMode} from "@/src/types/PlayerMode";
 import {PlayerStatus} from "@/src/types/PlayerStatus";
+import {useModalFilters} from "@/src/hooks/Members/useModalFilters";
 
 const MODES: { key: PlayerMode; label: string }[] = [
     { key: "classic", label: "Классика" },
@@ -15,15 +16,14 @@ const MODES: { key: PlayerMode; label: string }[] = [
 const STATUSES: { key: PlayerStatus; label: string }[] = [
     { key: "all", label: "Любой" },
     { key: "as", label: "Продвижение Ас" },
-    { key: "as-master", label: "Продвижение Ас-мастер" },
-    { key: "as-dominator", label: "Продвижение Ас-доминатора" },
-    { key: "conqueror", label: "Беру завика" },
+    { key: "asm", label: "Продвижение Ас-мастер" },
+    { key: "asd", label: "Продвижение Ас-доминатора" },
+    { key: "zavic", label: "Беру завика" },
     { key: "legend", label: "Беру легенду" },
 ];
 
-
-export  function PlayerFilterModal({filterModalVisible,setFilterModalVisible, draftMode,
-                           setDraftMode, draftStatus, setDraftStatus,applyFilters}){
+export  function PlayerFilterModal({filterModalVisible,setFilterModalVisible, applyFilters, draftMode, draftStatus,
+                                   setDraftStatus, setDraftMode}){
     return (
         <Modal
             animationType="slide"
@@ -145,7 +145,7 @@ export  function PlayerFilterModal({filterModalVisible,setFilterModalVisible, dr
 
                         <Pressable
                             style={styles.applyModalButton}
-                            onPress={applyFilters}
+                            onPress={() => applyFilters()}
                         >
                             <Text style={styles.applyModalButtonText}>
                                 Применить

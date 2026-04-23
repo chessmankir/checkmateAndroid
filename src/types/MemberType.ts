@@ -1,5 +1,6 @@
 import {ProfileStatus} from "@/src/types/ProfileStatusType";
 import {GameMode} from "@/src/types/GameModeType";
+import {PlayerMode} from "@/src/types/PlayerMode";
 
 export interface MemberType {
     id: number,
@@ -17,5 +18,4 @@ export interface MemberType {
     clan_name?: string;
     months_in_clan?: number;
 }
-
 
