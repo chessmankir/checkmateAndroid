@@ -431,4 +431,8 @@ export const styles = StyleSheet.create({
         fontWeight: "600",
         fontSize: 14,
     },
+    buttonsWrap: {
+        marginTop: 20,
+        gap: 12
+    }
 });
