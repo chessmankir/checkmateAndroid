@@ -47,7 +47,7 @@ export function useProfile(){
     }
 
     const handleLogout = async () => {
-        await logoutUser();
+        //await logoutUser();
         console.log("logout");
         router.replace("/login");
     }
