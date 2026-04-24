@@ -12,6 +12,7 @@ export interface MemberType {
     role?: string,
     online?: boolean
     status?: string;
+    status_game?: string;
     modes: string[];
     clan_id: number;
 

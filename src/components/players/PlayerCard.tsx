@@ -1,11 +1,9 @@
 import { router } from "expo-router";
 import { Pressable, Text, View } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import { styles } from "@/src/StyleSheets/playersPage";
 import { PlayerMode } from "@/src/types/PlayerMode";
 import { PlayerStatus } from "@/src/types/PlayerStatus";
-import {PlayerCardBottom} from "@/src/components/players/PlayerCardBottom";
 
 type PlayerType = {
     id: number;
@@ -26,10 +24,24 @@ type Props = {
     getStatusLabel: (status?: PlayerStatus | null) => string;
 };
 
+const MODES: { key: PlayerMode; label: string }[] = [
+    { key: "classic", label: "Классика" },
+    { key: "metro", label: "Metro" },
+    { key: "tdm", label: "TDM" },
+    { key: "ultimate", label: "Ultimate Royale" },
+];
+
+
+function getModeLabel(mode?: PlayerMode | null) {
+    console.log(mode);
+    return MODES.find((item) => item.key === mode)?.label ?? "";
+}
+
 export function PlayerCard({
                                member,
-                               isSmallPhone
+                               isSmallPhone,
                            }: Props) {
+    console.log(member);
     const openProfile = (pubg_id: string | number | undefined) => {
         if (!pubg_id) return;
 
@@ -62,6 +74,12 @@ export function PlayerCard({
                             </Text>
 
                             {member?.online && <View style={styles.onlineDot} />}
+
+                            <View style={styles.modeInline}>
+                                <Text style={styles.modeInlineText}>
+                                    {getModeLabel(member?.mode)}
+                                </Text>
+                            </View>
                         </View>
 
                         <Text numberOfLines={1} style={styles.playerNick}>
@@ -73,18 +91,15 @@ export function PlayerCard({
                             {member?.city || "—"}
                         </Text>
 
-                        <PlayerCardBottom  member={member} />
+                        <Pressable
+                            style={styles.profileButton}
+                            onPress={() => openProfile(member?.pubg_id)}
+                        >
+                            <Text style={styles.profileButtonText}>Профиль</Text>
+                        </Pressable>
                     </View>
                 </View>
-
-                <Pressable
-                    style={styles.profileButton}
-                    onPress={() => openProfile(member?.pubg_id)}
-                >
-                    <Text style={styles.profileButtonText}>Профиль</Text>
-                </Pressable>
             </View>
         </View>
     );
 }
-

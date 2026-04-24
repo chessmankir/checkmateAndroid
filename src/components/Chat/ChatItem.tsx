@@ -37,9 +37,9 @@ export function ChatItem({chat}){
                         {chat?.last_message}
                     </Text>
 
-                    {!!chat.unread && chat.unread > 0 && (
+                    {!!chat.unread_count && chat.unread_count > 0 && (
                         <View style={styles.unreadBadge}>
-                            <Text style={styles.unreadText}>{chat.unread}</Text>
+                            <Text style={styles.unreadText}>{chat.unread_count}</Text>
                         </View>
                     )}
                 </View>

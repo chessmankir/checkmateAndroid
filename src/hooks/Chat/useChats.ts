@@ -3,14 +3,31 @@ import {ChatItemType} from "@/src/types/ChatItemType";
 import {BASE_URL} from "@/src/config/api";
 import {fetch} from "expo/fetch";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import {getSocket} from "@/src/libs/socket";
+import {useChatStore} from "@/src/store/useChatStore";
 
 export function useChats() {
-    const [chats, setChats] = useState<ChatItemType[]>([]);
+   // const [chats, setChats] = useState<ChatItemType[]>([]);
+    const chats = useChatStore((state) => state.chats);
+    const setChats = useChatStore((state) => state.setChats);
+    const updateLastMessage = useChatStore((state) => state.updateLastMessage);
     const [search, setSearch] = useState<string>("");
 
     const onSearch = (value: string) => {
         setSearch(value);
     }
+
+    useEffect(() => {
+        const handleNewMessage = (message: any) => {
+            updateLastMessage(message);
+        };
+
+        getSocket().on("message:new", handleNewMessage);
+
+        return () => {
+            getSocket().off("message:new", handleNewMessage);
+        };
+    }, []);
 
     useEffect(() => {
         const backend = BASE_URL + "/api/android/conversations";

@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import {ActivityIndicator, Pressable, ScrollView, Text, View} from "react-native";
+import {ActivityIndicator, Alert, Pressable, ScrollView, Text, View} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { ProfileHeader } from "@/src/components/Profie/ProfileHeader";
 import { styles } from "@/src/StyleSheets/profile";
 import {BASE_URL} from "@/src/config/api";
 import {useMemberProfile} from "@/src/hooks/Profile/useMemberProfile";
+import {Ionicons} from "@expo/vector-icons";
+import * as Clipboard from "expo-clipboard"
 
 type MemberProfile = {
     id: number;
@@ -16,6 +18,11 @@ type MemberProfile = {
     city?: string;
     status_game?: string;
     modes?: string[];
+};
+
+const copyPubgId = async (pubgId: string) => {
+    await Clipboard.setStringAsync(pubgId);
+    Alert.alert("Скопировано", "PUBG ID скопирован в буфер");
 };
 
 export default function MemberProfileScreen() {
@@ -68,10 +75,27 @@ export default function MemberProfileScreen() {
                             <Text style={styles.simpleKey}>Ник</Text>
                             <Text style={styles.simpleValue}>{member.nickname || "—"}</Text>
                         </View>
-
+{/*
                         <View style={styles.simpleRow}>
                             <Text style={styles.simpleKey}>PUBG ID</Text>
                             <Text style={styles.simpleValue}>{member.pubg_id || "—"}</Text>
+                        </View>*/}
+
+                        <View style={styles.simpleRow}>
+                            <Text style={styles.simpleKey}>PUBG ID</Text>
+
+                            <View style={styles.simpleRight}>
+                                <Text style={styles.simpleValue}>
+                                    {member.pubg_id || "—"}
+                                </Text>
+
+                                <Pressable
+                                    onPress={() => copyPubgId(member.pubg_id)}
+                                    style={styles.copyIcon}
+                                >
+                                    <Ionicons name="copy-outline" size={16} color="#8fb0ff" />
+                                </Pressable>
+                            </View>
                         </View>
 
                         <View style={styles.simpleRow}>

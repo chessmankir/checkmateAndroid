@@ -31,6 +31,7 @@ export const styles = StyleSheet.create({
         flexWrap: "wrap",
         gap: 10,
         marginBottom: 16,
+        marginTop: 12,
     },
 
     clanChip: {
@@ -130,7 +131,7 @@ export const styles = StyleSheet.create({
     },
 
     listContent: {
-        paddingBottom: 8,
+        paddingBottom: 140
     },
 
     separator: {
@@ -239,5 +240,65 @@ export const styles = StyleSheet.create({
     emptyText: {
         color: "#98A2B3",
         fontSize: 14,
+    },
+    clanDropdownWrap: {
+        width: "100%",
+        position: "relative",
+        zIndex: 20,
+    },
+
+    clanSelectedBox: {
+        minHeight: 52,
+        borderRadius: 16,
+        paddingHorizontal: 14,
+        paddingVertical: 12,
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+        backgroundColor: "#151a2e",
+        borderWidth: 1,
+        borderColor: "#2a335c",
+        marginBottom: 12
+    },
+
+    clanSelectedLeft: {
+        flex: 1,
+        paddingRight: 12,
+    },
+
+    clanSelectedRight: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 8,
+    },
+
+    clanArrow: {
+        color: "#cdd6f4",
+        fontSize: 12,
+        fontWeight: "700",
+    },
+
+    clanDropdownList: {
+        marginTop: 8,
+        borderRadius: 16,
+        backgroundColor: "#11162a",
+        borderWidth: 1,
+        borderColor: "#2a335c",
+        overflow: "hidden",
+    },
+
+    clanDropdownItem: {
+        minHeight: 50,
+        paddingHorizontal: 14,
+        paddingVertical: 12,
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+        borderBottomWidth: 1,
+        borderBottomColor: "#202846",
+    },
+
+    clanDropdownItemActive: {
+        backgroundColor: "#1b2442",
     },
 });

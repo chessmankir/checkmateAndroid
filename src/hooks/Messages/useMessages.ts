@@ -1,17 +1,20 @@
 import {useEffect, useState} from "react";
 import {useLocalSearchParams} from "expo-router";
-import {Message} from "postcss";
 import {BASE_URL} from "@/src/config/api";
 import {fetch} from "expo/fetch";
 import {ChatItemType} from "@/src/types/ChatItemType";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {getSocket} from "@/src/libs/socket";
+import {MessageType} from "@/src/types/MessageType";
+import {useChatStore} from "@/src/store/useChatStore";
 
 export function useMessages() {
     const [text,setText] = useState<string>("");
     const {id} = useLocalSearchParams();
-    const [messages, setMessages] = useState<Message[]>([]);
+    const [messages, setMessages] = useState<MessageType[]>([]);
     const [conversation, setConversation] = useState();
+    const markChatAsRead = useChatStore((state) => state.markChatAsRead);
+
     const onHandleMessage = (message: string) => {
         const backend = BASE_URL + `/api/conversations/android/${id}/send/messages`;
         (async() => {
@@ -36,9 +39,26 @@ export function useMessages() {
         })();
     }
 
-    useEffect(() => {
-        const handleNewMessage = async (newMessage: Message) => {
+    const markAsRead = async (conversationId) => {
+        const userData = await AsyncStorage.getItem("user");
+        if(!userData) return;
+        const user = JSON.parse(userData);
 
+        const backend = BASE_URL + `/api/android/conversations/${conversationId}/read`;
+        const response = await fetch(backend, {
+            method: "PUT",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                userid: user.id,
+            })
+        });
+    }
+
+    useEffect(() => {
+        const handleNewMessage = async (newMessage: MessageType) => {
             const isActiveChat =
                 Number(id) === Number(newMessage.conversation_id);
 
@@ -50,19 +70,8 @@ export function useMessages() {
                     return [...prev, newMessage];
                 });
 
-                // 🔥 сразу помечаем как прочитанное
-               /* try {
-                    const url = import.meta.env.VITE_API_URL;
-                    await fetch(
-                        `${url}/api/conversations/${newMessage.conversation_id}/read`,
-                        {
-                            method: "PUT",
-                            credentials: "include",
-                        }
-                    );
-                } catch (e) {
-                    console.log("read error:", e);
-                }*/
+               await markAsRead(newMessage.conversation_id);
+               markChatAsRead(Number(id));
             }
         };
 
@@ -91,7 +100,7 @@ export function useMessages() {
             });
             const data = await response.json();
             if(data.ok){
-                const updatedMessages = data.messages.map((message: Message) => ({
+                const updatedMessages = data.messages.map((message: MessageType) => ({
                     ...message,
                     time: new Date(message.created_at).toLocaleTimeString([], {
                         hour: "2-digit",
@@ -100,9 +109,10 @@ export function useMessages() {
                 }));
 
                 setMessages(updatedMessages);
+                markAsRead(id);
             }
         })();
-    }, []);
+    }, [id]);
 
     useEffect(() => {
         const backend = BASE_URL + `/api/android/conversations/${id}`;
@@ -127,6 +137,6 @@ export function useMessages() {
             }
         })();
     }, []);
-
+    
     return { text, setText, messages, onHandleMessage, conversation};
 }

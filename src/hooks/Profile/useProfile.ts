@@ -47,8 +47,8 @@ export function useProfile(){
     }
 
     const handleLogout = async () => {
-        //await logoutUser();
         console.log("logout");
+        await logoutUser();
         router.replace("/login");
     }
 
@@ -69,7 +69,8 @@ export function useProfile(){
                     pubgId: profile.pubg_id,
                     id: profile.id,
                     availableMicro: false,
-                    modes: profile.modes
+                    modes: profile.modes,
+                    status: profile.status_game
                 })
             });
             const data = await response.json();

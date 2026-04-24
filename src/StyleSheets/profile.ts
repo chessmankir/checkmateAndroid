@@ -434,5 +434,16 @@ export const styles = StyleSheet.create({
     buttonsWrap: {
         marginTop: 20,
         gap: 12
-    }
+    },
+
+    simpleRight: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 6,
+    },
+
+    copyIcon: {
+        padding: 4,
+        borderRadius: 6,
+    },
 });
