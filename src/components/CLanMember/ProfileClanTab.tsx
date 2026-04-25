@@ -15,7 +15,8 @@ export function ProfileClanTab() {
     const { width } = useWindowDimensions();
     const isPhone = width < 600;
     const isSmallPhone = width < 390;
-    const {myClans, selectedClanId, setSelectedClanId, searchData, setSearchData, clanMembers, handleSearch} = useMyClan();
+    const {myClans, selectedClanId, setSelectedClanId, searchData,
+        setSearchData, clanMembers, handleSearch} = useMyClan();
 
     return (
         <View style={styles.screen}>
@@ -38,7 +39,7 @@ export function ProfileClanTab() {
                     </View>
                 }
                 renderItem={({ item }) => (
-                    <MyClanProfile member={item} isSmallPhone={isSmallPhone}  />
+                    <MyClanProfile member={item} isSmallPhone={isSmallPhone} type={"clanmember"}  />
                 )}
             />
         </View>

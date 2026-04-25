@@ -14,38 +14,7 @@ import { MessageSend } from "@/src/components/Message/MessageSend";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function ChatDetailsScreen() {
-    const { text, setText, onHandleMessage, messages, conversation } = useMessages();
-    const [user, setUser] = useState<any>(null);
-    const flatListRef = useRef<FlatList>(null);
-
-    useEffect(() => {
-        const loadUser = async () => {
-            try {
-                const userData = await AsyncStorage.getItem("user");
-
-                if (userData) {
-                    const parsedUser = JSON.parse(userData);
-                    setUser(parsedUser);
-                } else {
-                    console.log("Пользователь не найден в AsyncStorage");
-                }
-            } catch (e) {
-                console.log("Ошибка при чтении пользователя:", e);
-            }
-        };
-
-        loadUser();
-    }, []);
-
-    useEffect(() => {
-        if (!messages.length) return;
-
-        const timer = setTimeout(() => {
-            flatListRef.current?.scrollToEnd({ animated: true });
-        }, 100);
-
-        return () => clearTimeout(timer);
-    }, [messages]);
+    const { text, setText, onHandleMessage, messages, conversation, user, flatListRef } = useMessages();
 
     return (
         <SafeAreaView style={styles.container}>

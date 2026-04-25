@@ -301,4 +301,50 @@ export const styles = StyleSheet.create({
     clanDropdownItemActive: {
         backgroundColor: "#1b2442",
     },
+    memberActions: {
+        position: "relative",
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 8,
+    },
+
+    memberMenuButton: {
+        width: 34,
+        height: 34,
+        borderRadius: 17,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "rgba(255,255,255,0.08)",
+    },
+
+    memberDropdown: {
+        position: "absolute",
+        right: 0,
+        top: 42,
+        width: 180,
+        borderRadius: 14,
+        backgroundColor: "#111827",
+        borderWidth: 1,
+        borderColor: "rgba(255,255,255,0.12)",
+        paddingVertical: 6,
+        zIndex: 100,
+        elevation: 10,
+    },
+
+    memberDropdownItem: {
+        paddingVertical: 11,
+        paddingHorizontal: 14,
+    },
+
+    memberDropdownText: {
+        color: "#e5e7eb",
+        fontSize: 13,
+        fontWeight: "600",
+    },
+
+    memberDropdownBanText: {
+        color: "#ef4444",
+        fontSize: 13,
+        fontWeight: "800",
+    },
 });

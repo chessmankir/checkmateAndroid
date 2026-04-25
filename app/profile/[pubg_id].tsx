@@ -126,6 +126,20 @@ export default function MemberProfileScreen() {
                                 {member.modes?.length ? member.modes.join(", ") : "—"}
                             </Text>
                         </View>
+                        {/*<View style={styles.simpleRow}>
+                            <Text style={styles.simpleKey}>Клан</Text>
+                            <Text style={styles.simpleValue}>{member.clan_name || "Без клана"}</Text>
+                        </View>*/}
+                        <View style={styles.simpleRow}>
+                            <Text style={styles.simpleKey}>Клан</Text>
+
+                            <View style={styles.clanBadge}>
+                                <Ionicons name="shield-checkmark-outline" size={15} color="#8fb0ff" />
+                                <Text style={styles.clanBadgeText}>
+                                    {member.clan_name || "Без клана"}
+                                </Text>
+                            </View>
+                        </View>
                     </View>
                 </View>
                 <Pressable onPress={onPressMessage} style={styles.messageButton}>

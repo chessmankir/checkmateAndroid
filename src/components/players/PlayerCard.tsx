@@ -31,9 +31,7 @@ const MODES: { key: PlayerMode; label: string }[] = [
     { key: "ultimate", label: "Ultimate Royale" },
 ];
 
-
 function getModeLabel(mode?: PlayerMode | null) {
-    console.log(mode);
     return MODES.find((item) => item.key === mode)?.label ?? "";
 }
 
@@ -41,7 +39,6 @@ export function PlayerCard({
                                member,
                                isSmallPhone,
                            }: Props) {
-    console.log(member);
     const openProfile = (pubg_id: string | number | undefined) => {
         if (!pubg_id) return;
 

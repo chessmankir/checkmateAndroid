@@ -1,13 +1,19 @@
 import {useAuthStore} from "@/src/store/authStore";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {router} from "expo-router";
 import {Alert} from "react-native";
 import {BASE_URL} from "@/src/config/api";
+import {registerPushToken} from "@/src/libs/registerPushToken";
 
 export function  useLogin(){
     const setUser = useAuthStore((state) => state.setUser);
     const [pubgId, setPubgId] = useState("");
     const[loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        // registerPushToken();
+    }, []);
+
     const loginHandler = async () => {
         if(!pubgId.trim()){
             Alert.alert("Ошибка", "Введите Pubg Id");

@@ -3,8 +3,11 @@ import {Pressable, Text, View} from "react-native";
 import {router} from "expo-router";
 import {Ionicons} from "@expo/vector-icons";
 import React from "react";
+import {formatLastSeen} from "@/src/libs/DateUtils";
 
-export function MessageHeader({conversation}){
+export function MessageHeader({ conversation }) {
+    const isOnline = conversation?.is_online;
+
     return (
         <View style={styles.header}>
             <Pressable style={styles.backBtn} onPress={() => router.back()}>
@@ -12,9 +15,18 @@ export function MessageHeader({conversation}){
             </Pressable>
 
             <View style={styles.headerInfo}>
-                <Text style={styles.headerName}>{conversation?.nickname}</Text>
-               {/* <Text style={styles.headerStatus}>{user.lastSeen}</Text>*/}
+                <View style={styles.headerNameRow}>
+                    {isOnline && <View style={styles.onlineDot} />}
+                    <Text style={styles.headerName}>{conversation?.nickname}</Text>
+                </View>
+
+                {/* Показываем только если НЕ онлайн */}
+                {!isOnline && (
+                    <Text style={styles.headerStatus}>
+                        {formatLastSeen(conversation?.last_seen_at)}
+                    </Text>
+                )}
             </View>
         </View>
-    )
+    );
 }

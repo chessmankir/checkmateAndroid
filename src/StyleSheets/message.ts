@@ -31,11 +31,6 @@ export const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: "700",
     },
-    headerStatus: {
-        color: "#94a3b8",
-        fontSize: 13,
-        marginTop: 2,
-    },
     messagesContent: {
         paddingHorizontal: 12,
         paddingTop: 14,
@@ -107,5 +102,23 @@ export const styles = StyleSheet.create({
         backgroundColor: "#2563eb",
         justifyContent: "center",
         alignItems: "center",
+    },
+    headerNameRow: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 6,
+    },
+
+    onlineDot: {
+        width: 8,
+        height: 8,
+        borderRadius: 99,
+        backgroundColor: "#35ff7a",
+    },
+
+    headerStatus: {
+        color: "#9aa3c7",
+        fontSize: 12,
+        marginTop: 2,
     },
 });

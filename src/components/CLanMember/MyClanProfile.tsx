@@ -1,9 +1,13 @@
 import { styles } from "@/src/StyleSheets/clanMembers";
 import { Pressable, Text, View } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { router } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
+import {MyClanMenuActions} from "@/src/components/CLanMember/MyClanMenuActions";
 
-export function MyClanProfile({ member, isSmallPhone }) {
+export function MyClanProfile({ member, isSmallPhone, type }) {
+    const [menuOpen, setMenuOpen] = useState(false);
+
     const openProfile = (pubg_id: string | number | undefined) => {
         if (!pubg_id) return;
 
@@ -14,6 +18,21 @@ export function MyClanProfile({ member, isSmallPhone }) {
     };
 
     const firstLetter = member?.name?.slice(0, 1)?.toUpperCase() || "?";
+
+    const handleBan = () => {
+        setMenuOpen(false);
+        console.log("БАН", member?.id);
+    };
+
+    const handleMakeModerator = () => {
+        setMenuOpen(false);
+        console.log("Назначить замом", member?.id);
+    };
+
+    const handleMakeLeader = () => {
+        setMenuOpen(false);
+        console.log("Назначить лидером", member?.id);
+    };
 
     return (
         <View style={styles.memberRow}>
@@ -33,8 +52,6 @@ export function MyClanProfile({ member, isSmallPhone }) {
                         >
                             {member?.name || "Без имени"}
                         </Text>
-
-                        {member?.online && <View style={styles.onlineDot} />}
                     </View>
 
                     <Text numberOfLines={1} style={styles.memberRowNick}>
@@ -47,12 +64,37 @@ export function MyClanProfile({ member, isSmallPhone }) {
                 </View>
             </View>
 
-            <Pressable
-                style={styles.miniProfileButton}
-                onPress={() => openProfile(member?.pubg_id)}
-            >
-                <Text style={styles.miniProfileButtonText}>Профиль</Text>
-            </Pressable>
+            <View style={styles.memberActions}>
+
+                {/* Иконка роли */}
+                {member?.isLeader && (
+                    <Ionicons name="trophy" size={18} color="#facc15" />
+                )}
+
+                {!member?.isLeader && member?.isModerator && (
+                    <Ionicons name="shield-checkmark" size={18} color="#60a5fa" />
+                )}
+
+                <Pressable
+                    style={styles.miniProfileButton}
+                    onPress={() => openProfile(member?.pubg_id)}
+                >
+                    <Text style={styles.miniProfileButtonText}>Профиль</Text>
+                </Pressable>
+
+                {type === "clanmember" && (
+                    <Pressable
+                        style={styles.memberMenuButton}
+                        onPress={() => setMenuOpen((prev) => !prev)}
+                    >
+                        <Ionicons name="ellipsis-vertical" size={18} color="#c7d2fe" />
+                    </Pressable>
+                )}
+
+                {menuOpen && (
+                    <MyClanMenuActions handleBan={handleBan} handleMakeModerator={handleMakeModerator} handleMakeLeader={handleMakeLeader}  />
+                )}
+            </View>
         </View>
     );
 }

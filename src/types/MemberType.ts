@@ -1,7 +1,3 @@
-import {ProfileStatus} from "@/src/types/ProfileStatusType";
-import {GameMode} from "@/src/types/GameModeType";
-import {PlayerMode} from "@/src/types/PlayerMode";
-
 export interface MemberType {
     id: number,
     name?: string,
@@ -10,7 +6,7 @@ export interface MemberType {
     pubg_id?: string,
     city?: string,
     role?: string,
-    online?: boolean
+    is_online?: boolean;
     status?: string;
     status_game?: string;
     modes: string[];

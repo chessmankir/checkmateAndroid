@@ -12,7 +12,6 @@ export function useMember(){
     const [search, setSearch] = useState("");
     const [filterModalVisible, setFilterModalVisible] = useState<boolean>(false);
     const query = useMemo(()=> {
-
         const sp = new URLSearchParams();
         if(status !== "all"){
             sp.set("status", status);

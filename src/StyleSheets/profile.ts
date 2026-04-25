@@ -446,4 +446,21 @@ export const styles = StyleSheet.create({
         padding: 4,
         borderRadius: 6,
     },
+    clanBadge: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 6,
+        paddingHorizontal: 10,
+        paddingVertical: 6,
+        borderRadius: 999,
+        backgroundColor: "rgba(143, 176, 255, 0.12)",
+        borderWidth: 1,
+        borderColor: "rgba(143, 176, 255, 0.28)",
+        maxWidth: "65%",
+    },
+    clanBadgeText: {
+        color: "#dbe7ff",
+        fontSize: 14,
+        fontWeight: "700",
+    },
 });
