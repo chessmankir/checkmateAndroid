@@ -129,8 +129,71 @@ export function useMyClan(){
         })();
     }, [selectedClanId]);
 
-    const makeModerator = () => {
+    const makeModerator = (member) => {
         console.log("makeModerator");
+        return;
+        (async () => {
+            try {
+                const response = await fetch(`${BASE_URL}/api/moderation/set`, {
+                    method: "POST",
+                    credentials: "include",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        userid: member.id,
+                        clan_id: member.clan_id,
+                        number: member.clan,
+                    }),
+                });
+
+                const data = await response.json();
+                console.log(data);
+                if (data.ok) {
+                    setClanMembers((prev) =>
+                        prev.map((item) => ({
+                            ...item,
+                            isModerator: item.id === member.id,
+                        }))
+                    );
+                }
+            } catch (e) {
+                console.error("makeLeader error:", e);
+            }
+        })();
+    }
+
+    const removeModerator = (member) => {
+        console.log("makeModerator");
+        (async () => {
+            try {
+                const response = await fetch(`${BASE_URL}/api/moderation/set`, {
+                    method: "POST",
+                    credentials: "include",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        userid: member.id,
+                        clan_id: member.clan_id,
+                        number: member.clan,
+                    }),
+                });
+
+                const data = await response.json();
+
+                if (data.ok) {
+                    setClanMembers((prev) =>
+                        prev.map((item) => ({
+                            ...item,
+                            isLeader: item.id === member.id,
+                        }))
+                    );
+                }
+            } catch (e) {
+                console.error("makeLeader error:", e);
+            }
+        })();
     }
 
     const banMember = () => {
@@ -140,6 +203,7 @@ export function useMyClan(){
     const actions = {
         handleMakeLeader,
         makeModerator,
+        removeModerator,
         banMember,
     };
 
