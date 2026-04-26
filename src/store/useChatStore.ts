@@ -22,18 +22,22 @@ export const useChatStore  = create<UseChatStore>((set) => ({
             else return  chat
         })
     })),
-    updateLastMessage: (message: MessageType) =>
-        set((state) => ({
-            chats: state.chats.map((chat) => {
-                if (Number(chat.conversation_id) !== Number(message.conversation_id)) {
-                    return chat;
-                }
 
-                return {
-                    ...chat,
-                    last_message: message.body,
-                    unread_count: Number(chat.unread_count ?? 0) + 1,
-                };
-            })
-    }))
+    updateLastMessage: (message: MessageType) =>
+        set((state) => {
+
+            return {
+                chats: state.chats.map((chat) => {
+                    if (Number(chat.conversation_id) !== Number(message.conversation_id)) {
+                        return chat;
+                    }
+
+                    return {
+                        ...chat,
+                        last_message: message.body,
+                        unread_count: Number(chat.unread_count ?? 0) + 1,
+                    };
+                })
+            };
+        })
 })) ;

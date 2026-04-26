@@ -15,9 +15,9 @@ const MODES: { key: PlayerMode; label: string }[] = [
 const STATUSES: { key: PlayerStatus; label: string }[] = [
     { key: "all", label: "Любой" },
     { key: "as", label: "Продвижение Ас" },
-    { key: "as-master", label: "Продвижение Ас-мастер" },
-    { key: "as-dominator", label: "Продвижение Ас-доминатора" },
-    { key: "conqueror", label: "Беру завика" },
+    { key: "asm", label: "Продвижение Ас-мастер" },
+    { key: "asd", label: "Продвижение Ас-доминатора" },
+    { key: "zavic", label: "Беру завика" },
     { key: "legend", label: "Беру легенду" },
 ];
 

@@ -28,7 +28,6 @@ const copyPubgId = async (pubgId: string) => {
 export default function MemberProfileScreen() {
     const { pubg_id } = useLocalSearchParams<{ pubg_id: string }>();
     const {  member, loading, onPressMessage} =  useMemberProfile(pubg_id);
-
     if (loading) {
         return (
             <SafeAreaView style={styles.safeArea}>
@@ -136,7 +135,7 @@ export default function MemberProfileScreen() {
                             <View style={styles.clanBadge}>
                                 <Ionicons name="shield-checkmark-outline" size={15} color="#8fb0ff" />
                                 <Text style={styles.clanBadgeText}>
-                                    {member.clan_name || "Без клана"}
+                                    {member.subclan_name !== null ? member.subclan_name  : member.clan_name}
                                 </Text>
                             </View>
                         </View>

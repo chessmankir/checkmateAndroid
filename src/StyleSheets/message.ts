@@ -24,7 +24,8 @@ export const styles = StyleSheet.create({
         marginRight: 10,
     },
     headerInfo: {
-        flex: 1,
+        marginLeft: 10,
+        justifyContent: "center", // 🔥 центр текста
     },
     headerName: {
         color: "#fff",

@@ -9,7 +9,6 @@ export function useMyClan(){
     const [searchData, setSearchData] = useState<string>("");
     const [clanMembers, setClanMembers] = useState<MemberType[]>([]);
 
-
     const handleSearch = (search) => {
         setSearchData(search);
         const backend = `${BASE_URL}/api/android/clanmember`;
@@ -39,6 +38,38 @@ export function useMyClan(){
             }
         })();
     }
+
+    const handleMakeLeader = async (member: MemberType) => {
+        try {
+            const response = await fetch(`${BASE_URL}/api/set/leader`, {
+                method: "POST",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    userid: member.id,
+                    clan_id: member.clan_id,
+                    number: member.clan,
+                }),
+            });
+
+            const data = await response.json();
+
+            if (data.ok) {
+                setClanMembers((prev) =>
+                    prev.map((item) => ({
+                        ...item,
+                        isLeader: item.id === member.id,
+                    }))
+                );
+            }
+        } catch (e) {
+            console.error("makeLeader error:", e);
+        }
+    };
+
+
 
     useEffect(() => {
         (async () => {
@@ -98,5 +129,19 @@ export function useMyClan(){
         })();
     }, [selectedClanId]);
 
-    return {myClans, selectedClanId, setSelectedClanId, searchData, handleSearch, clanMembers};
+    const makeModerator = () => {
+        console.log("makeModerator");
+    }
+
+    const banMember = () => {
+        console.log("banMember");
+    }
+
+    const actions = {
+        handleMakeLeader,
+        makeModerator,
+        banMember,
+    };
+
+    return {myClans, selectedClanId, setSelectedClanId, searchData, handleSearch, clanMembers, actions};
 }

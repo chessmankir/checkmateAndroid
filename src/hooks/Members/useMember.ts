@@ -27,7 +27,7 @@ export function useMember(){
     const onSearch = (value) => {
         setSearch(value);
         (async ()=> {
-            const backend = `${BASE_URL}/api/members?search=${search}&limit=20`;
+            const backend = `${BASE_URL}/api/members?search=${value}&limit=20`;
             try {
                 const response = await fetch(backend);
                 const data = await response.json();

@@ -131,9 +131,9 @@ export function useMessages() {
                         minute: "2-digit",
                     }),
                 }));
-
                 setMessages(updatedMessages);
                 markAsRead(id);
+                markChatAsRead(Number(id));
             }
         })();
     }, [id]);

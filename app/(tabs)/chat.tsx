@@ -17,8 +17,6 @@ import {ChatItem} from "@/src/components/Chat/ChatItem";
 
 export default function ChatListScreen() {
     const {chats, search, onSearch} = useChats();
-    console.log("chats");
-    console.log(chats);
     return (
         <SafeAreaView style={styles.container}>
             <ChatHeader />

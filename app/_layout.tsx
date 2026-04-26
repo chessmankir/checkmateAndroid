@@ -2,6 +2,7 @@ import { Stack, useRouter, useSegments } from "expo-router";
 import { useEffect } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { useAuthStore } from "@/src/store/authStore";
+import {SafeAreaView} from "react-native-safe-area-context";
 
 export default function RootLayout() {
     const router = useRouter();
@@ -30,23 +31,27 @@ export default function RootLayout() {
 
     if (isLoading) {
         return (
-            <View
-                style={{
-                    flex: 1,
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "#0b1220",
-                }}
-            >
-                <ActivityIndicator size="large" />
-            </View>
+            <SafeAreaView style={{ flex: 1 }} edges={["top"]}>
+                <View
+                    style={{
+                        flex: 1,
+                        justifyContent: "center",
+                        alignItems: "center",
+                        backgroundColor: "#0b1220",
+                    }}
+                >
+                    <ActivityIndicator size="large" />
+                </View>
+            </SafeAreaView>
         );
     }
 
     return (
-        <Stack screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="login" />
-            <Stack.Screen name="(tabs)" />
-        </Stack>
+        <SafeAreaView style={{ flex: 1 }} edges={["top"]}>
+            <Stack screenOptions={{ headerShown: false }}>
+                <Stack.Screen name="login" />
+                <Stack.Screen name="(tabs)" />
+            </Stack>
+        </SafeAreaView>
     );
 }

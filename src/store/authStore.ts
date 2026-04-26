@@ -1,11 +1,15 @@
 import { create } from "zustand";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {getSocket} from "@/src/libs/socket";
+import {RoleType} from "@/src/types/RoleType";
+import {stat} from "node:fs";
 
 type UserType = {
     id: number;
     pubg_id: string;
     nickname?: string;
+    isModerator: boolean;
+    isLeader: boolean;
 };
 
 type AuthState = {
@@ -16,12 +20,16 @@ type AuthState = {
     setLoading: (value: boolean) => void;
     restoreAuth: () => Promise<void>;
     logout: () => Promise<void>;
+    getRole: () => RoleType;
 };
 
 export const useAuthStore = create<AuthState>((set) => ({
     user: null,
     isAuth: false,
     isLoading: true,
+    getRole: () => {
+        return "normal";
+    },
 
     setUser: async (user) => {
         try {
@@ -103,3 +111,12 @@ export const useAuthStore = create<AuthState>((set) => ({
         });
     },
 }));
+
+export const selectRole = (state: AuthState): RoleType => {
+    if(!state.user) return "guest";
+
+    if(state.user.isLeader) return "leader";
+    if(state.user.isModerator) return "moderator";
+
+    return "normal";
+}

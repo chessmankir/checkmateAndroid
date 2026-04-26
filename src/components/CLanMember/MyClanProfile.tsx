@@ -4,10 +4,11 @@ import React, { useState } from "react";
 import { router } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import {MyClanMenuActions} from "@/src/components/CLanMember/MyClanMenuActions";
+import {MyClanMenu} from "@/src/components/CLanMember/MyClanMenu";
+import {useClanMemberModeration} from "@/src/hooks/Clan/useClanMemberModeration";
 
-export function MyClanProfile({ member, isSmallPhone, type }) {
-    const [menuOpen, setMenuOpen] = useState(false);
-
+export function MyClanProfile({ member, isSmallPhone, type, rolePlayer, actions }) {
+    const {menuOpen, setMenuOpen} = useClanMemberModeration(member);
     const openProfile = (pubg_id: string | number | undefined) => {
         if (!pubg_id) return;
 
@@ -18,21 +19,6 @@ export function MyClanProfile({ member, isSmallPhone, type }) {
     };
 
     const firstLetter = member?.name?.slice(0, 1)?.toUpperCase() || "?";
-
-    const handleBan = () => {
-        setMenuOpen(false);
-        console.log("БАН", member?.id);
-    };
-
-    const handleMakeModerator = () => {
-        setMenuOpen(false);
-        console.log("Назначить замом", member?.id);
-    };
-
-    const handleMakeLeader = () => {
-        setMenuOpen(false);
-        console.log("Назначить лидером", member?.id);
-    };
 
     return (
         <View style={styles.memberRow}>
@@ -82,18 +68,7 @@ export function MyClanProfile({ member, isSmallPhone, type }) {
                     <Text style={styles.miniProfileButtonText}>Профиль</Text>
                 </Pressable>
 
-                {type === "clanmember" && (
-                    <Pressable
-                        style={styles.memberMenuButton}
-                        onPress={() => setMenuOpen((prev) => !prev)}
-                    >
-                        <Ionicons name="ellipsis-vertical" size={18} color="#c7d2fe" />
-                    </Pressable>
-                )}
-
-                {menuOpen && (
-                    <MyClanMenuActions handleBan={handleBan} handleMakeModerator={handleMakeModerator} handleMakeLeader={handleMakeLeader}  />
-                )}
+                <MyClanMenu member={member} type ={type} rolePlayer={rolePlayer} setMenuOpen={setMenuOpen} menuOpen={menuOpen} actions={actions} />
             </View>
         </View>
     );
