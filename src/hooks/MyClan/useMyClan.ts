@@ -41,6 +41,7 @@ export function useMyClan(){
 
     const handleMakeLeader = async (member: MemberType) => {
         try {
+            console.log(member);
             const response = await fetch(`${BASE_URL}/api/set/leader`, {
                 method: "POST",
                 credentials: "include",
@@ -51,6 +52,7 @@ export function useMyClan(){
                     userid: member.id,
                     clan_id: member.clan_id,
                     number: member.clan,
+                    actor_id: member.actor_id
                 }),
             });
 
@@ -68,8 +70,6 @@ export function useMyClan(){
             console.error("makeLeader error:", e);
         }
     };
-
-
 
     useEffect(() => {
         (async () => {
@@ -131,7 +131,6 @@ export function useMyClan(){
 
     const makeModerator = (member) => {
         console.log("makeModerator");
-        return;
         (async () => {
             try {
                 const response = await fetch(`${BASE_URL}/api/moderation/set`, {
@@ -142,19 +141,20 @@ export function useMyClan(){
                     },
                     body: JSON.stringify({
                         userid: member.id,
+                        actor_id: member.actor_id,
                         clan_id: member.clan_id,
                         number: member.clan,
                     }),
                 });
-
                 const data = await response.json();
                 console.log(data);
                 if (data.ok) {
                     setClanMembers((prev) =>
-                        prev.map((item) => ({
-                            ...item,
-                            isModerator: item.id === member.id,
-                        }))
+                        prev.map((item) =>
+                            item.id === member.id
+                                ? { ...item, isModerator: true }
+                                : item
+                        )
                     );
                 }
             } catch (e) {
@@ -164,17 +164,16 @@ export function useMyClan(){
     }
 
     const removeModerator = (member) => {
-        console.log("makeModerator");
         (async () => {
             try {
-                const response = await fetch(`${BASE_URL}/api/moderation/set`, {
+                const response = await fetch(`${BASE_URL}/api/moderation/remove`, {
                     method: "POST",
                     credentials: "include",
                     headers: {
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
-                        userid: member.id,
+                        actor_id: member.actor_id,
                         clan_id: member.clan_id,
                         number: member.clan,
                     }),
@@ -184,20 +183,45 @@ export function useMyClan(){
 
                 if (data.ok) {
                     setClanMembers((prev) =>
-                        prev.map((item) => ({
-                            ...item,
-                            isLeader: item.id === member.id,
-                        }))
+                        prev.map((item) =>
+                            item.id === member.id
+                                ? { ...item, isModerator: false }
+                                : item
+                        )
                     );
                 }
             } catch (e) {
-                console.error("makeLeader error:", e);
+                console.error("removeModerator error:", e);
             }
         })();
-    }
+    };
 
-    const banMember = () => {
-        console.log("banMember");
+    const banMember = (member) => {
+        (async () => {
+            try {
+                const response = await fetch(`${BASE_URL}/api/ban/user`, {
+                    method: "POST",
+                    credentials: "include",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        actor_id: member.actor_id,
+                        id: member.id
+                    }),
+                });
+
+                const data = await response.json();
+
+                if (data.ok) {
+                    setClanMembers((prev) =>
+                        prev.filter((m) => m.id !== member.id)
+                    );
+                }
+            } catch (e) {
+                console.error("removeModerator error:", e);
+            }
+        })();
     }
 
     const actions = {

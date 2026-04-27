@@ -6,7 +6,7 @@ export function MyClanMenuActions({member, actions}){
     return (
         <View style={styles.memberDropdown}>
             {!member.isLeader && (
-                <Pressable style={styles.memberDropdownItem} onPress={() => actions.makeModerator(member)}>
+                <Pressable style={styles.memberDropdownItem} onPress={member.isModerator ? () => actions.removeModerator(member) : () => actions.makeModerator(member)}>
                     <Text style={styles.memberDropdownText}>{member.isModerator ?  `Снять зама` : `Назначить замом` }</Text>
                 </Pressable>
             )}

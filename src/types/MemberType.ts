@@ -11,6 +11,8 @@ export interface MemberType {
     status_game?: string;
     modes: string[];
     clan_id: number;
+    clan?: string,
+    actor_id?: string,
 
     clan_name?: string;
     months_in_clan?: number;

@@ -20,7 +20,6 @@ export function ProfileClanTab() {
     const {myClans, selectedClanId, setSelectedClanId, searchData,
         setSearchData, clanMembers, handleSearch, actions} = useMyClan();
     const rolePlayer = useAuthStore(selectRole);
-    console.log("profile clan tab:", rolePlayer);
 
     return (
         <View style={styles.screen}>
