@@ -1,24 +1,41 @@
-import {Pressable, View} from "react-native";
-import {styles} from "@/src/StyleSheets/clanMembers";
-import {Ionicons} from "@expo/vector-icons";
-import {MyClanMenuActions} from "@/src/components/CLanMember/MyClanMenuActions";
+import { styles } from "@/src/StyleSheets/clanMembers";
+import { Modal, Pressable, View } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import React from "react";
+import { MyClanMenuActions } from "./MyClanMenuActions";
 
-export function MyClanMenu({member, type, rolePlayer, setMenuOpen, menuOpen, actions}){
+export function MyClanMenu({ member, menuOpen, setMenuOpen, actions }) {
     return (
         <View>
-            {type === "clanmember" && rolePlayer === "leader" && (
-                <Pressable
-                    style={styles.memberMenuButton}
-                    onPress={() => setMenuOpen((prev) => !prev)}
-                >
-                    <Ionicons name="ellipsis-vertical" size={18} color="#c7d2fe" />
-                </Pressable>
-            )}
+            <Pressable
+                style={styles.memberMenuButton}
+                onPress={() => setMenuOpen(true)}
+            >
+                <Ionicons name="ellipsis-vertical" size={18} color="#cbd5e1" />
+            </Pressable>
 
-            {menuOpen && (
-                <MyClanMenuActions member={member} actions={actions}  />
-            )}
+            <Modal
+                visible={menuOpen}
+                transparent
+                animationType="fade"
+                onRequestClose={() => setMenuOpen(false)}
+            >
+                <Pressable
+                    style={styles.memberModalOverlay}
+                    onPress={() => setMenuOpen(false)}
+                >
+                    <Pressable
+                        style={styles.memberModalBox}
+                        onPress={(e) => e.stopPropagation()}
+                    >
+                        <MyClanMenuActions
+                            member={member}
+                            actions={actions}
+                            closeMenu={() => setMenuOpen(false)}
+                        />
+                    </Pressable>
+                </Pressable>
+            </Modal>
         </View>
-    )
+    );
 }

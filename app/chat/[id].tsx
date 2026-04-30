@@ -1,27 +1,37 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import {
     FlatList,
     KeyboardAvoidingView,
     Platform,
     SafeAreaView,
-    Text,
     View,
 } from "react-native";
 import { styles } from "@/src/StyleSheets/message";
 import { useMessages } from "@/src/hooks/Messages/useMessages";
 import { MessageHeader } from "@/src/components/Message/MessageHeader";
 import { MessageSend } from "@/src/components/Message/MessageSend";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { MessageBody } from "@/src/components/Message/MessageBody";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function ChatDetailsScreen() {
-    const { text, setText, onHandleMessage, messages, conversation, user, flatListRef } = useMessages();
+    const {
+        text,
+        setText,
+        onHandleMessage,
+        messages,
+        conversation,
+        user,
+        flatListRef,
+    } = useMessages();
+
+    const insets = useSafeAreaInsets();
 
     return (
         <SafeAreaView style={styles.container}>
             <KeyboardAvoidingView
                 style={styles.container}
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
-                keyboardVerticalOffset={Platform.OS === "ios" ? 90 : 20}
+                keyboardVerticalOffset={Platform.OS === "ios" ? 90 : 0}
             >
                 <MessageHeader conversation={conversation} />
 
@@ -29,41 +39,29 @@ export default function ChatDetailsScreen() {
                     ref={flatListRef}
                     data={messages}
                     keyExtractor={(item) => String(item.id)}
-                    style={{ flex: 1 }}
+                    style={styles.messagesList}
                     contentContainerStyle={styles.messagesContent}
                     keyboardShouldPersistTaps="handled"
                     onContentSizeChange={() =>
                         flatListRef.current?.scrollToEnd({ animated: true })
                     }
                     renderItem={({ item }) => (
-                        <View
-                            style={[
-                                styles.messageRow,
-                                user?.id == item.sender_id
-                                    ? styles.messageRowMine
-                                    : styles.messageRowOther,
-                            ]}
-                        >
-                            <View
-                                style={[
-                                    styles.messageBubble,
-                                    user?.id == item.sender_id
-                                        ? styles.messageBubbleMine
-                                        : styles.messageBubbleOther,
-                                ]}
-                            >
-                                <Text style={styles.messageText}>{item.body}</Text>
-                                <Text style={styles.messageTime}>{item.time}</Text>
-                            </View>
-                        </View>
+                        <MessageBody user={user} item={item} />
                     )}
                 />
 
-                <MessageSend
-                    text={text}
-                    setText={setText}
-                    handleSend={() => onHandleMessage(text)}
-                />
+                <View
+                    style={[
+                        styles.sendWrap,
+                        { paddingBottom: Math.max(insets.bottom, 10) },
+                    ]}
+                >
+                    <MessageSend
+                        text={text}
+                        setText={setText}
+                        handleSend={() => onHandleMessage(text)}
+                    />
+                </View>
             </KeyboardAvoidingView>
         </SafeAreaView>
     );

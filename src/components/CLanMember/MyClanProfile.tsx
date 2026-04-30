@@ -7,6 +7,7 @@ import {MyClanMenuActions} from "@/src/components/CLanMember/MyClanMenuActions";
 import {MyClanMenu} from "@/src/components/CLanMember/MyClanMenu";
 import {useClanMemberModeration} from "@/src/hooks/Clan/useClanMemberModeration";
 import {MyClanMemberActions} from "@/src/components/CLanMember/MyClanMemberActions";
+import {MyClanActivity} from "@/src/components/CLanMember/MyClanActivity";
 
 export function MyClanProfile({member, isSmallPhone, type, rolePlayer, actions}) {
     const {menuOpen, setMenuOpen} = useClanMemberModeration(member);
@@ -27,7 +28,10 @@ export function MyClanProfile({member, isSmallPhone, type, rolePlayer, actions})
     const firstLetter = member?.name?.slice(0, 1)?.toUpperCase() || "?";
 
     return (
-        <Pressable onPress={() => toogLeActivity}>
+        <Pressable
+            style={styles.memberCard}
+            onPress={toogLeActivity}
+        >
             <View style={styles.memberRow}>
                 <View style={styles.memberRowLeft}>
                     <View style={styles.avatarCircle}>
@@ -57,33 +61,23 @@ export function MyClanProfile({member, isSmallPhone, type, rolePlayer, actions})
                     </View>
                 </View>
 
-               {/* <View style={styles.memberActions}>
-
-                     Иконка роли
-                    {member?.isLeader && (
-                        <Ionicons name="trophy" size={18} color="#facc15"/>
-                    )}
-
-                    {!member?.isLeader && member?.isModerator && (
-                        <Ionicons name="shield-checkmark" size={18} color="#60a5fa"/>
-                    )}
-
-                    <Pressable
-                        style={styles.miniProfileButton}
-                        onPress={(e) => {
-                            e.stopPropagation();
-                            openProfile(member?.pubg_id)
-                        }}
-                    >
-                        <Text style={styles.miniProfileButtonText}>Профиль</Text>
-                    </Pressable>
-
-                    <MyClanMenu member={member} type={type} rolePlayer={rolePlayer} setMenuOpen={setMenuOpen}
-                                menuOpen={menuOpen} actions={actions}/>
-                </View>*/}
-                <MyClanMemberActions member={member} openProfile={openProfile} rolePlayer={rolePlayer}
-                                 setMenuOpen={setMenuOpen} menuOpen={menuOpen} type={type} actions={actions} />
+                {type === "clanmember" && (
+                    <MyClanMemberActions
+                        member={member}
+                        openProfile={openProfile}
+                        rolePlayer={rolePlayer}
+                        setMenuOpen={setMenuOpen}
+                        menuOpen={menuOpen}
+                        type={type}
+                        actions={actions}
+                    />
+                )}
             </View>
+
+            {activityOpen && type === "clanmember" && (
+                <MyClanActivity member={member} />
+            )}
         </Pressable>
+
     );
 }

@@ -122,4 +122,11 @@ export const styles = StyleSheet.create({
         fontSize: 12,
         marginTop: 2,
     },
+    sendWrap: {
+        paddingHorizontal: 10,
+        paddingTop: 8,
+        backgroundColor: "#07111F",
+        borderTopWidth: 1,
+        borderTopColor: "rgba(255,255,255,0.08)",
+    },
 });

@@ -138,7 +138,7 @@ export const styles = StyleSheet.create({
         height: 10,
     },
 
-    memberRow: {
+   /* memberRow: {
         minHeight: 82,
         backgroundColor: "#131A2C",
         borderRadius: 18,
@@ -146,6 +146,13 @@ export const styles = StyleSheet.create({
         borderColor: "rgba(115, 142, 255, 0.18)",
         paddingHorizontal: 10,
         paddingVertical: 10,
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+        gap: 10,
+    },*/
+    memberRow: {
+        minHeight: 62,
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
@@ -302,65 +309,36 @@ export const styles = StyleSheet.create({
         backgroundColor: "#1b2442",
     },
     memberActions: {
-        position: "relative",
         flexDirection: "row",
         alignItems: "center",
         gap: 8,
     },
 
     memberMenuButton: {
-        width: 34,
-        height: 34,
-        borderRadius: 17,
+        width: 40,
+        height: 40,
+        borderRadius: 20,
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "rgba(255,255,255,0.08)",
+        backgroundColor: "rgba(255,255,255,0.06)",
     },
 
-    memberDropdown: {
-        position: "absolute",
-        right: 0,
-        top: 42,
-        width: 180,
-        borderRadius: 14,
-        backgroundColor: "#111827",
-        borderWidth: 1,
-        borderColor: "rgba(255,255,255,0.12)",
-        paddingVertical: 6,
-        zIndex: 100,
-        elevation: 10,
-    },
-
-    memberDropdownItem: {
-        paddingVertical: 11,
-        paddingHorizontal: 14,
-    },
-
-    memberDropdownText: {
-        color: "#e5e7eb",
-        fontSize: 13,
-        fontWeight: "600",
-    },
-
-    memberDropdownBanText: {
-        color: "#ef4444",
-        fontSize: 13,
-        fontWeight: "800",
-    },
-/*
-    memberRow: {
-        backgroundColor: "#111827",
+    memberCard: {
+        backgroundColor: "#131A2C",
         borderRadius: 18,
-        padding: 14,
-        marginBottom: 12,
-    },*/
+        borderWidth: 1,
+        borderColor: "rgba(115, 142, 255, 0.18)",
+        paddingHorizontal: 10,
+        paddingVertical: 10,
+    },
 
     memberRowOpen: {
         paddingBottom: 18,
     },
 
     memberActivityBox: {
-        marginTop: 14,
+        width: "100%",
+        marginTop: 12,
         paddingTop: 12,
         borderTopWidth: 1,
         borderTopColor: "rgba(255,255,255,0.08)",
@@ -368,6 +346,7 @@ export const styles = StyleSheet.create({
     },
 
     activityItem: {
+        width: "100%",
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
@@ -382,10 +361,50 @@ export const styles = StyleSheet.create({
         color: "#e5e7eb",
         fontSize: 13,
         fontWeight: "600",
+        textAlign: "right",
     },
 
     memberActivityText: {
         color: "#94a3b8",
         fontSize: 13,
+    },
+
+    memberModalOverlay: {
+        flex: 1,
+        backgroundColor: "rgba(0,0,0,0.35)",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+
+    memberModalBox: {
+        width: 230,
+        backgroundColor: "#111827",
+        borderRadius: 18,
+        borderWidth: 1,
+        borderColor: "rgba(255,255,255,0.12)",
+        overflow: "hidden",
+    },
+
+    memberDropdown: {
+        width: "100%",
+    },
+
+    memberDropdownItem: {
+        paddingVertical: 14,
+        paddingHorizontal: 16,
+        borderBottomWidth: 1,
+        borderBottomColor: "rgba(255,255,255,0.06)",
+    },
+
+    memberDropdownText: {
+        color: "#e5e7eb",
+        fontSize: 14,
+        fontWeight: "600",
+    },
+
+    memberDropdownBanText: {
+        color: "#f87171",
+        fontSize: 14,
+        fontWeight: "700",
     },
 });
