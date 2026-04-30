@@ -170,6 +170,7 @@ export const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "#1f2937",
         padding: 16,
+        marginBottom: 18,
     },
 
     sectionHeader: {

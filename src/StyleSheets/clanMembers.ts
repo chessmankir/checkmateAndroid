@@ -347,4 +347,45 @@ export const styles = StyleSheet.create({
         fontSize: 13,
         fontWeight: "800",
     },
+/*
+    memberRow: {
+        backgroundColor: "#111827",
+        borderRadius: 18,
+        padding: 14,
+        marginBottom: 12,
+    },*/
+
+    memberRowOpen: {
+        paddingBottom: 18,
+    },
+
+    memberActivityBox: {
+        marginTop: 14,
+        paddingTop: 12,
+        borderTopWidth: 1,
+        borderTopColor: "rgba(255,255,255,0.08)",
+        gap: 10,
+    },
+
+    activityItem: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+    },
+
+    activityLabel: {
+        color: "#94a3b8",
+        fontSize: 13,
+    },
+
+    activityValue: {
+        color: "#e5e7eb",
+        fontSize: 13,
+        fontWeight: "600",
+    },
+
+    memberActivityText: {
+        color: "#94a3b8",
+        fontSize: 13,
+    },
 });
