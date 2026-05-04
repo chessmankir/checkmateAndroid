@@ -3,12 +3,9 @@ import {BASE_URL} from "@/src/config/api";
 import {fetch} from "expo/fetch";
 
 export function useClanMemberModeration(member){
-    /*console.log(member);*/
     const [menuOpen, setMenuOpen] = useState(false);
     const handleMakeLeader = () => {
         setMenuOpen(false);
-        console.log("Назначить лидером");
-
         (async() => {
             const result = setModerator(member);
             if(result){
@@ -34,5 +31,4 @@ const setModerator = async (member) => {
         }),
     });
     const data = await response.json();
-    console.log(data.ok);
 }

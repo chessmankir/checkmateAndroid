@@ -407,4 +407,22 @@ export const styles = StyleSheet.create({
         fontSize: 14,
         fontWeight: "700",
     },
+
+    searchInputWrap: {
+        position: "relative",
+        justifyContent: "center",
+    },
+
+    searchInputWithClear: {
+        paddingRight: 42,
+    },
+
+    clearSearchButton: {
+        position: "absolute",
+        right: 12,
+        top: 0,
+        bottom: 0,
+        justifyContent: "center",
+        alignItems: "center",
+    },
 });

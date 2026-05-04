@@ -383,4 +383,22 @@ export const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: "800",
     },
+    inputWrap: {
+        flex: 1,
+        position: "relative",
+        justifyContent: "center",
+    },
+
+    searchInputWithClear: {
+        paddingRight: 36,
+    },
+
+    clearButton: {
+        position: "absolute",
+        right: 8,
+        top: 0,
+        bottom: 0,
+        justifyContent: "center",
+        alignItems: "center",
+    },
 });

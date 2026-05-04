@@ -75,7 +75,6 @@ export function useProfile(){
             });
             const data = await response.json();
             AsyncStorage.setItem("user", JSON.stringify(profile));
-          //  console.log(data);
         }
         catch (e){
             console.error(e);

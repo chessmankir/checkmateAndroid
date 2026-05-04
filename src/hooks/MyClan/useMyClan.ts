@@ -2,46 +2,52 @@ import {useEffect, useState} from "react";
 import {MemberType} from "@/src/types/MemberType";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {BASE_URL} from "@/src/config/api";
+import {useAuthStore} from "@/src/store/authStore";
 
 export function useMyClan(){
     const [myClans, setMyClans] = useState([]);
     const [selectedClanId, setSelectedClanId] = useState<number>(1);
     const [searchData, setSearchData] = useState<string>("");
     const [clanMembers, setClanMembers] = useState<MemberType[]>([]);
+    const user = useAuthStore((state) => state.user);
 
     const handleSearch = (search) => {
         setSearchData(search);
-        const backend = `${BASE_URL}/api/android/clanmember`;
-        (async ()=> {
-            try {
-                const userText = await AsyncStorage.getItem("user");
-                if(userText == null) return;
-                const user = JSON.parse(userText);
-                const response = await fetch(backend, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    credentials: "include",
-                    body: JSON.stringify({
-                        search: searchData,
-                        clan_id: user.clan_id
-                    })
-                });
-                const data = await response.json();
-                if(data.ok){
-                    setClanMembers(data.members);
+        if(search.trim().length > 0){
+            const backend = `${BASE_URL}/api/android/clanmember`;
+            (async ()=> {
+                try {
+                    const userText = await AsyncStorage.getItem("user");
+                    if(userText == null) return;
+                    const user = JSON.parse(userText);
+                    const response = await fetch(backend, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        credentials: "include",
+                        body: JSON.stringify({
+                            search: searchData,
+                            clan_id: user.clan_id
+                        })
+                    });
+                    const data = await response.json();
+                    if(data.ok){
+                        setClanMembers(data.members);
+                    }
                 }
-            }
-            catch (e){
-                console.error(e);
-            }
-        })();
+                catch (e){
+                    console.error(e);
+                }
+            })();
+        }
+        else{
+            setClanMembersByClanId(user.clan_id, selectedClanId);
+        }
     }
 
     const handleMakeLeader = async (member: MemberType) => {
         try {
-            console.log(member);
             const response = await fetch(`${BASE_URL}/api/set/leader`, {
                 method: "POST",
                 credentials: "include",
@@ -70,6 +76,33 @@ export function useMyClan(){
             console.error("makeLeader error:", e);
         }
     };
+
+    const setClanMembersByClanId = async (clanId, selectedClanId) => {
+        const backend = `${BASE_URL}/api/android/clanmember`;
+        try {
+            const userText = await AsyncStorage.getItem("user");
+            if(userText == null) return;
+            const user = JSON.parse(userText);
+            const response = await fetch(backend, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: "include",
+                body: JSON.stringify({
+                    clan_id: user.clan_id,
+                    number: selectedClanId,
+                })
+            });
+            const data = await response.json();
+            if(data.ok){
+                setClanMembers(data.members);
+            }
+        }
+        catch (e){
+            console.error(e);
+        }
+    }
 
     useEffect(() => {
         (async () => {
@@ -130,7 +163,6 @@ export function useMyClan(){
     }, [selectedClanId]);
 
     const makeModerator = (member) => {
-        console.log("makeModerator");
         (async () => {
             try {
                 const response = await fetch(`${BASE_URL}/api/moderation/set`, {
@@ -147,7 +179,6 @@ export function useMyClan(){
                     }),
                 });
                 const data = await response.json();
-                console.log(data);
                 if (data.ok) {
                     setClanMembers((prev) =>
                         prev.map((item) =>

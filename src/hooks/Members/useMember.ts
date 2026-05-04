@@ -26,19 +26,39 @@ export function useMember(){
 
     const onSearch = (value) => {
         setSearch(value);
-        (async ()=> {
-            const backend = `${BASE_URL}/api/members?search=${value}&limit=20`;
-            try {
-                const response = await fetch(backend);
-                const data = await response.json();
-                if(data.ok){
-                    setMembers(data.data);
+        if(value.length > 0){
+            (async ()=> {
+                const backend = `${BASE_URL}/api/members?search=${value}&limit=20`;
+
+                try {
+                    const response = await fetch(backend);
+                    const data = await response.json();
+                    if(data.ok){
+                        setMembers(data.data);
+                    }
                 }
-            }
-            catch(error){
-                console.log(error);
-            }
-        })();
+                catch(error){
+                    console.log(error);
+                }
+            })();
+        }
+        else{
+            (async ()=> {
+                const backend = `${BASE_URL}/api/members?${query}`;
+                try{
+                    const response = await fetch(backend,{
+                        credentials: "include",
+                    });
+                    const data = await response.json();
+                    if(data.ok){
+                        setMembers(data.data);
+                    }
+                }
+                catch (e){
+                    console.error(e);
+                }
+            })();
+        }
     }
 
     useEffect(() => {
