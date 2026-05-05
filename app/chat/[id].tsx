@@ -3,7 +3,7 @@ import {
     FlatList,
     KeyboardAvoidingView,
     Platform,
-    SafeAreaView,
+    SafeAreaView, Text,
     View,
 } from "react-native";
 import { styles } from "@/src/StyleSheets/message";
@@ -22,6 +22,8 @@ export default function ChatDetailsScreen() {
         conversation,
         user,
         flatListRef,
+        isBlocked,
+        toggleBlock
     } = useMessages();
 
     const insets = useSafeAreaInsets();
@@ -33,7 +35,7 @@ export default function ChatDetailsScreen() {
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
                 keyboardVerticalOffset={Platform.OS === "ios" ? 90 : 0}
             >
-                <MessageHeader conversation={conversation} />
+                <MessageHeader conversation={conversation} isBlocked={isBlocked} onPressBlock={toggleBlock} />
 
                 <FlatList
                     ref={flatListRef}
@@ -56,11 +58,19 @@ export default function ChatDetailsScreen() {
                         { paddingBottom: Math.max(insets.bottom, 10) },
                     ]}
                 >
-                    <MessageSend
-                        text={text}
-                        setText={setText}
-                        handleSend={() => onHandleMessage(text)}
-                    />
+                    {isBlocked ? (
+                        <View style={styles.blockedBox}>
+                            <Text style={styles.blockedText}>
+                                Вы не можете писать этому пользователю
+                            </Text>
+                        </View>
+                    ) : (
+                        <MessageSend
+                            text={text}
+                            setText={setText}
+                            handleSend={() => onHandleMessage(text)}
+                        />
+                    )}
                 </View>
             </KeyboardAvoidingView>
         </SafeAreaView>

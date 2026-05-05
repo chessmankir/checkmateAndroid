@@ -18,6 +18,7 @@ export function useMessages() {
     const [user, setUser] = useState<any>(null);
     const flatListRef = useRef<FlatList>(null);
     const markChatAsRead = useChatStore((state) => state.markChatAsRead);
+    const [isBlocked, setIsBlocked] = useState(false);
 
     const onHandleMessage = (message: string) => {
         const backend = BASE_URL + `/api/conversations/android/${id}/send/messages`;
@@ -41,6 +42,44 @@ export function useMessages() {
                 setText('');
             }
         })();
+    }
+
+    const checkIsBlocked = async (user_id, user_ban_id) => {
+        const backend = BASE_URL + `/api/block/status`;
+        const response = await fetch(backend, {
+            method: "POST",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                user_id: user_id,
+                user_ban_id: user_ban_id,
+            })
+        });
+        const data = await response.json();
+        if(data.ok){
+            setIsBlocked(data.isBlocked);
+        }
+    }
+
+    const toggleBlock = async () => {
+        const backend = BASE_URL + `/api/block`;
+        const response =  await fetch(backend, {
+            method: !isBlocked ? "POST" : "DELETE",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                user_id: user.id,
+                user_ban_id: conversation.user_id,
+            })
+        });
+        const data = await response.json();
+        if(data.ok){
+            setIsBlocked((prev) => !prev);
+        }
     }
 
     const markAsRead = async (conversationId) => {
@@ -158,6 +197,8 @@ export function useMessages() {
             const data = await response.json();
             if(data.ok){
                 setConversation(data.data);
+                console.log(data.data);
+                checkIsBlocked(user.id, data.data.user_id);
             }
         })();
     }, []);
@@ -191,5 +232,6 @@ export function useMessages() {
         return () => clearTimeout(timer);
     }, [messages]);
     
-    return { text, setText, messages, onHandleMessage, conversation, user, flatListRef};
+    return { text, setText, messages, onHandleMessage, conversation, user, flatListRef, isBlocked,
+        toggleBlock};
 }

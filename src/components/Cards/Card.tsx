@@ -30,6 +30,11 @@ export  function Card({card, cardWidth, openCardModal, addCard, removeCard} : Pr
                         <Text style={styles.imageFallbackText}>Нет фото</Text>
                     </View>
                 )}
+                {card.count > 1 && (
+                    <View style={styles.countBadge}>
+                        <Text style={styles.countBadgeText}>x{card.count}</Text>
+                    </View>
+                )}
             </View>
 
             <View style={styles.metaBox}>

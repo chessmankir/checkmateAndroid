@@ -14,6 +14,22 @@ export const styles = StyleSheet.create({
         alignItems: "center",
         backgroundColor: "#111827",
     },
+    headerCenter: {
+        flex: 1, // 🔥 занимает всё пространство между кнопками
+        justifyContent: "center",
+    },
+    headerRight: {
+        width: 44, // фикс ширина → всегда справа
+        alignItems: "flex-end",
+    },
+    blockBtn: {
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "rgba(255,255,255,0.06)",
+    },
     backBtn: {
         width: 40,
         height: 40,
@@ -128,5 +144,39 @@ export const styles = StyleSheet.create({
         backgroundColor: "#07111F",
         borderTopWidth: 1,
         borderTopColor: "rgba(255,255,255,0.08)",
+    },
+    undoBar: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        paddingHorizontal: 16,
+        paddingVertical: 10,
+        backgroundColor: "#1E293B",
+        borderBottomWidth: 1,
+        borderBottomColor: "rgba(255,255,255,0.06)",
+    },
+
+    undoText: {
+        color: "#E2E8F0",
+        fontSize: 13,
+    },
+
+    undoAction: {
+        color: "#4ADE80",
+        fontWeight: "700",
+    },
+
+    blockedBox: {
+        padding: 14,
+        borderRadius: 16,
+        backgroundColor: "rgba(255,92,92,0.10)",
+        borderWidth: 1,
+        borderColor: "rgba(255,92,92,0.25)",
+    },
+
+    blockedText: {
+        color: "#FFB4B4",
+        textAlign: "center",
+        fontWeight: "600",
     },
 });

@@ -5,7 +5,7 @@ import {Ionicons} from "@expo/vector-icons";
 import React from "react";
 import {formatLastSeen} from "@/src/libs/DateUtils";
 
-export function MessageHeader({ conversation }) {
+export function MessageHeader({ conversation,isBlocked, onPressBlock }) {
     const isOnline = conversation?.is_online;
 
     const onGoProfile = () =>{
@@ -15,25 +15,42 @@ export function MessageHeader({ conversation }) {
         });
     }
 
+    const toggleBlock = () => {
+        console.log("isOnline");
+    }
+
     return (
         <View style={styles.header}>
             <Pressable style={styles.backBtn} onPress={() => router.back()}>
                 <Ionicons name="chevron-back" size={24} color="#fff" />
             </Pressable>
 
-            <Pressable onPress={() => onGoProfile()}>
+            <Pressable onPress={onGoProfile} style={styles.headerCenter}>
                 <View style={styles.headerInfo}>
                     <View style={styles.headerNameRow}>
-                        {isOnline && <View style={styles.onlineDot}/>}
-                        <Text style={styles.headerName}>{conversation?.nickname}</Text>
+                        {isOnline && <View style={styles.onlineDot} />}
+                        <Text style={styles.headerName}>
+                            {conversation?.nickname}
+                        </Text>
                     </View>
+
                     {!isOnline && (
                         <Text style={styles.headerStatus}>
                             {formatLastSeen(conversation?.last_seen_at)}
                         </Text>
                     )}
                 </View>
-        </Pressable>
+            </Pressable>
+
+            <View style={styles.headerRight}>
+                <Pressable onPress={onPressBlock} style={styles.blockBtn}>
+                    <Ionicons
+                        name={isBlocked ? "lock-open-outline" : "ban-outline"}
+                        size={22}
+                        color={isBlocked ? "#4ADE80" : "#FF5C5C"}
+                    />
+                </Pressable>
+            </View>
         </View>
     );
 }

@@ -29,7 +29,7 @@ export default function CardsScreen() {
     const horizontalPadding = 12;
     const gap = 10;
 
-    const numColumns = width < 700 ? 2 : 4;
+    const numColumns = width < 380 ? 3 : 4;
     const cardWidth =
         (width - horizontalPadding * 2 - gap * (numColumns - 1)) / numColumns;
 

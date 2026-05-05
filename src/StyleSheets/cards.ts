@@ -242,4 +242,18 @@ export const styles = StyleSheet.create({
         fontSize: 15,
         fontWeight: "700",
     },
+    countBadge: {
+        position: "absolute",
+        top: 6,
+        right: 6,
+        backgroundColor: "rgba(0,0,0,0.7)",
+        borderRadius: 8,
+        paddingHorizontal: 6,
+        paddingVertical: 2,
+    },
+    countBadgeText: {
+        color: "#fff",
+        fontSize: 12,
+        fontWeight: "700",
+    },
 });
