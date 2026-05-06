@@ -74,11 +74,13 @@ export function MyClanProfile({member, isSmallPhone, type, rolePlayer, actions})
                             actions={actions}
                         />
                     )}
-                    <Ionicons
-                        name={activityOpen ? "chevron-up" : "chevron-down"}
-                        size={20}
-                        color="#98A4BD"
-                    />
+                    {type === "clanmember" && (
+                        <Ionicons
+                            name={activityOpen ? "chevron-up" : "chevron-down"}
+                            size={20}
+                            color="#98A4BD"
+                        />
+                    )}
                 </View>
             </View>
 

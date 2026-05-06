@@ -15,7 +15,7 @@ export function PlayerBlock({members}) {
             {members.length > 0 ? (
                 members.map((member) => (
                     /*<PlayerCard key={member.id} member={member}  />*/
-                    <MyClanProfile key={member.id} member={member} isSmallPhone={isSmallPhone} />
+                    <MyClanProfile  key={member.id} member={member} isSmallPhone={isSmallPhone} />
                 ))
             ) : (
                 <View style={styles.emptyBox}>
