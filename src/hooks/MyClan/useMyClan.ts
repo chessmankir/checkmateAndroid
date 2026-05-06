@@ -12,6 +12,7 @@ export function useMyClan(){
     const user = useAuthStore((state) => state.user);
 
     const handleSearch = (search) => {
+        console.log(BASE_URL);
         setSearchData(search);
         if(search.trim().length > 0){
             const backend = `${BASE_URL}/api/android/clanmember`;
@@ -27,7 +28,7 @@ export function useMyClan(){
                         },
                         credentials: "include",
                         body: JSON.stringify({
-                            search: searchData,
+                            search: search,
                             clan_id: user.clan_id
                         })
                     });

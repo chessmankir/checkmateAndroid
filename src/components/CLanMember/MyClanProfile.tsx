@@ -61,17 +61,25 @@ export function MyClanProfile({member, isSmallPhone, type, rolePlayer, actions})
                     </View>
                 </View>
 
-                {type === "clanmember" && (
-                    <MyClanMemberActions
-                        member={member}
-                        openProfile={openProfile}
-                        rolePlayer={rolePlayer}
-                        setMenuOpen={setMenuOpen}
-                        menuOpen={menuOpen}
-                        type={type}
-                        actions={actions}
+                <View style={styles.memberRowRight}>
+
+                    {type === "clanmember" && (
+                        <MyClanMemberActions
+                            member={member}
+                            openProfile={openProfile}
+                            rolePlayer={rolePlayer}
+                            setMenuOpen={setMenuOpen}
+                            menuOpen={menuOpen}
+                            type={type}
+                            actions={actions}
+                        />
+                    )}
+                    <Ionicons
+                        name={activityOpen ? "chevron-up" : "chevron-down"}
+                        size={20}
+                        color="#98A4BD"
                     />
-                )}
+                </View>
             </View>
 
             {activityOpen && type === "clanmember" && (

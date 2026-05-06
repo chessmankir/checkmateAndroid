@@ -165,7 +165,11 @@ export const styles = StyleSheet.create({
         alignItems: "center",
         minWidth: 0,
     },
-
+    memberRowRight: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 8,
+    },
     memberRowInfo: {
         flex: 1,
         minWidth: 0,

@@ -5,7 +5,7 @@ import {Ionicons} from "@expo/vector-icons";
 import React from "react";
 import {formatLastSeen} from "@/src/libs/DateUtils";
 
-export function MessageHeader({ conversation,isBlocked, onPressBlock }) {
+export function MessageHeader({ conversation, iBlockedHim, onPressBlock }) {
     const isOnline = conversation?.is_online;
 
     const onGoProfile = () =>{
@@ -45,9 +45,9 @@ export function MessageHeader({ conversation,isBlocked, onPressBlock }) {
             <View style={styles.headerRight}>
                 <Pressable onPress={onPressBlock} style={styles.blockBtn}>
                     <Ionicons
-                        name={isBlocked ? "lock-open-outline" : "ban-outline"}
+                        name={iBlockedHim ? "lock-open-outline" : "ban-outline"}
                         size={22}
-                        color={isBlocked ? "#4ADE80" : "#FF5C5C"}
+                        color={iBlockedHim ? "#4ADE80" : "#FF5C5C"}
                     />
                 </Pressable>
             </View>

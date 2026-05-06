@@ -19,7 +19,7 @@ export function MyClanSearch({ search, isPhone, handleSearch }: Props) {
                     placeholder="Поиск по имени, нику или PUBG ID"
                     placeholderTextColor="#7F8AA8"
                     value={search}
-                    onChangeText={handleSearch}
+                    onChangeText={(text) => handleSearch(text)}
                     style={[
                         styles.searchInput,
                         isPhone && styles.searchInputPhone,

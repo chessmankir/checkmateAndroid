@@ -19,6 +19,8 @@ export function useMessages() {
     const flatListRef = useRef<FlatList>(null);
     const markChatAsRead = useChatStore((state) => state.markChatAsRead);
     const [isBlocked, setIsBlocked] = useState(false);
+    const [iBlockedHim, setBlockedHim] = useState(false);
+    const [heBlockedMe, setHeBlockedMe] = useState(false);
 
     const onHandleMessage = (message: string) => {
         const backend = BASE_URL + `/api/conversations/android/${id}/send/messages`;
@@ -60,13 +62,15 @@ export function useMessages() {
         const data = await response.json();
         if(data.ok){
             setIsBlocked(data.isBlocked);
+            setBlockedHim(data.iBlockedHim);
+            setHeBlockedMe(data.heBlockedMe);
         }
     }
 
     const toggleBlock = async () => {
         const backend = BASE_URL + `/api/block`;
         const response =  await fetch(backend, {
-            method: !isBlocked ? "POST" : "DELETE",
+            method: !iBlockedHim ? "POST" : "DELETE",
             credentials: "include",
             headers: {
                 "Content-Type": "application/json",
@@ -78,7 +82,12 @@ export function useMessages() {
         });
         const data = await response.json();
         if(data.ok){
-            setIsBlocked((prev) => !prev);
+           /* if(!iBlockedHim){
+                setIsBlocked(!isBlocked);
+            }
+            setBlockedHim((prev) => !prev);
+            setIsBlocked((prev) => !prev);*/
+            checkIsBlocked(user.id, conversation.user_id);
         }
     }
 
@@ -99,6 +108,35 @@ export function useMessages() {
             })
         });
     }
+
+    useEffect(() => {
+        (async  () => {
+            if (!user?.id || !conversation?.user_id) return;
+
+            const socket = getSocket();
+
+            const handleBlockChanged = async (payload: {
+                blockerId: number;
+                blockedId: number;
+                type: "blocked" | "unblocked";
+            }) => {
+                console.log("handleBlockChanged");
+                const isAboutMe =
+                    Number(payload.blockedId) === Number(user.id) &&
+                    Number(payload.blockerId) === Number(conversation.user_id);
+
+                if (!isAboutMe) return;
+
+                await checkIsBlocked(user.id, conversation.user_id);
+            };
+
+            socket.on("block:changed", handleBlockChanged);
+
+            return () => {
+                socket.off("block:changed", handleBlockChanged);
+            };
+        })();
+    }, [user?.id, conversation?.user_id]);
 
     useEffect(() => {
         const socket = getSocket();
@@ -199,6 +237,7 @@ export function useMessages() {
                 setConversation(data.data);
                 console.log(data.data);
                 checkIsBlocked(user.id, data.data.user_id);
+
             }
         })();
     }, []);
@@ -233,5 +272,5 @@ export function useMessages() {
     }, [messages]);
     
     return { text, setText, messages, onHandleMessage, conversation, user, flatListRef, isBlocked,
-        toggleBlock};
+        toggleBlock, iBlockedHim, heBlockedMe};
 }

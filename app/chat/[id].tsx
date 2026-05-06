@@ -22,7 +22,7 @@ export default function ChatDetailsScreen() {
         conversation,
         user,
         flatListRef,
-        isBlocked,
+        isBlocked, iBlockedHim, heBlockedMe,
         toggleBlock
     } = useMessages();
 
@@ -35,7 +35,7 @@ export default function ChatDetailsScreen() {
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
                 keyboardVerticalOffset={Platform.OS === "ios" ? 90 : 0}
             >
-                <MessageHeader conversation={conversation} isBlocked={isBlocked} onPressBlock={toggleBlock} />
+                <MessageHeader conversation={conversation} iBlockedHim={iBlockedHim} onPressBlock={toggleBlock} />
 
                 <FlatList
                     ref={flatListRef}
