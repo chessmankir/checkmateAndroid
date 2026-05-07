@@ -61,7 +61,7 @@ export default function MemberProfileScreen() {
                 <ProfileHeader profileForm={member} />
 
                 <ProfileMainInformation member={member} pubg_id={pubg_id} />
-                {isAdmin && (
+                {isAdmin && member?.activity && (
                     <ProfileActivityBlock member={member} />
                 )}
                 <Pressable onPress={onPressMessage} style={styles.messageButton}>
