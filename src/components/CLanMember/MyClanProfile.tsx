@@ -3,8 +3,6 @@ import {Pressable, Text, View} from "react-native";
 import React, {useState} from "react";
 import {router} from "expo-router";
 import {Ionicons} from "@expo/vector-icons";
-import {MyClanMenuActions} from "@/src/components/CLanMember/MyClanMenuActions";
-import {MyClanMenu} from "@/src/components/CLanMember/MyClanMenu";
 import {useClanMemberModeration} from "@/src/hooks/Clan/useClanMemberModeration";
 import {MyClanMemberActions} from "@/src/components/CLanMember/MyClanMemberActions";
 import {MyClanActivity} from "@/src/components/CLanMember/MyClanActivity";
@@ -62,8 +60,7 @@ export function MyClanProfile({member, isSmallPhone, type, rolePlayer, actions})
                 </View>
 
                 <View style={styles.memberRowRight}>
-
-                    {type === "clanmember" && (
+                    {type === "clanmember" && member && (
                         <MyClanMemberActions
                             member={member}
                             openProfile={openProfile}
